@@ -5,15 +5,14 @@ const authRoutes = express.Router();
 
 authRoutes.get(
   '/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] }),
+  passport.authenticate('google', { scope: ['profile'] }),
 );
 
 authRoutes.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/', session: false }),
+  passport.authenticate('google', { failureRedirect: '/api/user/failure' }),
   (req, res) => {
-    const { token } = req.user;
-    // res.redirect(`http://localhost:3000?token=${token}`);
+    // Successful authentication
     res.redirect('/api/user/success');
   },
 );

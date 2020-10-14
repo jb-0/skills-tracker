@@ -21,27 +21,7 @@ passport.use(
       callbackURL: '/auth/google/callback',
     },
     (accessToken, refreshToken, profile, cb) => {
-      User.findOne(
-        {
-          googleId: profile.id,
-        },
-        (err, user) => {
-          if (err) {
-            return cb(err);
-          }
-          if (!user) {
-            user = new User({
-              googleId: profile.id,
-            });
-            user.save((err) => {
-              if (err) console.log(err);
-              return cb(err, user);
-            });
-          } else {
-            return cb(err, user);
-          }
-        },
-      );
+      User.findOrCreate({ googleId: profile.id }, (err, user) => cb(err, user));
     },
   ),
 );

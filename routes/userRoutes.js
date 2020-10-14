@@ -1,5 +1,4 @@
 const express = require('express');
-
 const userRoutes = express.Router();
 
 userRoutes.get('/', (req, res) => {
@@ -7,7 +6,15 @@ userRoutes.get('/', (req, res) => {
 });
 
 userRoutes.get('/success', (req, res) => {
-  res.send('welcome');
+  if (req.isAuthenticated()) {
+    res.send('welcome');
+  } else {
+    res.redirect('/api/user/failure');
+  }
+});
+
+userRoutes.get('/failure', (req, res) => {
+  res.send('naa');
 });
 
 module.exports = userRoutes;
