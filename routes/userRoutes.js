@@ -3,7 +3,7 @@ const userRoutes = express.Router();
 
 userRoutes.get('/success', (req, res) => {
   if (req.isAuthenticated()) {
-    res.send('SUCCESFULLY LOGGED IN');
+    res.send('SUCCESFULLY LOGGED IN: ' + req.user);
   } else {
     res.redirect('/api/user/failure');
   }
