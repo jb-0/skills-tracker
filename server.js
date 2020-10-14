@@ -1,14 +1,17 @@
 require('dotenv').config();
 
+// Require packages
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require("passport");
+
+// Require routes
+const userRoutes = require('./routes/userRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const { connection } = mongoose;
-
 const app = express();
 const PORT = process.env.PORT || 4000;
-
-const userRoutes = require('./routes/userRoutes');
 
 async function main() {
   /* ***************************************
@@ -33,6 +36,9 @@ async function main() {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   app.use('/api/user', userRoutes);
+  app.use('/auth/', authRoutes)
+  app.use(passport.initialize());
+  require("./middleware/passport");
 
   if (process.env.PROD) {
     app.use(express.static(`${__dirname}/frontend/build`));
