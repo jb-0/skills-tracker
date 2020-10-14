@@ -16,7 +16,6 @@ authRoutes.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/api/user/failure' }),
   (req, res) => {
-    // Successful authentication
     res.redirect('/api/user/success');
   }
 );
@@ -28,9 +27,8 @@ authRoutes.get('/facebook', passport.authenticate('facebook'));
 
 authRoutes.get(
   '/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate('facebook', { failureRedirect: '/api/user/failure' }),
   (req, res) => {
-    // Successful authentication, redirect home.
     res.redirect('/api/user/success');
   }
 );
@@ -38,7 +36,7 @@ authRoutes.get(
 /* *************************************************************************************************
 LOCAL ROUTES
 ************************************************************************************************* */
-authRoutes.post('/local', (req, res) => {
+authRoutes.post('/register', (req, res) => {
   User.register(
     new User({ email: req.body.email }),
     req.body.password,
@@ -49,5 +47,13 @@ authRoutes.post('/local', (req, res) => {
     }
   );
 });
+
+authRoutes.post(
+  '/login',
+  passport.authenticate('local', { failureRedirect: '/api/user/failure' }),
+  (req, res) => {
+    res.redirect('/api/user/success');
+  }
+);
 
 module.exports = authRoutes;
