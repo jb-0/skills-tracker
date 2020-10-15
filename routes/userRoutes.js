@@ -6,7 +6,7 @@ userRoutes.get('/loggedin', (req, res) => {
   if (req.isAuthenticated()) {
     res.send(`Successfully logged in: ${req.user}`);
   } else {
-    res.redirect('/api/user/failure');
+    res.redirect('/api/user/loginfailure');
   }
 });
 

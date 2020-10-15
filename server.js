@@ -34,8 +34,8 @@ async function main() {
   /* ***************************************
   APP CONFIG AND ROUTES
   *************************************** */
-  app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
   app.use(
     session({
