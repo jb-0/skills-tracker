@@ -44,7 +44,9 @@ if (!process.env.PROD) {
       req.body.password,
       (err, user) => {
         if (err) {
-          return res.status(401).send(`${err}`);
+          res.status(401).send(`${err}`);
+        } else {
+          res.redirect(307, '/auth/login');
         }
       }
     );
