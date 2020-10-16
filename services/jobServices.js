@@ -1,10 +1,14 @@
 const https = require('https');
 
-const searchReed = () => {
+const searchReed = (query) => {
+  // Define options for the upcoming https request, per reed's API documentation Basic Auth is used
+  // and the issued key is provided as the username, password is left blank.
   const options = {
     hostname: 'www.reed.co.uk',
-    path:
-      '/api/1.0/search?keywords=accountant&location=london&distancefromlocation=15',
+    path: `/api/1.0/search?
+      keywords=${query.keywords}
+      &location=${query.location}
+      &distancefromlocation=${query.distancefromlocation}`,
     port: 443,
     method: 'GET',
     headers: {
@@ -12,6 +16,8 @@ const searchReed = () => {
     },
   };
 
+  // Returning a promise, this means await can be used to await all data to be returned prior to
+  // providing an api response
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
       let results = '';
