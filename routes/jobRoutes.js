@@ -1,25 +1,12 @@
 const express = require('express');
-const https = require('https');
 
 const jobRoutes = express.Router();
+const searchReed = require('../services/jobServices');
 
-// GET Jobs, using provided search terms. Functionality/logic behind the search to be seperated into
-// services .js file
+// GET Jobs, using provided search terms.
 jobRoutes.get('/search', async (req, res) => {
-  
-
-  const options = {
-    host = 'www.reed.co.uk',
-    path = '/api/1.0/search?keywords=accountant&location=london&distancefromlocation=15',
-    port: 443,
-    headers: {
-      'Authorization' : 'Basic' + new Buffer.from(process.env.REED),
-    },
-  };
-
-  const apiRes = await https.get(url);
-  console.log(apiRes);
-  res.send('done');
+  const data = await searchReed();
+  res.send(data);
 });
 
 // POST Save search
