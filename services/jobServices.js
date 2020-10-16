@@ -1,14 +1,28 @@
 const https = require('https');
 
+function prepareQuery(query) {
+  // TODO Validate
+
+  // Encoded query
+  let encodedQuery = `keywords=${query.keywords}&location=${query.location}&distancefromlocation=${
+    query.distancefromlocation}`;
+
+  encodedQuery = encodeURI(encodedQuery);
+
+  return encodedQuery;
+}
+
+/**
+ * Search reed using the jobseeker API (https://www.reed.co.uk/developers/jobseeker)
+ * @param {Object} query Only keywords, location and distancefromLocation are used.
+ * @return {Object} First page of query results from reed API
+ */
 const searchReed = (query) => {
   // Define options for the upcoming https request, per reed's API documentation Basic Auth is used
   // and the issued key is provided as the username, password is left blank.
   const options = {
     hostname: 'www.reed.co.uk',
-    path: `/api/1.0/search?
-      keywords=${query.keywords}
-      &location=${query.location}
-      &distancefromlocation=${query.distancefromlocation}`,
+    path: `/api/1.0/search?${prepareQuery(query)}`,
     port: 443,
     method: 'GET',
     headers: {

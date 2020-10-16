@@ -5,7 +5,7 @@ const searchReed = require('../services/jobServices');
 
 // GET Jobs, using provided search terms.
 jobRoutes.get('/search', async (req, res) => {
-  const data = await searchReed();
+  const data = await searchReed(req.query);
   res.send(data);
 });
 
