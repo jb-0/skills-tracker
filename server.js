@@ -9,6 +9,7 @@ const session = require('express-session');
 // Require routes
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
+const jobRoutes = require('./routes/jobRoutes');
 
 const { connection } = mongoose;
 const app = express();
@@ -50,6 +51,7 @@ async function main() {
 
   app.use('/api/user', userRoutes);
   app.use('/auth/', authRoutes);
+  app.use('/api/job', jobRoutes);
 
   if (process.env.PROD) {
     app.use(express.static(`${__dirname}/frontend/build`));
