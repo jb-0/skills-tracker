@@ -21,7 +21,7 @@ function prepareQuery(query) {
   q.keywords = '';
 
   keywordsArray.forEach((keyword) => {
-    if (permittedKeywords.includes(keyword)) {
+    if (permittedKeywords.includes(keyword.toLowerCase())) {
       q.keywords += `${keyword} `;
     }
   });
