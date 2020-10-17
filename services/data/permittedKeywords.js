@@ -1,1 +1,1 @@
-exports.permittedKeywords = ['react', 'node', 'sql'];
+exports.permittedKeywords = ['angular', 'java', 'react', 'node', 'sql'];
