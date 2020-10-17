@@ -1,7 +1,7 @@
 const express = require('express');
 
 const jobRoutes = express.Router();
-const searchReed = require('../services/jobServices');
+const { searchReed } = require('../services/jobServices');
 
 // GET Jobs, using provided search terms.
 jobRoutes.get('/search', async (req, res) => {

@@ -9,7 +9,7 @@ const { permittedLocations } = require('./data/permittedLocations');
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
  * @return {String} Encoded and sanitised query string
  */
-function prepareQuery(query) {
+const prepareQuery = (query) => {
   const q = query;
 
   // Validate that the distance provided is a valid integer, otherwise default to 10
@@ -76,4 +76,4 @@ const searchReed = (query) => {
   });
 };
 
-module.exports = searchReed;
+module.exports = { searchReed, prepareQuery};
