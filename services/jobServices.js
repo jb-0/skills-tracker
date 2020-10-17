@@ -1,5 +1,6 @@
 const https = require('https');
-const permittedKeywords = ['node', 'react']; // TODO: Once DB is in place, these will live in the DB
+const permittedKeywords = ['node', 'react', 'sql']; // TODO: Once DB is in place, these will live in the DB
+const permittedLocations = ['london', 'kent', 'essex', 'surrey'];
 
 /**
  * Build query string, sanitise as needed and encode
@@ -24,6 +25,7 @@ function prepareQuery(query) {
   });
 
   // Validate location exists in pre-defined list
+  if (!permittedLocations.includes(q.location.toLowerCase())) q.location = 'london';
 
   // Encoded query
   let encodedQuery = `keywords=${q.keywords}&location=${q.location}&distancefromlocation=${
