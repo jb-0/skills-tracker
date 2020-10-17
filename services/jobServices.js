@@ -1,9 +1,10 @@
 const https = require('https');
+const permittedKeywords = ['node', 'react']; // TODO: Once DB is in place, these will live in the DB
 
 /**
- * Build query string and sanitise as necessary
+ * Build query string, sanitise as needed and encode
  * @param {Object} query Only keywords, location and distanceFromLocation are used.
- * @return {String} Encoded and sanitized query string
+ * @return {String} Encoded and sanitised query string
  */
 function prepareQuery(query) {
   const q = query;
@@ -12,7 +13,15 @@ function prepareQuery(query) {
   const distanceFromLocationAsInt = parseInt(q.distanceFromLocation, 10);
   if (!Number.isInteger(distanceFromLocationAsInt)) q.distanceFromLocation = 10;
 
-  // Validate keywords exist in pre-defined list
+  // Validate keywords exist in pre-defined list, drop those that do not.
+  const keywordsArray = q.keywords.split(' ');
+  q.keywords = '';
+
+  keywordsArray.forEach((keyword) => {
+    if (permittedKeywords.includes(keyword)) {
+      q.keywords += `${keyword} `;
+    }
+  });
 
   // Validate location exists in pre-defined list
 
@@ -20,9 +29,7 @@ function prepareQuery(query) {
   let encodedQuery = `keywords=${q.keywords}&location=${q.location}&distancefromlocation=${
     q.distanceFromLocation}`;
 
-  encodedQuery = encodeURI(encodedQuery);
-
-  return encodedQuery;
+  return encodeURI(encodedQuery);
 }
 
 /**
