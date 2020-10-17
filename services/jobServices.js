@@ -1,10 +1,12 @@
 const https = require('https');
-const permittedKeywords = ['node', 'react', 'sql']; // TODO: Once DB is in place, these will live in the DB
-const permittedLocations = ['london', 'kent', 'essex', 'surrey'];
+
+// TODO: Once DB is in place, these will live in the DB
+const { permittedKeywords } = require('./data/permittedKeywords');
+const { permittedLocations } = require('./data/permittedLocations');
 
 /**
  * Build query string, sanitise as needed and encode
- * @param {Object} query Only keywords, location and distanceFromLocation are used.
+ * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
  * @return {String} Encoded and sanitised query string
  */
 function prepareQuery(query) {
@@ -24,19 +26,19 @@ function prepareQuery(query) {
     }
   });
 
-  // Validate location exists in pre-defined list
-  if (!permittedLocations.includes(q.location.toLowerCase())) q.location = 'london';
+  // Validate location exists in pre-defined list, if not default to london
+  if (!permittedLocations.includes(q.locationName.toLowerCase())) q.locationName = 'london';
 
   // Encoded query
-  let encodedQuery = `keywords=${q.keywords}&location=${q.location}&distancefromlocation=${
-    q.distanceFromLocation}`;
+  const encodedQuery = `keywords=${q.keywords}&locationName=${
+    q.locationName}&distanceFromLocation=${q.distanceFromLocation}`;
 
   return encodeURI(encodedQuery);
 }
 
 /**
  * Search reed using the jobseeker API (https://www.reed.co.uk/developers/jobseeker)
- * @param {Object} query Only keywords, location and distanceFromLocation are used.
+ * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
  * @return {Object} First page of query results from reed API
  */
 const searchReed = (query) => {
