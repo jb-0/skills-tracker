@@ -1,0 +1,1 @@
+exports.permittedKeywords = ['react', 'node', 'sql'];
