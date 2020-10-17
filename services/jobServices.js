@@ -1,11 +1,19 @@
 const https = require('https');
 
 function prepareQuery(query) {
-  // TODO Validate
+  const q = query;
+
+  // Validate that the distance provided is a valid integer, otherwise default to 10
+  const distancefromlocationAsInt = parseInt(q.distancefromlocation, 10);
+  if(!Number.isInteger(distancefromlocationAsInt)) q.distancefromlocation = 10;
+
+  // Validate keywords exist in pre-defined list
+
+  // Validate location exists in pre-defined list
 
   // Encoded query
-  let encodedQuery = `keywords=${query.keywords}&location=${query.location}&distancefromlocation=${
-    query.distancefromlocation}`;
+  let encodedQuery = `keywords=${q.keywords}&location=${q.location}&distancefromlocation=${
+    q.distancefromlocation}`;
 
   encodedQuery = encodeURI(encodedQuery);
 
