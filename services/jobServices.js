@@ -1,11 +1,16 @@
 const https = require('https');
 
+/**
+ * Build query string and sanitise as necessary
+ * @param {Object} query Only keywords, location and distanceFromLocation are used.
+ * @return {String} Encoded and sanitized query string
+ */
 function prepareQuery(query) {
   const q = query;
 
   // Validate that the distance provided is a valid integer, otherwise default to 10
-  const distancefromlocationAsInt = parseInt(q.distancefromlocation, 10);
-  if(!Number.isInteger(distancefromlocationAsInt)) q.distancefromlocation = 10;
+  const distanceFromLocationAsInt = parseInt(q.distanceFromLocation, 10);
+  if (!Number.isInteger(distanceFromLocationAsInt)) q.distanceFromLocation = 10;
 
   // Validate keywords exist in pre-defined list
 
@@ -13,7 +18,7 @@ function prepareQuery(query) {
 
   // Encoded query
   let encodedQuery = `keywords=${q.keywords}&location=${q.location}&distancefromlocation=${
-    q.distancefromlocation}`;
+    q.distanceFromLocation}`;
 
   encodedQuery = encodeURI(encodedQuery);
 
@@ -22,7 +27,7 @@ function prepareQuery(query) {
 
 /**
  * Search reed using the jobseeker API (https://www.reed.co.uk/developers/jobseeker)
- * @param {Object} query Only keywords, location and distancefromLocation are used.
+ * @param {Object} query Only keywords, location and distanceFromLocation are used.
  * @return {Object} First page of query results from reed API
  */
 const searchReed = (query) => {
