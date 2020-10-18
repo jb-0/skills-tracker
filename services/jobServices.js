@@ -34,7 +34,7 @@ const prepareQuery = (query) => {
     q.locationName}&distanceFromLocation=${q.distanceFromLocation}`;
 
   return encodeURI(encodedQuery);
-}
+};
 
 /**
  * Search reed using the jobseeker API (https://www.reed.co.uk/developers/jobseeker)
