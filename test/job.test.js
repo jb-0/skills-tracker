@@ -58,5 +58,31 @@ describe('Job Services', function () {
         assert.strictEqual(preparedQuery, expectedQuery);
       });
     });
+
+    it('distance must be an int, floats are converted to int and NaNs are defaulted to 10',
+      function () {
+        const baseExpectedQuery = 'keywords=react%20sql&locationName=london&distanceFromLocation=';
+        const tests = [
+          { testCase: 'not a number', outcome: 10 },
+          { testCase: 7.14, outcome: 7 },
+          { testCase: 7.74, outcome: 8 },
+          { testCase: '8.14', outcome: 8 },
+          { testCase: '8.84', outcome: 9 },
+          { testCase: '9', outcome: 9 },
+          { testCase: '1242353463456890102312.9866786765', outcome: 1242353463456890102312 },
+        ];
+
+        tests.forEach((test) => {
+          const preparedQuery = prepareQuery({
+            distanceFromLocation: test.testCase,
+            keywords: 'react sql',
+            locationName: 'london',
+          });
+          assert.strictEqual(
+            preparedQuery,
+            `${baseExpectedQuery}${test.outcome}`
+          );
+        });
+      });
   });
 });
