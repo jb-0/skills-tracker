@@ -13,8 +13,14 @@ const prepareQuery = (query) => {
   const q = query;
 
   // Validate that the distance provided is a valid integer, otherwise default to 10
-  const distanceFromLocationAsInt = parseInt(q.distanceFromLocation, 10);
-  if (!Number.isInteger(distanceFromLocationAsInt)) q.distanceFromLocation = 10;
+  const distanceFromLocationAsFloat = parseFloat(q.distanceFromLocation, 10);
+
+  if (Number.isNaN(distanceFromLocationAsFloat)) {
+    q.distanceFromLocation = 10;
+  } else {
+    const distanceFromLocationAsInt = Math.round(distanceFromLocationAsFloat);
+    q.distanceFromLocation = Math.trunc(distanceFromLocationAsInt);
+  }
 
   // Validate keywords exist in pre-defined list, drop those that do not.
   const keywordsArray = q.keywords.split(' ');
@@ -47,7 +53,7 @@ const searchReed = (query) => {
   // Define options for the upcoming https request, per reed's API documentation Basic Auth is used
   // and the issued key is provided as the username, password is left blank.
   const options = {
-    hostname: 'www.reed.co.uk',
+    hostname: 'wwww.reed.co.uk',
     path: `/api/1.0/search?${prepareQuery(query)}`,
     port: 443,
     method: 'GET',
