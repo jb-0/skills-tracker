@@ -26,6 +26,8 @@ const prepareQuery = (query) => {
     }
   });
 
+  q.keywords = q.keywords.trim();
+
   // Validate location exists in pre-defined list, if not default to london
   if (!permittedLocations.includes(q.locationName.toLowerCase())) q.locationName = 'london';
 
