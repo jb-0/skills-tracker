@@ -53,7 +53,7 @@ const searchReed = (query) => {
   // Define options for the upcoming https request, per reed's API documentation Basic Auth is used
   // and the issued key is provided as the username, password is left blank.
   const options = {
-    hostname: 'wwww.reed.co.uk',
+    hostname: 'www.reed.co.uk',
     path: `/api/1.0/search?${prepareQuery(query)}`,
     port: 443,
     method: 'GET',
