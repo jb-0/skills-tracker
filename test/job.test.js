@@ -11,6 +11,18 @@ const { prepareQuery, searchReed } = require('../services/jobServices');
 // JOB SERVICES TESTS
 // *************************************
 describe('Job Services', function () {
+  describe('searchReed()', function () {
+    it('jobs are returned when an api call is made to reed.co.uk', async function () {
+      const data = await searchReed({
+        distanceFromLocation: 10,
+        keywords: 'react sql',
+        locationName: 'london'
+      });
+
+      assert.isAbove(data.totalResults, 0);
+    });
+  });
+
   describe('prepareQuery()', function () {
     it('locations that are not permitted are replaced with london', function () {
       const testCases = ['llondon', '[=?{]\'/!{"`'];
