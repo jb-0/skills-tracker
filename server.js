@@ -27,6 +27,7 @@ async function main() {
     await mongoose.connect(DB_PATH, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     });
   } catch (error) {
     console.log(error);
