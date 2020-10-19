@@ -1,7 +1,8 @@
 const express = require('express');
 
 const jobRoutes = express.Router();
-const { searchReed } = require('../services/jobServices');
+const { searchReed, prepareQuery } = require('../services/jobServices');
+const { Search } = require('../models/searchModel.js');
 
 // GET Jobs, using provided search terms.
 jobRoutes.get('/search', async (req, res) => {
@@ -10,7 +11,18 @@ jobRoutes.get('/search', async (req, res) => {
 });
 
 // POST Save search
-jobRoutes.post('/search/save', (req, res) => {});
+jobRoutes.post('/search/save', (req, res) => {
+  const { cleanQueryObject } = prepareQuery(req.body);
+  const search = new Search({ searchTerms: cleanQueryObject });
+
+  search.save((err) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(search);
+    }
+  });
+});
 
 // PATCH Edit saved search, will delete trend history
 jobRoutes.patch('/search/edit/:id', (req, res) => {});
