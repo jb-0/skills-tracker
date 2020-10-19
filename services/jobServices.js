@@ -7,7 +7,7 @@ const { permittedLocations } = require('./data/permittedLocations');
 /**
  * Build query string, sanitise as needed and encode
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
- * @return {String} Encoded and sanitised query string
+ * @return {Object} Returns a Encoded and sanitised query string, and also an object version.
  */
 const prepareQuery = (query) => {
   const q = query;
@@ -43,7 +43,7 @@ const prepareQuery = (query) => {
   const encodedQuery = `keywords=${q.keywords}&locationName=${
     q.locationName}&distanceFromLocation=${q.distanceFromLocation}`;
 
-  return encodeURI(encodedQuery);
+  return { encodedQuery: encodeURI(encodedQuery), cleanQueryObject: q };
 };
 
 /**
@@ -56,7 +56,7 @@ const searchReed = (query) => {
   // and the issued key is provided as the username, password is left blank.
   const options = {
     hostname: 'www.reed.co.uk',
-    path: `/api/1.0/search?${prepareQuery(query)}`,
+    path: `/api/1.0/search?${prepareQuery(query).encodedQuery}`,
     port: 443,
     method: 'GET',
     headers: {
