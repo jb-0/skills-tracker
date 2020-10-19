@@ -23,7 +23,9 @@ const prepareQuery = (query) => {
   }
 
   // Validate keywords exist in pre-defined list, drop those that do not.
+  // These are sorted to allow matching to duplicate saved searches
   const keywordsArray = q.keywords.split(' ');
+  keywordsArray.sort();
   q.keywords = '';
 
   keywordsArray.forEach((keyword) => {
