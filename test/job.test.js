@@ -33,7 +33,7 @@ describe('Job Services', function () {
           distanceFromLocation: 10,
           keywords: 'react sql',
           locationName: testCase,
-        });
+        }).encodedQuery;
 
         assert.strictEqual(preparedQuery, expectedQuery);
       });
@@ -50,7 +50,7 @@ describe('Job Services', function () {
           distanceFromLocation: 10,
           keywords: 'react sql',
           locationName: testCase,
-        });
+        }).encodedQuery;
 
         assert.strictEqual(preparedQuery, expectedQuery);
       });
@@ -65,7 +65,7 @@ describe('Job Services', function () {
           distanceFromLocation: 10,
           keywords: testCase,
           locationName: 'london',
-        });
+        }).encodedQuery;
 
         assert.strictEqual(preparedQuery, expectedQuery);
       });
@@ -89,7 +89,7 @@ describe('Job Services', function () {
             distanceFromLocation: test.testCase,
             keywords: 'react sql',
             locationName: 'london',
-          });
+          }).encodedQuery;
           assert.strictEqual(
             preparedQuery,
             `${baseExpectedQuery}${test.outcome}`
