@@ -97,4 +97,41 @@ describe('Job Services', function () {
         });
       });
   });
+
+  describe('saveSearch() & pushSearchToUser()', function () {
+    before(async function () {
+      const res = await request(app).post('/auth/register').send({
+        email: process.env.TEST_USER_2,
+        password: process.env.TEST_USER_PASSWORD_2,
+      });
+
+      // Temporarily create a second user for the duration of testing
+      assert.strictEqual(res.status, 307);
+    });
+
+    it('new searches are saved and added to the user\'s savedSearches', async function () {
+
+    });
+
+    it('searches already saved by the user are not duplicated in the User collection',
+      async function () {
+
+    });
+
+    it('searches saved by other users can be added to a user\'s savedSearches', async function () {
+
+    });
+
+    it('searches saved by multiple users are not duplicated in the Searches collection',
+      async function () {
+
+    });
+
+    after(async function () {
+      // Delete the test user
+      User.deleteOne({ email: process.env.TEST_USER_2 }, (err) => {
+        assert.isNotTrue(err);
+      });
+    });
+  });
 });
