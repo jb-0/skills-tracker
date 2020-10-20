@@ -8,6 +8,6 @@ const searchSchema = new mongoose.Schema({
   dailySearchTermCount: { type: Array, required: false },
 });
 
-const Search = mongoose.model('SavedSearch', searchSchema);
+const Search = mongoose.model('Search', searchSchema);
 
 module.exports = { Search };
