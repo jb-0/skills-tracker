@@ -95,7 +95,7 @@ const searchReed = (query) => {
  * @param {Object} savedSearchId The ID of the saved search
  * @return {Object} Returns a response code and message.
  */
-async function pushSearchToUser(userId, savedSearchId) {
+const pushSearchToUser = async (userId, savedSearchId) => {
   try {
     const user = await User.findByIdAndUpdate(userId, {
       $push: { savedSearches: savedSearchId },
@@ -104,14 +104,14 @@ async function pushSearchToUser(userId, savedSearchId) {
   } catch (err) {
     return { code: 500, msg: err };
   }
-}
+};
 
 /**
  * Finds saved search if it exists, creates it if it doesn't. In either case saves it to user.
  * @param {Object} req The full POST request sent by the user.
  * @return {Object} Returns a response code and message.
  */
-async function saveSearch(req) {
+const saveSearch = async (req) => {
   const { cleanQueryObject } = prepareQuery(req.body);
 
   // If another user has already saved this search it will be returned and the array length will
@@ -138,6 +138,11 @@ async function saveSearch(req) {
   } catch (err) {
     return { code: 500, msg: err };
   }
-}
+};
 
-module.exports = { searchReed, prepareQuery, saveSearch };
+module.exports = {
+  searchReed,
+  prepareQuery,
+  saveSearch,
+  pushSearchToUser
+};
