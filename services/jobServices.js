@@ -1,4 +1,7 @@
+/* eslint-disable no-underscore-dangle */
 const https = require('https');
+const { Search } = require('../models/searchModel.js');
+const { User } = require('../models/userModel.js');
 
 // TODO: Once DB is in place, these will live in the DB
 const { permittedKeywords } = require('./data/permittedKeywords');
@@ -86,4 +89,55 @@ const searchReed = (query) => {
   });
 };
 
-module.exports = { searchReed, prepareQuery};
+/**
+ * Pushes a saved search ID to the user's document
+ * @param {Object} userId The userId for the user who initiated the request.
+ * @param {Object} savedSearchId The ID of the saved search
+ * @return {Object} Returns a response code and message.
+ */
+async function pushSearchToUser(userId, savedSearchId) {
+  try {
+    const user = await User.findByIdAndUpdate(userId, {
+      $push: { savedSearches: savedSearchId },
+    }).exec();
+    return { code: 200, msg: 'search saved to user profile' };
+  } catch (err) {
+    return { code: 500, msg: err };
+  }
+}
+
+/**
+ * Finds saved search if it exists, creates it if it doesn't. In either case saves it to user.
+ * @param {Object} req The full POST request sent by the user.
+ * @return {Object} Returns a response code and message.
+ */
+async function saveSearch(req) {
+  const { cleanQueryObject } = prepareQuery(req.body);
+
+  // If another user has already saved this search it will be returned and the array length will
+  // be greater than 0, if the user already has it saved then it will not be added again
+  const existingRecord = await Search.find({ searchTerms: cleanQueryObject }).exec();
+  const user = await User.findById({ _id: req.user._id }).exec();
+
+  if (existingRecord.length > 0) {
+    if (user.savedSearches.includes(existingRecord[0]._id)) {
+      return { code: 409, msg: 'user has already saved this search' };
+    }
+
+    const response = await pushSearchToUser(req.user._id, existingRecord[0]._id);
+    return response;
+  }
+
+  // As the search doesn't exist, save it and add it to the user's saved searches
+  const search = new Search({ searchTerms: cleanQueryObject });
+
+  try {
+    const savedSearch = await search.save();
+    const response = await pushSearchToUser(req.user._id, savedSearch._id);
+    return response;
+  } catch (err) {
+    return { code: 500, msg: err };
+  }
+}
+
+module.exports = { searchReed, prepareQuery, saveSearch };
