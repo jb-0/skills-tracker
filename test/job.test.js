@@ -7,6 +7,9 @@ const { assert } = require('chai');
 const app = require('../server.js');
 const { prepareQuery, searchReed } = require('../services/jobServices');
 
+const { Search } = require('../models/searchModel.js');
+const { User } = require('../models/userModel.js');
+
 // *************************************
 // JOB SERVICES TESTS
 // *************************************
@@ -99,33 +102,66 @@ describe('Job Services', function () {
   });
 
   describe('saveSearch() & pushSearchToUser()', function () {
+    let USER_COOKIE;
+    let USER_2_COOKIE;
+
+    // Temporarily create a second user for the duration of testing
     before(async function () {
       const res = await request(app).post('/auth/register').send({
         email: process.env.TEST_USER_2,
         password: process.env.TEST_USER_PASSWORD_2,
       });
 
-      // Temporarily create a second user for the duration of testing
       assert.strictEqual(res.status, 307);
     });
 
-    it('new searches are saved and added to the user\'s savedSearches', async function () {
+    // Login as both test users, string the cookies in separate variables
+    before(async function () {
+      const res = await request(app).post('/auth/login').send({
+        email: process.env.TEST_USER,
+        password: process.env.TEST_USER_PASSWORD,
+      });
 
+      assert.strictEqual(res.status, 302);
+      assert.strictEqual(res.header.location, '/api/user/loggedin');
+
+      USER_COOKIE = res.header['set-cookie'];
+
+      const res_user_2 = await request(app).post('/auth/login').send({
+        email: process.env.TEST_USER_2,
+        password: process.env.TEST_USER_PASSWORD_2,
+      });
+
+      assert.strictEqual(res_user_2.status, 302);
+      assert.strictEqual(res_user_2.header.location, '/api/user/loggedin');
+
+      USER_2_COOKIE = res_user_2.header['set-cookie'];
+    });
+
+    // Delete existing savedSearches
+    before(async function () {
+      Search.deleteMany({}, (err) => {
+        assert.isNotTrue(err);
+      });
+    });
+
+    it('new searches are saved and added to the user\'s savedSearches', async function () {
+      // Do something
     });
 
     it('searches already saved by the user are not duplicated in the User collection',
       async function () {
-
-    });
+      // Do something
+      });
 
     it('searches saved by other users can be added to a user\'s savedSearches', async function () {
-
+      // Do something
     });
 
     it('searches saved by multiple users are not duplicated in the Searches collection',
       async function () {
-
-    });
+      // Do something
+      });
 
     after(async function () {
       // Delete the test user
