@@ -10,7 +10,7 @@ const { User } = require('../models/userModel.js');
 // *************************************
 // AUTH ROUTE TESTS
 // *************************************
-describe('User routes', function () {
+describe('Auth routes', function () {
   before(async function () {
     // Delete the existing test user
     User.deleteOne({ email: process.env.TEST_USER }, (err) => {
