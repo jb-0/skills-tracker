@@ -105,8 +105,13 @@ describe('Job Services', function () {
     let USER_COOKIE;
     let USER_2_COOKIE;
 
-    // Temporarily create a second user for the duration of testing
+    // Temporarily create a second user for the duration of testing, but first delete the user if
+    // they are present in db
     before(async function () {
+      User.deleteOne({ email: process.env.TEST_USER_2 }, (err) => {
+        assert.isNotTrue(err);
+      });
+
       const res = await request(app).post('/auth/register').send({
         email: process.env.TEST_USER_2,
         password: process.env.TEST_USER_PASSWORD_2,
@@ -115,7 +120,7 @@ describe('Job Services', function () {
       assert.strictEqual(res.status, 307);
     });
 
-    // Login as both test users, string the cookies in separate variables
+    // Login as both test users, storing the cookies in separate variables
     before(async function () {
       const res = await request(app).post('/auth/login').send({
         email: process.env.TEST_USER,
@@ -146,28 +151,72 @@ describe('Job Services', function () {
     });
 
     it('new searches are saved and added to the user\'s savedSearches', async function () {
-      // Do something
+      const search = {
+        keywords: 'react node',
+        locationName: 'birmingham',
+        distanceFromLocation: 20,
+      };
+
+      const res = await request(app)
+        .post('/api/job/search/save')
+        .send(search)
+        .set('Cookie', USER_COOKIE);
+
+      // Confirm positive response from server
+      assert.strictEqual(res.status, 200);
+      assert.strictEqual(res.text, 'search saved to user profile');
     });
 
     it('searches already saved by the user are not duplicated in the User collection',
       async function () {
-      // Do something
+        const search = {
+          keywords: 'react node',
+          locationName: 'birmingham',
+          distanceFromLocation: 20,
+        };
+
+        const res = await request(app)
+          .post('/api/job/search/save')
+          .send(search)
+          .set('Cookie', USER_COOKIE);
+
+        // Confirm positive response from server
+        assert.strictEqual(res.status, 409);
+        assert.strictEqual(res.text, 'user has already saved this search');
       });
 
     it('searches saved by other users can be added to a user\'s savedSearches', async function () {
-      // Do something
+      const search = {
+        keywords: 'react node',
+        locationName: 'birmingham',
+        distanceFromLocation: 20,
+      };
+
+      const res = await request(app)
+        .post('/api/job/search/save')
+        .send(search)
+        .set('Cookie', USER_2_COOKIE);
+
+      // Confirm positive response from server
+      assert.strictEqual(res.status, 200);
+      assert.strictEqual(res.text, 'search saved to user profile');
     });
 
     it('searches saved by multiple users are not duplicated in the Searches collection',
       async function () {
-      // Do something
-      });
+        const filter = {
+          keywords: 'node react',
+          locationName: 'birmingham',
+          distanceFromLocation: 20,
+        };
 
-    after(async function () {
-      // Delete the test user
-      User.deleteOne({ email: process.env.TEST_USER_2 }, (err) => {
-        assert.isNotTrue(err);
+        const searchExistsInDb = await Search.find({
+          'searchTerms.keywords': filter.keywords,
+          'searchTerms.locationName': filter.locationName,
+          'searchTerms.distanceFromLocation': filter.distanceFromLocation
+        }).exec();
+
+        assert.strictEqual(searchExistsInDb.length, 1);
       });
-    });
   });
 });
