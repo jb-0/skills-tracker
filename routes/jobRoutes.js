@@ -13,7 +13,7 @@ jobRoutes.get('/search', async (req, res) => {
 // POST Save search
 jobRoutes.post('/search/save', async (req, res) => {
   const result = await saveSearch(req);
-  res.send(result);
+  res.status(result.code).send(result.msg);
 });
 
 // PATCH Edit saved search, will delete trend history
