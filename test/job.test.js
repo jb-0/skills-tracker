@@ -150,6 +150,21 @@ describe('Job Services', function () {
       });
     });
 
+    it('unauthenticated user cannot access the save search route', async function () {
+      const search = {
+        keywords: 'react node',
+        locationName: 'birmingham',
+        distanceFromLocation: 20,
+      };
+
+      const res = await request(app)
+        .post('/api/job/search/save')
+        .send(search);
+
+      assert.strictEqual(res.status, 302);
+      assert.strictEqual(res.header.location, '/api/user/loginfailure');
+    });
+
     it('new searches are saved in the Search collection and added to the user\'s savedSearches',
       async function () {
         const search = {
@@ -210,7 +225,7 @@ describe('Job Services', function () {
       assert.strictEqual(res.status, 200);
       assert.strictEqual(res.text, 'search saved to user profile');
 
-      //Confirm that an entry has been added to the user's savedSearches
+      // Confirm that an entry has been added to the user's savedSearches
       const user = await User.findOne({ email: process.env.TEST_USER_2 }).exec();
       assert.strictEqual(user.savedSearches.length, 1);
     });

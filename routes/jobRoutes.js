@@ -12,8 +12,12 @@ jobRoutes.get('/search', async (req, res) => {
 
 // POST Save search
 jobRoutes.post('/search/save', async (req, res) => {
-  const result = await saveSearch(req);
-  res.status(result.code).send(result.msg);
+  if (req.isAuthenticated()) {
+    const result = await saveSearch(req);
+    res.status(result.code).send(result.msg);
+  } else {
+    res.redirect('/api/user/loginfailure');
+  }
 });
 
 // PATCH Edit saved search, will delete trend history
