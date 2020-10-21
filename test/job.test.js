@@ -150,22 +150,27 @@ describe('Job Services', function () {
       });
     });
 
-    it('new searches are saved and added to the user\'s savedSearches', async function () {
-      const search = {
-        keywords: 'react node',
-        locationName: 'birmingham',
-        distanceFromLocation: 20,
-      };
+    it('new searches are saved in the Search collection and added to the user\'s savedSearches',
+      async function () {
+        const search = {
+          keywords: 'react node',
+          locationName: 'birmingham',
+          distanceFromLocation: 20,
+        };
 
-      const res = await request(app)
-        .post('/api/job/search/save')
-        .send(search)
-        .set('Cookie', USER_COOKIE);
+        const res = await request(app)
+          .post('/api/job/search/save')
+          .send(search)
+          .set('Cookie', USER_COOKIE);
 
-      // Confirm positive response from server
-      assert.strictEqual(res.status, 200);
-      assert.strictEqual(res.text, 'search saved to user profile');
-    });
+        // Confirm positive response from server
+        assert.strictEqual(res.status, 200);
+        assert.strictEqual(res.text, 'search saved to user profile');
+
+        //Confirm that an entry has been added to the user's savedSearches
+        const user = await User.findOne({ email: process.env.TEST_USER }).exec();
+        assert.strictEqual(user.savedSearches.length, 1);
+      });
 
     it('searches already saved by the user are not duplicated in the User collection',
       async function () {
@@ -183,6 +188,10 @@ describe('Job Services', function () {
         // Confirm positive response from server
         assert.strictEqual(res.status, 409);
         assert.strictEqual(res.text, 'user has already saved this search');
+
+        //Confirm that only one entry exists in the user's savedSearches
+        const user = await User.findOne({ email: process.env.TEST_USER }).exec();
+        assert.strictEqual(user.savedSearches.length, 1);
       });
 
     it('searches saved by other users can be added to a user\'s savedSearches', async function () {
