@@ -209,6 +209,10 @@ describe('Job Services', function () {
       // Confirm positive response from server
       assert.strictEqual(res.status, 200);
       assert.strictEqual(res.text, 'search saved to user profile');
+
+      //Confirm that an entry has been added to the user's savedSearches
+      const user = await User.findOne({ email: process.env.TEST_USER_2 }).exec();
+      assert.strictEqual(user.savedSearches.length, 1);
     });
 
     it('searches saved by multiple users are not duplicated in the Searches collection',
