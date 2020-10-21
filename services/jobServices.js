@@ -92,13 +92,13 @@ const searchReed = (query) => {
 /**
  * Pushes a saved search ID to the user's document
  * @param {Object} userId The userId for the user who initiated the request.
- * @param {Object} savedSearchId The ID of the saved search
+ * @param {Object} searchId The ID of the saved search
  * @return {Object} Returns a response code and message.
  */
-const pushSearchToUser = async (userId, savedSearchId) => {
+const pushSearchToUser = async (userId, searchId) => {
   try {
     const user = await User.findByIdAndUpdate(userId, {
-      $push: { savedSearches: savedSearchId },
+      $push: { savedSearches: searchId },
     }).exec();
     return { code: 200, msg: 'search saved to user profile' };
   } catch (err) {
