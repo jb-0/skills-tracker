@@ -259,22 +259,40 @@ describe('Job Services', function () {
       savedSearchId = user.savedSearches[0];
     });
 
-
     describe('deleteUserSavedSearch()', function () {
       it('it is possible to delete a specific search if it exists in a user\'s saved searches',
         async function () {
           const res = await request(app)
-            .delete('/api/job/search/delete/'+savedSearchId)
+            .delete(`/api/job/search/delete/${savedSearchId}`)
             .set('Cookie', USER_COOKIE);
 
           // Confirm positive response from server
           assert.strictEqual(res.status, 200);
           assert.strictEqual(res.text, 'user saved search removed');
 
-          //Confirm that no entries exist in the user's savedSearches
+          // Confirm that no entries exist in the user's savedSearches
           const user = await User.findOne({ email: process.env.TEST_USER }).exec();
           assert.strictEqual(user.savedSearches.length, 0);
         });
+
+      it('attempting to delete a search that does not exist throws resource not found',
+        async function () {
+          const res = await request(app)
+            .delete(`/api/job/search/delete/${savedSearchId}`)
+            .set('Cookie', USER_COOKIE);
+
+          // Verify 404 and message stating the item does not exist
+          assert.strictEqual(res.status, 404);
+          assert.strictEqual(res.text, 'search does not exist in user saved searches');
+        });
+
+      it('unauthenticated user cannot access the delete search route', async function () {
+        const res = await request(app)
+          .delete(`/api/job/search/delete/${savedSearchId}`);
+
+        assert.strictEqual(res.status, 302);
+        assert.strictEqual(res.header.location, '/api/user/loginfailure');
+      });
     });
   });
 });
