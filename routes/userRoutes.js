@@ -1,13 +1,10 @@
 const express = require('express');
 
 const userRoutes = express.Router();
+const isLoggedIn = require('../middleware/isLoggedIn');
 
-userRoutes.get('/loggedin', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.send(`Successfully logged in: ${req.user}`);
-  } else {
-    res.redirect('/api/user/loginfailure');
-  }
+userRoutes.get('/loggedin', isLoggedIn, (req, res) => {
+  res.send(`Successfully logged in: ${req.user}`);
 });
 
 userRoutes.get('/loginfailure', (req, res) => {
