@@ -103,11 +103,11 @@ describe('Job Services', function () {
     });
   });
 
-  describe('POST /api/jobs/search/save', function () {
-    describe('saveSearch() & pushSearchToUser()', function () {
-      let USER_COOKIE;
-      let USER_2_COOKIE;
+  let USER_COOKIE;
+  let USER_2_COOKIE;
 
+  describe('POST /api/job/search/save', function () {
+    describe('saveSearch() & pushSearchToUser()', function () {
       // Temporarily create a second user for the duration of testing, but first delete the user if
       // they are present in db
       before(async function () {
@@ -248,6 +248,32 @@ describe('Job Services', function () {
           }).exec();
 
           assert.strictEqual(searchExistsInDb.length, 1);
+        });
+    });
+  });
+
+  describe('DELETE /api/job/search/delete/:id', function () {
+    let savedSearchId;
+    before(async function () {
+      const user = await User.findOne({ email: process.env.TEST_USER }).exec();
+      savedSearchId = user.savedSearches[0];
+    });
+
+
+    describe('deleteUserSavedSearch()', function () {
+      it('it is possible to delete a specific search if it exists in a user\'s saved searches',
+        async function () {
+          const res = await request(app)
+            .delete('/api/job/search/delete/'+savedSearchId)
+            .set('Cookie', USER_COOKIE);
+
+          // Confirm positive response from server
+          assert.strictEqual(res.status, 200);
+          assert.strictEqual(res.text, 'user saved search removed');
+
+          //Confirm that no entries exist in the user's savedSearches
+          const user = await User.findOne({ email: process.env.TEST_USER }).exec();
+          assert.strictEqual(user.savedSearches.length, 0);
         });
     });
   });
