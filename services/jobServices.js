@@ -2,6 +2,7 @@
 const https = require('https');
 const { Search } = require('../models/searchModel.js');
 const { User } = require('../models/userModel.js');
+const { ObjectId } = require('mongoose').Types;
 
 // TODO: Once DB is in place, these will live in the DB
 const { permittedKeywords } = require('./data/permittedKeywords');
@@ -102,7 +103,7 @@ const pushSearchToUser = async (userId, searchId) => {
     }).exec();
     return { code: 200, msg: 'search saved to user profile' };
   } catch (err) {
-    return { code: 500, msg: err };
+    return { code: 500, msg: err.message };
   }
 };
 
@@ -136,7 +137,20 @@ const saveSearch = async (req) => {
     const response = await pushSearchToUser(req.user._id, savedSearch._id);
     return response;
   } catch (err) {
-    return { code: 500, msg: err };
+    return { code: 500, msg: err.message };
+  }
+};
+
+const deleteUserSavedSearch = async (req) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: req.user._id },
+      { $pull: { savedSearches: ObjectId(req.params.id) } }
+    ).exec();
+
+    return { code: 200, msg: 'user saved search removed' };
+  } catch (err) {
+    return { code: 500, msg: err.message };
   }
 };
 
@@ -144,5 +158,6 @@ module.exports = {
   searchReed,
   prepareQuery,
   saveSearch,
-  pushSearchToUser
+  pushSearchToUser,
+  deleteUserSavedSearch
 };
