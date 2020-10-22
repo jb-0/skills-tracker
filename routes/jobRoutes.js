@@ -2,7 +2,7 @@
 const express = require('express');
 
 const jobRoutes = express.Router();
-const { searchReed, saveSearch } = require('../services/jobServices');
+const { searchReed, saveSearch, deleteUserSavedSearch } = require('../services/jobServices');
 
 // GET Jobs, using provided search terms.
 jobRoutes.get('/search', async (req, res) => {
@@ -24,6 +24,9 @@ jobRoutes.post('/search/save', async (req, res) => {
 jobRoutes.patch('/search/edit/:id', (req, res) => {});
 
 // DELETE Saved search
-jobRoutes.delete('/search/delete/:id', (req, res) => {});
+jobRoutes.delete('/search/delete/:id', async (req, res) => {
+  const result = await deleteUserSavedSearch(req);
+  res.status(result.code).send(result.msg);
+});
 
 module.exports = jobRoutes;
