@@ -143,12 +143,15 @@ const saveSearch = async (req) => {
 
 const deleteUserSavedSearch = async (req) => {
   try {
-    const user = await User.findOneAndUpdate(
-      { _id: req.user._id },
-      { $pull: { savedSearches: ObjectId(req.params.id) } }
-    ).exec();
+    const user = await User.findById({ _id: req.user._id }).exec();
 
-    return { code: 200, msg: 'user saved search removed' };
+    if (user.savedSearches.includes(ObjectId(req.params.id))) {
+      await user.savedSearches.pull(ObjectId(req.params.id));
+      await user.save();
+      return { code: 200, msg: 'user saved search removed' };
+    }
+
+    return { code: 404, msg: 'search does not exist in user saved searches' };
   } catch (err) {
     return { code: 500, msg: err.message };
   }
