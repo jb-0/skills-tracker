@@ -13,7 +13,9 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 // GET Number of Jobs, using provided search terms.
 jobRoutes.get('/search', async (req, res) => {
   const data = await searchReed(req.query);
-  res.send(data);
+  const noOfResults = data.totalResults;
+  const msg = noOfResults > 0 ? 'results found' : 'no results found';
+  res.send({ results: noOfResults, msg });
 });
 
 // GET Saved searches for a given user
