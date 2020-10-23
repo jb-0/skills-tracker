@@ -141,6 +141,11 @@ const saveSearch = async (req) => {
   }
 };
 
+/**
+ * Deletes a given saved search id from a user's saved search list
+ * @param {Object} req The DELETE request sent by the user, including the search id to delete
+ * @return {Object} Returns a response code and message.
+ */
 const deleteUserSavedSearch = async (req) => {
   try {
     const user = await User.findById({ _id: req.user._id }).exec();
@@ -157,10 +162,30 @@ const deleteUserSavedSearch = async (req) => {
   }
 };
 
+/**
+ * Returns an array of saved searches for a given user or a message if there are no saved searches
+ * @param {Object} userId The User ID for the user requesting their saved searches
+ * @return {Object} Returns an object containing a response code and message, also sends the
+ * data in an array if saved searches exist.
+ */
+const getUserSavedSearches = async (userId) => {
+  try {
+    const user = await User.findById({ _id: userId }).exec();
+    if (user.savedSearches.length > 0) {
+      return { code: 200, msg: 'saved searches found for user', data: user.savedSearches };
+    }
+
+    return { code: 200, msg: 'no saved searches for user' };
+  } catch (err) {
+    return { code: 500, msg: err.message };
+  }
+};
+
 module.exports = {
   searchReed,
   prepareQuery,
   saveSearch,
   pushSearchToUser,
-  deleteUserSavedSearch
+  deleteUserSavedSearch,
+  getUserSavedSearches
 };
