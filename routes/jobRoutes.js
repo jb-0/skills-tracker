@@ -15,13 +15,13 @@ jobRoutes.get('/search', async (req, res) => {
   const data = await searchReed(req.query);
   const noOfResults = data.totalResults;
   const msg = noOfResults > 0 ? 'results found' : 'no results found';
-  res.send({ results: noOfResults, msg });
+  res.send({ noOfResults, msg });
 });
 
 // GET Saved searches for a given user
-jobRoutes.get('/search/saved', async (req, res) => {
+jobRoutes.get('/search/saved', isLoggedIn, async (req, res) => {
   const result = await getUserSavedSearches(req.user._id);
-  res.status(result.code).send({ msg: result.msg, data: result.data });
+  res.status(result.code).send({ msg: result.msg, savedSearches: result.savedSearches });
 });
 
 // POST Save search
