@@ -15,6 +15,20 @@ const { User } = require('../models/userModel.js');
 // *************************************
 describe('Job Services', function () {
   describe('GET /api/jobs/search', function () {
+    it('the number of jobs available is returned when the search route is called',
+      async function () {
+        const res = await request(app)
+          .get('/api/job/search')
+          .query({
+            keywords: 'node angular java',
+            locationName: 'london',
+            distanceFromLocation: '10'
+          });
+
+        assert.strictEqual(res.status, 200);
+        assert.isAtLeast(res.body.noOfResults, 1);
+      });
+
     describe('searchReed()', function () {
       it('jobs are returned when an api call is made to reed.co.uk', async function () {
         const data = await searchReed({
@@ -23,7 +37,7 @@ describe('Job Services', function () {
           locationName: 'london'
         });
 
-        assert.isAbove(data.totalResults, 0);
+        assert.isAtLeast(data.totalResults, 1);
       });
     });
 
@@ -289,6 +303,38 @@ describe('Job Services', function () {
       it('unauthenticated user cannot access the delete search route', async function () {
         const res = await request(app)
           .delete(`/api/job/search/delete/${savedSearchId}`);
+
+        assert.strictEqual(res.status, 302);
+        assert.strictEqual(res.header.location, '/api/user/loginfailure');
+      });
+    });
+  });
+
+  describe('GET /api/job/search/saved', function () {
+    describe('getUserSavedSearches()', function () {
+      it('a user can get a full list of their saved searches',
+        async function () {
+          const res = await request(app)
+            .get('/api/job/search/saved')
+            .set('Cookie', USER_2_COOKIE);
+
+          assert.strictEqual(res.status, 200);
+          assert.strictEqual(res.body.msg, 'saved searches found for user');
+          assert.isAtLeast(res.body.savedSearches.length, 1);
+        });
+
+      it('if a user has no saved searches the returned message states this',
+        async function () {
+          const res = await request(app)
+            .get('/api/job/search/saved')
+            .set('Cookie', USER_COOKIE);
+
+          assert.strictEqual(res.status, 200);
+          assert.strictEqual(res.body.msg, 'no saved searches for user');
+        });
+
+      it('unauthenticated user cannot access the saved search route', async function () {
+        const res = await request(app).get('/api/job/search/saved');
 
         assert.strictEqual(res.status, 302);
         assert.strictEqual(res.header.location, '/api/user/loginfailure');
