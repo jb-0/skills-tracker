@@ -1,0 +1,31 @@
+.search-container {
+  width: 400px;
+  margin: auto;
+}
+
+#searchInputText {
+  width: 80%;
+  height: 40px;
+  padding: 0 20px;
+  color: #023047;
+  font-size: 1.5rem;
+  border-radius: 25px;
+  outline-width: 0;
+  border: solid;
+}
+
+.suggested-term-container {
+  width: 80%;
+  background-color: white;
+  margin: auto;
+  padding: 10px 0;
+}
+
+.suggested-term-container p {
+  margin: 0;
+}
+
+.suggested-term-container:hover {
+  color: #fb8500;
+  background-color: #8ecae6;
+}
