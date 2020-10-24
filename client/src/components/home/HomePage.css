@@ -5,15 +5,17 @@
 }
 
 .overlay-image-container{
-  width: 100%;
+  width: 80%;
   height: 100%;
   position: absolute;
   top: 10%;
   left: 0;
-  z-index: 10; 
+  right: 0;
+  z-index: 10;
+  margin: auto;
 }
 
 .overlay-image-container h1 {
   color: white;
-  text-shadow: 2px 2px black;
+  text-shadow: 2px 2px #023047;
 }
