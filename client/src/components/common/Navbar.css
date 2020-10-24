@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #10002b;
+  background-color: #023047;
   overflow: hidden;
 }
 
@@ -15,7 +15,7 @@
 
 .navbar a:hover {
   background-color: white;
-  color: #10002b;
+  color: #023047;
 }
 
 .burger-nav {
