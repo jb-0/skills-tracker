@@ -18,7 +18,7 @@ function Navbar() {
 
   return (
     <div className="navbar">
-      {size.width > 440 ? (
+      {size.device === 'Desktop' ? (
         <div>{navbarItems}</div>
       ) : (
         <div className="burger-nav">
