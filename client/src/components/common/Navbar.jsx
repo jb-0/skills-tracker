@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { ViewContext } from '../../context/ViewContext';
 import MenuIcon from '@material-ui/icons/Menu';
+import './Navbar.css';
 
 function Navbar() {
   const [burgerItemsVisible, setBurgerItemsVisible] = useState(false);
@@ -13,6 +14,7 @@ function Navbar() {
   const navbarItems = (
     <div className="navbarItems">
       <a href="/">Home</a>
+      <a href="/login">Register/Login</a>
     </div>
   );
 

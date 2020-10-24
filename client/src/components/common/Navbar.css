@@ -1,0 +1,29 @@
+.navbar {
+  background-color: #023047;
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #ffb703;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  /* font-size: 1.3rem; */
+}
+
+.navbar a:hover {
+  background-color: #ffb703;
+  color: #023047;
+}
+
+.burger-nav {
+  text-align: left;
+  padding: 10px;
+}
+
+.burger-nav a {
+  float: left; 
+  clear: left;
+}
