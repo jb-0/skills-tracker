@@ -15,7 +15,19 @@ function Search(props) {
       {props.suggestedTerms.map((suggestedTerm) => {
         return (
           <div className="suggested-term-container">
-            <p onClick={props.addSearchTerm} id={suggestedTerm}>{suggestedTerm}</p>
+            <p onClick={props.addSearchTerm} id={suggestedTerm}>
+              {suggestedTerm}
+            </p>
+          </div>
+        );
+      })}
+
+      {props.searchTerms.map((searchTerm) => {
+        return (
+          <div className="search-term-container">
+            <p onClick={props.removeSearchTerm} id={searchTerm}>
+              x {searchTerm}
+            </p>
           </div>
         );
       })}

@@ -12,6 +12,7 @@
   border-radius: 25px;
   outline-width: 0;
   border: solid;
+  border-color: #023047;
 }
 
 .suggested-term-container {
@@ -28,4 +29,13 @@
 .suggested-term-container:hover {
   color: #fb8500;
   background-color: #8ecae6;
+}
+
+.search-term-container {
+  background-color: white;
+  display:inline-block;
+  background-color: #fb8500;
+  margin: 5px;
+  padding: 0 10px;
+  border-radius: 15px;
 }
