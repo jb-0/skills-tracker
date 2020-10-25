@@ -40,7 +40,6 @@ function SearchContainer() {
       suggested = [];
     }
 
-    console.log(suggested);
     setSearch((previousValues) => {
       return { ...previousValues, [target]: value, suggestedTerms: suggested };
     });
@@ -50,12 +49,15 @@ function SearchContainer() {
   function addSearchTerm(event) {
     const term = event.target.id;
 
-    setSearch((previousValues) => {
-      return {
-        ...previousValues,
-        searchTerms: [...previousValues.searchTerms, term],
-      };
-    });
+    // Only add the item if it is not already included
+    if (!search.searchTerms.includes(term)) {
+      setSearch((previousValues) => {
+        return {
+          ...previousValues,
+          searchTerms: [...previousValues.searchTerms, term],
+        };
+      });
+    }
   }
 
   // Remove from search terms array
