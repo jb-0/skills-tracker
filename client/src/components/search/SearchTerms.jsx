@@ -1,12 +1,13 @@
 import React from 'react';
 import './SearchTerms.css'
+import { v4 as uuidv4 } from 'uuid';
 
 function SearchTerms(props) {
   return (
     <div>
       {props.searchTerms.map((searchTerm) => {
         return (
-          <div className="search-term-container">
+          <div className="search-term-container" key={uuidv4()}>
             <p onClick={props.removeSearchTerm} id={searchTerm}>
               x {searchTerm}
             </p>
