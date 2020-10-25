@@ -1,5 +1,7 @@
 import React from 'react';
 import './Search.css';
+import './SearchSuggestion';
+import SearchSuggestion from './SearchSuggestion';
 
 function Search(props) {
   return (
@@ -12,15 +14,10 @@ function Search(props) {
         autocomplete="off"
       ></input>
 
-      {props.suggestedTerms.map((suggestedTerm) => {
-        return (
-          <div className="suggested-term-container">
-            <p onClick={props.addSearchTerm} id={suggestedTerm}>
-              {suggestedTerm}
-            </p>
-          </div>
-        );
-      })}
+      <SearchSuggestion
+        suggestedTerms={props.suggestedTerms}
+        addSearchTerm={props.addSearchTerm}
+      />
 
       {props.searchTerms.map((searchTerm) => {
         return (

@@ -14,28 +14,3 @@
   border: solid;
   border-color: #023047;
 }
-
-.suggested-term-container {
-  width: 80%;
-  background-color: white;
-  margin: auto;
-  padding: 10px 0;
-}
-
-.suggested-term-container p {
-  margin: 0;
-}
-
-.suggested-term-container:hover {
-  color: #fb8500;
-  background-color: #8ecae6;
-}
-
-.search-term-container {
-  background-color: white;
-  display:inline-block;
-  background-color: #fb8500;
-  margin: 5px;
-  padding: 0 10px;
-  border-radius: 15px;
-}
