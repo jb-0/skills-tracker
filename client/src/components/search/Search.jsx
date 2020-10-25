@@ -3,6 +3,7 @@ import './Search.css';
 import './SearchSuggestion';
 import SearchSuggestion from './SearchSuggestion';
 import SearchTerms from './SearchTerms'
+import { v4 as uuidv4 } from 'uuid';
 
 function Search(props) {
   return (
@@ -12,6 +13,7 @@ function Search(props) {
         type="text"
         id="searchInputText"
         name="searchInputText"
+        value={props.searchInputText}
         autoComplete="off"
       ></input>
 
@@ -23,6 +25,7 @@ function Search(props) {
       <SearchTerms
         searchTerms={props.searchTerms}
         removeSearchTerm={props.removeSearchTerm}
+        key={uuidv4()}
       />
     </div>
   );
