@@ -84,6 +84,7 @@ function SearchContainer() {
       removeSearchTerm={removeSearchTerm}
       suggestedTerms={search.suggestedTerms}
       searchTerms={search.searchTerms}
+      searchInputText={search.searchInputText}
     />
   );
 }
