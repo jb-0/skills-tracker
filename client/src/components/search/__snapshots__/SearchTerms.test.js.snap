@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchTerms component renders correctly when passed an array containing search terms 1`] = `
+<div>
+  <div
+    className="search-term-container"
+  >
+    <p
+      id="node"
+    >
+      x 
+      node
+    </p>
+  </div>
+  <div
+    className="search-term-container"
+  >
+    <p
+      id="sql"
+    >
+      x 
+      sql
+    </p>
+  </div>
+</div>
+`;
+
+exports[`SearchTerms component renders correctly when passed an empty array 1`] = `<div />`;
