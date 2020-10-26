@@ -12,6 +12,7 @@ function SearchSuggestion(props) {
             id={suggestedTerm}
             className="suggested-term-container"
             key={uuidv4()}
+            data-testid="suggested-term-container"
           >
             <p id={suggestedTerm}>{suggestedTerm}</p>
           </div>
