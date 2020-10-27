@@ -1,7 +1,7 @@
 import React from 'react';
-import './HomePage.css'
-import Image from '../common/Image';
-import SearchContainer from '../search/SearchContainer'
+import './Home.css'
+import Image from '../components/common/Image';
+import SearchContainer from '../components/search/SearchContainer'
 
 
 function HomePage() {
