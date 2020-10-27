@@ -23,7 +23,7 @@ describe('Search component', () => {
     container = null;
   });
 
-  it('confirm search box is successfully rendered', () => {
+  it('search box is successfully rendered', () => {
     act(() => {
       render(
         <Search
@@ -41,7 +41,7 @@ describe('Search component', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 
-  it('confirm onChange callback executes when user inputs text', async () => {
+  it('onChange callback executes when user inputs text', async () => {
     const onChange = jest.fn();
 
     act(() => {
