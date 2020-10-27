@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search component renders correctly when passed arrays containing suggested terms and search terms 1`] = `
+<div
+  className="search-container"
+>
+  <input
+    autoComplete="off"
+    id="searchInputText"
+    name="searchInputText"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+  <div>
+    <div
+      className="suggested-term-container"
+      data-testid="suggested-term-container"
+      id="node"
+      onClick={[Function]}
+    >
+      <p
+        id="node"
+      >
+        node
+      </p>
+    </div>
+    <div
+      className="suggested-term-container"
+      data-testid="suggested-term-container"
+      id="sql"
+      onClick={[Function]}
+    >
+      <p
+        id="sql"
+      >
+        sql
+      </p>
+    </div>
+  </div>
+  <div>
+    <div
+      className="search-term-container"
+    >
+      <p
+        id="node"
+        onClick={[Function]}
+      >
+        x 
+        node
+      </p>
+    </div>
+    <div
+      className="search-term-container"
+    >
+      <p
+        id="sql"
+        onClick={[Function]}
+      >
+        x 
+        sql
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Search component renders correctly when passed empty arrays 1`] = `
+<div
+  className="search-container"
+>
+  <input
+    autoComplete="off"
+    id="searchInputText"
+    name="searchInputText"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+  <div />
+  <div />
+</div>
+`;
