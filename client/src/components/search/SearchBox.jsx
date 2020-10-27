@@ -1,9 +1,6 @@
 import React from 'react';
-import './Search.css';
+import './SearchBox.css';
 import './SearchSuggestion';
-import SearchSuggestion from './SearchSuggestion';
-import SearchTerms from './SearchTerms'
-import { v4 as uuidv4 } from 'uuid';
 
 function Search(props) {
   return (
@@ -16,17 +13,6 @@ function Search(props) {
         value={props.searchInputText}
         autoComplete="off"
       ></input>
-
-      <SearchSuggestion
-        suggestedTerms={props.suggestedTerms}
-        addSearchTerm={props.addSearchTerm}
-      />
-
-      <SearchTerms
-        searchTerms={props.searchTerms}
-        removeSearchTerm={props.removeSearchTerm}
-        key={uuidv4()}
-      />
     </div>
   );
 }
