@@ -24,7 +24,7 @@ function Navbar() {
         <div>{navbarItems}</div>
       ) : (
         <div className="burger-nav">
-          <MenuIcon onClick={handleBurgerClick} htmlColor="black" fontSize="large" />
+          <MenuIcon onClick={handleBurgerClick} htmlColor="white" fontSize="large" />
           {burgerItemsVisible ? navbarItems : null}
         </div>
       )}
