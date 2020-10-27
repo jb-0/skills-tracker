@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Search from './Search';
+import SearchBox from './SearchBox';
 
 // TEMP TERMS DATA TILL MOVED INTO DB
 const permittedTerms = [
@@ -78,7 +78,7 @@ function SearchContainer() {
 
   // Return the search view and pass the necessary props
   return (
-    <Search
+    <SearchBox
       handleTextBoxUpdates={handleTextBoxUpdates}
       addSearchTerm={addSearchTerm}
       removeSearchTerm={removeSearchTerm}

@@ -6,9 +6,9 @@ import renderer from 'react-test-renderer';
 import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
 
-import Search from './Search';
+import SearchBox from './SearchBox';
 
-describe('Search component', () => {
+describe('SearchBox component', () => {
   let container = null;
   beforeEach(() => {
     // setup a DOM element as a render target
@@ -26,7 +26,7 @@ describe('Search component', () => {
   it('search box is successfully rendered', () => {
     act(() => {
       render(
-        <Search
+        <SearchBox
           suggestedTerms={[]}
           searchTerms={[]}
           searchInputText={''}
@@ -46,7 +46,7 @@ describe('Search component', () => {
 
     act(() => {
       render(
-        <Search
+        <SearchBox
           suggestedTerms={[]}
           searchTerms={[]}
           searchInputText={''}
@@ -66,7 +66,7 @@ describe('Search component', () => {
 
   it('renders correctly when passed arrays containing suggested terms and search terms', () => {
     const tree = renderer
-      .create(<Search
+      .create(<SearchBox
         suggestedTerms={['node','sql']}
         searchTerms={['node','sql']}
         searchInputText={''}
@@ -80,7 +80,7 @@ describe('Search component', () => {
 
   it('renders correctly when passed empty arrays', () => {
     const tree = renderer
-      .create(<Search
+      .create(<SearchBox
         suggestedTerms={[]}
         searchTerms={[]}
         searchInputText={''}

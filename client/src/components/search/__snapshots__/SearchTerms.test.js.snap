@@ -4,6 +4,7 @@ exports[`SearchTerms component renders correctly when passed an array containing
 <div>
   <div
     className="search-term-container"
+    data-testid="search-term-container"
   >
     <p
       id="node"
@@ -14,6 +15,7 @@ exports[`SearchTerms component renders correctly when passed an array containing
   </div>
   <div
     className="search-term-container"
+    data-testid="search-term-container"
   >
     <p
       id="sql"

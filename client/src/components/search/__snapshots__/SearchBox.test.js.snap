@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Search component renders correctly when passed arrays containing suggested terms and search terms 1`] = `
+exports[`SearchBox component renders correctly when passed arrays containing suggested terms and search terms 1`] = `
 <div
   className="search-container"
 >
@@ -41,6 +41,7 @@ exports[`Search component renders correctly when passed arrays containing sugges
   <div>
     <div
       className="search-term-container"
+      data-testid="search-term-container"
     >
       <p
         id="node"
@@ -52,6 +53,7 @@ exports[`Search component renders correctly when passed arrays containing sugges
     </div>
     <div
       className="search-term-container"
+      data-testid="search-term-container"
     >
       <p
         id="sql"
@@ -65,7 +67,7 @@ exports[`Search component renders correctly when passed arrays containing sugges
 </div>
 `;
 
-exports[`Search component renders correctly when passed empty arrays 1`] = `
+exports[`SearchBox component renders correctly when passed empty arrays 1`] = `
 <div
   className="search-container"
 >
