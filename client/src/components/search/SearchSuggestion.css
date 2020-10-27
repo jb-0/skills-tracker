@@ -3,6 +3,13 @@
   background-color: white;
   margin: auto;
   padding: 10px 0;
+  border: solid;
+  border-color: #023047;
+  border-width: thin;
+}
+
+.suggested-term-container-mobile {
+  width: 50%;
 }
 
 .suggested-term-container p {
