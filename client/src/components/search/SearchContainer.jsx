@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import SearchBox from './SearchBox';
+import SearchSuggestion from './SearchSuggestion';
+import SearchTerms from './SearchTerms';
+import { v4 as uuidv4 } from 'uuid';
 
 // TEMP TERMS DATA TILL MOVED INTO DB
 const permittedTerms = [
@@ -78,14 +81,26 @@ function SearchContainer() {
 
   // Return the search view and pass the necessary props
   return (
+    <div>
     <SearchBox
       handleTextBoxUpdates={handleTextBoxUpdates}
-      addSearchTerm={addSearchTerm}
-      removeSearchTerm={removeSearchTerm}
       suggestedTerms={search.suggestedTerms}
       searchTerms={search.searchTerms}
       searchInputText={search.searchInputText}
     />
+
+    <SearchSuggestion
+        suggestedTerms={search.suggestedTerms}
+        addSearchTerm={addSearchTerm}
+        key={uuidv4()}
+      />
+
+    <SearchTerms
+        searchTerms={search.searchTerms}
+        removeSearchTerm={removeSearchTerm}
+        key={uuidv4()}
+      />
+    </div>
   );
 }
 
