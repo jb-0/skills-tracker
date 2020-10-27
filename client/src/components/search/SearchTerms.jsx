@@ -7,7 +7,7 @@ function SearchTerms(props) {
     <div>
       {props.searchTerms.map((searchTerm) => {
         return (
-          <div className="search-term-container" key={uuidv4()}>
+          <div className="search-term-container" key={uuidv4()} data-testid="search-term-container">
             <p onClick={props.removeSearchTerm} id={searchTerm}>
               x {searchTerm}
             </p>
