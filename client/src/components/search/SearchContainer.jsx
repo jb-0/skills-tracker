@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SearchBox from './SearchBox';
 import SearchSuggestion from './SearchSuggestion';
 import SearchTerms from './SearchTerms';
+import Button from '../common/Button'
 import { v4 as uuidv4 } from 'uuid';
 
 // TEMP TERMS DATA TILL MOVED INTO DB
@@ -82,6 +83,8 @@ function SearchContainer() {
   // Return the search view and pass the necessary props
   return (
     <div>
+    
+
     <SearchBox
       handleTextBoxUpdates={handleTextBoxUpdates}
       suggestedTerms={search.suggestedTerms}
@@ -94,6 +97,8 @@ function SearchContainer() {
         addSearchTerm={addSearchTerm}
         key={uuidv4()}
       />
+
+<Button buttonText="Search" />
 
     <SearchTerms
         searchTerms={search.searchTerms}

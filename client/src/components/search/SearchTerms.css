@@ -1,8 +1,7 @@
 .search-term-container {
-  background-color: white;
   display:inline-block;
-  background-color: #fb8500;
-  margin: 5px;
+  background-color: #ffb703;
+  margin: 10px 5px;
   padding: 0 10px;
   border-radius: 15px;
 }
