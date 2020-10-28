@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import SearchBox from './SearchBox';
 import SearchSuggestion from './SearchSuggestion';
 import SearchTerms from './SearchTerms';
-import Button from '../common/Button'
+import SearchResultsContainer from './SearchResultsContainer';
+import Button from '../common/Button';
 import { v4 as uuidv4 } from 'uuid';
 
 // TEMP TERMS DATA TILL MOVED INTO DB
@@ -27,6 +28,7 @@ function SearchContainer() {
     searchInputText: '',
     searchTerms: [],
     suggestedTerms: [],
+    submittedSearchTerms: [],
   });
 
   // Handle changes to the text box and provide suggested terms
@@ -35,7 +37,7 @@ function SearchContainer() {
     const value = event.target.value;
 
     let suggested;
-    if (value.length > 0) { 
+    if (value.length > 0) {
       suggested = permittedTerms.filter(
         (word) =>
           word.substring(0, value.length).toLowerCase() === value.toLowerCase()
@@ -80,31 +82,43 @@ function SearchContainer() {
     });
   }
 
+  function handleSearchButtonClick() {
+    setSearch((previousValues) => {
+      return {
+        ...previousValues,
+        submittedSearchTerms: [...previousValues.searchTerms],
+      };
+    });
+  }
+
   // Return the search view and pass the necessary props
   return (
     <div>
-    
+      <SearchBox
+        handleTextBoxUpdates={handleTextBoxUpdates}
+        suggestedTerms={search.suggestedTerms}
+        searchTerms={search.searchTerms}
+        searchInputText={search.searchInputText}
+      />
 
-    <SearchBox
-      handleTextBoxUpdates={handleTextBoxUpdates}
-      suggestedTerms={search.suggestedTerms}
-      searchTerms={search.searchTerms}
-      searchInputText={search.searchInputText}
-    />
-
-    <SearchSuggestion
+      <SearchSuggestion
         suggestedTerms={search.suggestedTerms}
         addSearchTerm={addSearchTerm}
         key={uuidv4()}
       />
 
-<Button buttonText="Search" />
+      <Button buttonText="Search" buttonAction={handleSearchButtonClick} />
 
-    <SearchTerms
+      <SearchTerms
         searchTerms={search.searchTerms}
         removeSearchTerm={removeSearchTerm}
         key={uuidv4()}
       />
+
+      {search.submittedSearchTerms.length > 0 ? (
+        <SearchResultsContainer searchTerms={search.submittedSearchTerms} />
+      ) : null}
+      
     </div>
   );
 }
