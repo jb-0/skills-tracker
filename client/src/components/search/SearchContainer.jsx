@@ -3,6 +3,7 @@ import SearchBox from './SearchBox';
 import SearchSuggestion from './SearchSuggestion';
 import SearchTerms from './SearchTerms';
 import SearchResultsContainer from './SearchResultsContainer';
+import DropdownSelect from '../common/DropdownSelect';
 import Button from '../common/Button';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -20,6 +21,7 @@ const permittedTerms = [
   'Node',
   'SQL',
 ];
+const permittedLocations = ['london', 'south east england', 'kent', 'essex'];
 
 function SearchContainer() {
   // Store a number of variables in state, firstly the input from the search text box, second the
@@ -29,6 +31,7 @@ function SearchContainer() {
     searchTerms: [],
     suggestedTerms: [],
     submittedSearchTerms: [],
+    location: 'kent',
   });
 
   // Handle changes to the text box and provide suggested terms
@@ -48,6 +51,15 @@ function SearchContainer() {
 
     setSearch((previousValues) => {
       return { ...previousValues, [target]: value, suggestedTerms: suggested };
+    });
+  }
+
+  function handleDropDownSelectUpdates(event) {
+    const target = event.target.name;
+    const value = event.target.value;
+
+    setSearch((previousValues) => {
+      return { ...previousValues, [target]: value };
     });
   }
 
@@ -94,6 +106,13 @@ function SearchContainer() {
   // Return the search view and pass the necessary props
   return (
     <div>
+      <DropdownSelect
+        name="location"
+        selectOptions={permittedLocations}
+        value={search.location}
+        onChange={handleDropDownSelectUpdates}
+      />
+
       <SearchBox
         handleTextBoxUpdates={handleTextBoxUpdates}
         suggestedTerms={search.suggestedTerms}
@@ -116,9 +135,8 @@ function SearchContainer() {
       />
 
       {search.submittedSearchTerms.length > 0 ? (
-        <SearchResultsContainer searchTerms={search.submittedSearchTerms} />
+        <SearchResultsContainer searchTerms={search.submittedSearchTerms} location={search.location} />
       ) : null}
-      
     </div>
   );
 }
