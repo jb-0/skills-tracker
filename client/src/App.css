@@ -6,6 +6,14 @@ body {
   background-color: #023047;
 }
 
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+  color: #023047;
+}
+
 h1 {
   font-size: 3rem;
 }
