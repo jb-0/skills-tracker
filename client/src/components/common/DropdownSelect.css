@@ -1,0 +1,6 @@
+.dropdown-select select {
+  margin: 10px;
+  height: 40px;
+  font-size: 1rem;
+  outline-width: 0;
+}
