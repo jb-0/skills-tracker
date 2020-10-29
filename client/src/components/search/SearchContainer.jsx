@@ -31,7 +31,8 @@ function SearchContainer() {
     searchTerms: [],
     suggestedTerms: [],
     submittedSearchTerms: [],
-    location: 'kent',
+    location: 'london',
+    submittedLocation: '',
   });
 
   // Handle changes to the text box and provide suggested terms
@@ -94,16 +95,18 @@ function SearchContainer() {
     });
   }
 
+  // When a user hits search ensure the location and searchTerms are current
   function handleSearchButtonClick() {
     setSearch((previousValues) => {
       return {
         ...previousValues,
         submittedSearchTerms: [...previousValues.searchTerms],
+        submittedLocation: [...previousValues.location],
       };
     });
   }
 
-  // Return the search view and pass the necessary props
+  // Return the various elements that make up the search view and pass the necessary props
   return (
     <div>
       <DropdownSelect
@@ -135,7 +138,10 @@ function SearchContainer() {
       />
 
       {search.submittedSearchTerms.length > 0 ? (
-        <SearchResultsContainer searchTerms={search.submittedSearchTerms} location={search.location} />
+        <SearchResultsContainer
+          searchTerms={search.submittedSearchTerms}
+          location={search.submittedLocation}
+        />
       ) : null}
     </div>
   );
