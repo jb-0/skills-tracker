@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import SearchResults from './SearchResults';
 
 function SearchResultsContainer(props) {
   const [jobs, setJobs] = useState([]);
@@ -29,15 +30,10 @@ function SearchResultsContainer(props) {
 
   useEffect(() => {
     fetchData();
-  }, [props.searchTerms]);
+  }, [props.searchTerms, props.location]);
 
   return (
-    <div>
-      <h1>
-        For your search "{props.searchTerms.join(' ')}" there are currently{' '}
-        {jobs.noOfResults} jobs
-      </h1>
-    </div>
+    <SearchResults searchTerms={props.searchTerms} location={props.location} jobs={jobs}/>
   );
 }
 
