@@ -101,7 +101,7 @@ function SearchContainer() {
       return {
         ...previousValues,
         submittedSearchTerms: [...previousValues.searchTerms],
-        submittedLocation: [...previousValues.location],
+        submittedLocation: previousValues.location,
       };
     });
   }

@@ -7,9 +7,12 @@ function SearchResultsContainer(props) {
   async function fetchData() {
     const searchTermString = props.searchTerms.join(' ');
 
+    let apiQuery = `/api/job/search?keywords=${searchTermString}`;
+    apiQuery += `&locationName=${props.location}`;
+    apiQuery += `&distanceFromLocation=10`;
+
     const res = await fetch(
-      `/api/job/search?keywords=${searchTermString}&locationName=${props.location}
-        &distanceFromLocation=10`,
+      apiQuery,
       {
         method: 'GET',
         headers: {
@@ -19,12 +22,11 @@ function SearchResultsContainer(props) {
         },
       }
     );
-
+    
     if (res.status === 200) {
       setJobs(await res.json());
     } else {
       setJobs({ noOfResults: 0, msg: 'no results found' });
-      console.log(res);
     }
   }
 
