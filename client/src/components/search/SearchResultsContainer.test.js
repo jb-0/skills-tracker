@@ -9,8 +9,6 @@ import SearchResultsContainer from './SearchResultsContainer';
 describe('SearchResultsContainer component', () => {
   let container = null;
 
-  beforeAll(() => jest.spyOn(window, 'fetch'))
-  
   beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement('div');
@@ -29,16 +27,38 @@ describe('SearchResultsContainer component', () => {
   });
 
   test('the number of search results are successfully rendered', async () => {
-    fetch.mockResponseOnce(JSON.stringify({ noOfResults: 254, msg: 'results found' }));
+    // Construct a positive mock server response
+    fetch.mockResponseOnce(
+      JSON.stringify({ noOfResults: 254, msg: 'results found' })
+    );
 
-    await act(async () => {  
-      render(<SearchResultsContainer searchTerms={['node']} location={'london'} />, container);
+    await act(async () => {
+      render(
+        <SearchResultsContainer searchTerms={['node']} location={'london'} />,
+        container
+      );
     });
-    
-    const message = await screen.findByText('254');
- 
-    expect(message).toBeInTheDocument();
-    // expect(screen.getByText('254')).toBeInTheDocument();
+
+    expect(await screen.findByText(/254/)).toBeInTheDocument();
     expect(fetch).toHaveBeenCalledTimes(1);
-  })
+  });
+
+  test('server error results in 0 results being returned', async () => {
+    // Construct a server error response
+    fetch.mockResponseOnce(JSON.stringify({ noOfResults: 254, msg: 'results found' }), {
+      status: 500,
+      headers: { 'content-type': 'application/json' },
+    });
+
+    await act(async () => {
+      render(
+        <SearchResultsContainer searchTerms={['node']} location={'london'} />,
+        container
+      );
+    });
+
+
+    expect(await screen.findByText(/0/)).toBeInTheDocument();
+    expect(fetch).toHaveBeenCalledTimes(1);
+  });
 });
