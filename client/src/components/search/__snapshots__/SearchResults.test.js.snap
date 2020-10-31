@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchResults component renders correctly when passed props 1`] = `
-<div>
+<div
+  className="search-results-container"
+>
   <h1>
     There are currently 
     254
