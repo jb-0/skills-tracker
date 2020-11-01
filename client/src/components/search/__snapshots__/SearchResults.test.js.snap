@@ -4,7 +4,7 @@ exports[`SearchResults component renders correctly when passed props 1`] = `
 <div
   className="search-results-container"
 >
-  <h1>
+  <p>
     There are currently 
     254
      "
@@ -13,6 +13,6 @@ exports[`SearchResults component renders correctly when passed props 1`] = `
      
      
     london
-  </h1>
+  </p>
 </div>
 `;

@@ -5,10 +5,10 @@ function SearchResults(props) {
 
   return (
     <div className="search-results-container">
-      <h1>
+      <p>
         There are currently {props.jobs.noOfResults} "{props.searchTerms.join(' ')}" jobs in 
         {' '} {props.location}
-      </h1>
+      </p>
     </div>
   );
 };
