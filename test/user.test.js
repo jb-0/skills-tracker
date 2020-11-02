@@ -25,13 +25,12 @@ describe('User routes', function () {
   });
 
   describe('GET /api/user/loggedin', function () {
-    it('authenticated user can access authenticated route', async function () {
+    it('authenticated user can is redirected to frontend profile page', async function () {
       const res = await request(app).get('/api/user/loggedin')
         .set('Cookie', cookie);
 
-      assert.strictEqual(res.status, 200);
-      assert.include(res.text, 'Successfully logged in:');
-      assert.include(res.text, `'${process.env.TEST_USER}'`);
+      assert.strictEqual(res.status, 302);
+      assert.strictEqual(res.header.location, 'http://localhost:3000/profile');
     });
 
     it('unauthenticated user cannot access authenticated route', async function () {
