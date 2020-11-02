@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
-import { ViewProvider } from './context/ViewContext'
+import { ViewProvider } from './context/ViewContext';
 import Navbar from './components/common/Navbar';
-import Home from './pages/Home'
-import RegisterLogin from './pages/RegisterLogin'
+import Home from './pages/Home';
+import RegisterLogin from './pages/RegisterLogin';
+import Profile from './pages/Profile';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,12 +18,9 @@ function App() {
         <Navbar />
           <Router>
             <Switch>
-              <Route path="/login">
-                <RegisterLogin />
-              </Route>
-              <Route path="/">
-                <Home />
-              </Route>
+              <Route exact path="/login" component={RegisterLogin} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/profile" component={Profile} />
             </Switch>
           </Router>
       </ViewProvider>
