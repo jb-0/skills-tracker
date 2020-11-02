@@ -4,7 +4,7 @@ const userRoutes = express.Router();
 const isLoggedIn = require('../middleware/isLoggedIn');
 
 userRoutes.get('/loggedin', isLoggedIn, (req, res) => {
-  res.send(`Successfully logged in: ${req.user}`);
+  res.redirect(process.env.LOGIN_REDIRECT);
 });
 
 userRoutes.get('/loginfailure', (req, res) => {
