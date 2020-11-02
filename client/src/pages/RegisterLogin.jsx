@@ -3,15 +3,21 @@ import './RegisterLogin.css'
 import Button from '../components/common/Button'
 
 function RegisterLogin() {
-  async function facebookLogin() {
-    window.open("http://localhost:4000/auth/facebook", "_self");
-  }
-
-
   return (
     <div>
-      <Button buttonText='Login with facebook' classNames='social-button' buttonAction={facebookLogin} />
-      {/* <Button buttonText='Login with google' classNames='social-button' buttonAction='' /> */}
+      <a href="http://localhost:4000/auth/facebook">
+        <Button
+          buttonText="Login with Facebook"
+          classNames="social-button"
+        />
+      </a>
+
+      <a href="http://localhost:4000/auth/google">
+        <Button
+          buttonText="Login with Google"
+          classNames="social-button"
+        />
+      </a>
     </div>
   );
 }
