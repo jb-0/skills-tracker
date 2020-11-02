@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { ViewProvider } from './context/ViewContext';
+import { UserProvider } from './context/UserContext';
 import Navbar from './components/common/Navbar';
 import Home from './pages/Home';
 import RegisterLogin from './pages/RegisterLogin';
@@ -14,6 +15,7 @@ import {
 function App() {
   return (
     <div className="app">
+      <UserProvider>
       <ViewProvider>
         <Navbar />
           <Router>
@@ -24,6 +26,7 @@ function App() {
             </Switch>
           </Router>
       </ViewProvider>
+      </UserProvider>
     </div>
   );
 }
