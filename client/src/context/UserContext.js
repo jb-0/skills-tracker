@@ -22,8 +22,14 @@ export const UserProvider = (props) => {
         },
       }
     );
-
-    setUserData({ isLoggedIn: await res.json() });
+    
+    // Fail safe, if for any reason we cannot reach the server or the request is bad and a non 200
+    // is returned we switch to false to ensure private routes remain private.
+    if (res.status === 200) {
+      setUserData({ isLoggedIn: await res.json() });
+    } else {
+      setUserData({ isLoggedIn: false });
+    }
   }
 
   useEffect(() => {
