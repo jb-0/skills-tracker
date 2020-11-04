@@ -14,18 +14,3 @@ exports[`SearchBox component renders correctly when passed arrays containing sug
   />
 </div>
 `;
-
-exports[`SearchBox component renders correctly when passed empty arrays 1`] = `
-<div
-  className="search-container"
->
-  <input
-    autoComplete="off"
-    id="searchInputText"
-    name="searchInputText"
-    onChange={[Function]}
-    type="text"
-    value=""
-  />
-</div>
-`;

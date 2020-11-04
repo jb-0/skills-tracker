@@ -24,12 +24,7 @@ function SearchContainer() {
         onChange={search.handleDropDownSelectUpdates}
       />
 
-      <SearchBox
-        handleTextBoxUpdates={search.handleTextBoxUpdates}
-        suggestedTerms={search.suggestedTerms}
-        searchTerms={search.searchTerms}
-        searchInputText={search.searchInputText}
-      />
+      <SearchBox />
 
       <SearchSuggestion
         suggestedTerms={search.suggestedTerms}

@@ -7,21 +7,6 @@ import React, { createContext, useState  } from 'react';
 
 export const SearchContext = createContext();
 
-// TEMP TERMS DATA TILL MOVED INTO DB
-const permittedTerms = [
-  'Angular',
-  'Babel',
-  'CSS',
-  'DOM',
-  'HTML',
-  'Java',
-  'JavaScript',
-  'Python',
-  'React',
-  'Node',
-  'SQL',
-];
-
 export const SearchProvider = (props) => {
   // Store a number of variables in state, firstly the input from the search text box, second the
   // terms that have been added so far and finally the suggested search terms
@@ -32,32 +17,32 @@ export const SearchProvider = (props) => {
     submittedSearchTerms: [],
     location: 'london',
     submittedLocation: '',
-    handleTextBoxUpdates,
+    // handleTextBoxUpdates,
     handleDropDownSelectUpdates,
     addSearchTerm,
     removeSearchTerm,
     handleSearchButtonClick
   });
 
-  // Handle changes to the text box and provide suggested terms
-  function handleTextBoxUpdates(event) {
-    const target = event.target.name;
-    const value = event.target.value;
+  // // Handle changes to the text box and provide suggested terms
+  // function handleTextBoxUpdates(event) {
+  //   const target = event.target.name;
+  //   const value = event.target.value;
 
-    let suggested;
-    if (value.length > 0) {
-      suggested = permittedTerms.filter(
-        (word) =>
-          word.substring(0, value.length).toLowerCase() === value.toLowerCase()
-      );
-    } else {
-      suggested = [];
-    }
+  //   let suggested;
+  //   if (value.length > 0) {
+  //     suggested = permittedTerms.filter(
+  //       (word) =>
+  //         word.substring(0, value.length).toLowerCase() === value.toLowerCase()
+  //     );
+  //   } else {
+  //     suggested = [];
+  //   }
 
-    setSearch((previousValues) => {
-      return { ...previousValues, [target]: value, suggestedTerms: suggested };
-    });
-  }
+  //   setSearch((previousValues) => {
+  //     return { ...previousValues, [target]: value, suggestedTerms: suggested };
+  //   });
+  // }
 
   function handleDropDownSelectUpdates(event) {
     const target = event.target.name;

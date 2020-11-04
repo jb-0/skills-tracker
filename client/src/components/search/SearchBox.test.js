@@ -7,6 +7,7 @@ import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
 
 import SearchBox from './SearchBox';
+import { SearchProvider } from '../../context/SearchContext';
 
 describe('SearchBox component', () => {
   let container = null;
@@ -14,6 +15,15 @@ describe('SearchBox component', () => {
     // setup a DOM element as a render target
     container = document.createElement('div');
     document.body.appendChild(container);
+
+    act(() => {
+      render(
+        <SearchProvider>
+          <SearchBox />
+        </SearchProvider>,
+        container
+      );
+    });
   });
 
   afterEach(() => {
@@ -24,71 +34,23 @@ describe('SearchBox component', () => {
   });
 
   it('search box is successfully rendered', () => {
-    act(() => {
-      render(
-        <SearchBox
-          suggestedTerms={[]}
-          searchTerms={[]}
-          searchInputText={''}
-          handleTextBoxUpdates={() => {return null}}
-          addSearchTerm={() => {return null}}
-          removeSearchTerm={() => {return null}}
-        />,
-        container
-      );
-    });
-
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 
-  it('onChange callback executes when user inputs text', async () => {
-    const onChange = jest.fn();
-
-    act(() => {
-      render(
-        <SearchBox
-          suggestedTerms={[]}
-          searchTerms={[]}
-          searchInputText={''}
-          handleTextBoxUpdates={onChange}
-          addSearchTerm={() => {return null}}
-          removeSearchTerm={() => {return null}}
-        />,
-        container
-      );
-    });
-
-    // Imitate user typing each letter of Jav
+  it('the bound value matches user typed input', async () => {
+    // Imitate user typing each letter of Jav and assert it is displayed in textbox
     await userEvent.type(screen.getByRole('textbox'), 'Jav');
-
-    expect(onChange).toHaveBeenCalledTimes(3);
+    expect(screen.getByDisplayValue('Jav')).toBeInTheDocument();
   });
 
   it('renders correctly when passed arrays containing suggested terms and search terms', () => {
     const tree = renderer
-      .create(<SearchBox
-        suggestedTerms={['node','sql']}
-        searchTerms={['node','sql']}
-        searchInputText={''}
-        handleTextBoxUpdates={() => {return null}}
-        addSearchTerm={() => {return null}}
-        removeSearchTerm={() => {return null}}
-      />)
+      .create(
+        <SearchProvider>
+          <SearchBox />
+        </SearchProvider>
+      )
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
-
-  it('renders correctly when passed empty arrays', () => {
-    const tree = renderer
-      .create(<SearchBox
-        suggestedTerms={[]}
-        searchTerms={[]}
-        searchInputText={''}
-        handleTextBoxUpdates={() => {return null}}
-        addSearchTerm={() => {return null}}
-        removeSearchTerm={() => {return null}}
-      />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });  
 });
