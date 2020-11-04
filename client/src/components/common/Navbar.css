@@ -1,6 +1,7 @@
 .navbar {
   background-color: #023047;
   overflow: hidden;
+  position: relative;
 }
 
 .navbar a {
@@ -26,4 +27,12 @@
 .burger-nav a {
   float: left; 
   clear: left;
+}
+
+#profile-icon {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 15px;
+  right: 20px;
 }
