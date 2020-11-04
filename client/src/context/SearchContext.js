@@ -3,7 +3,7 @@
   * make up a search. This also means a user can leave the search screen to view their profile
   * without losing search information.
   */
-import React, { createContext, useState, useLayoutEffect } from 'react';
+import React, { createContext, useState  } from 'react';
 
 export const SearchContext = createContext();
 
@@ -21,8 +21,6 @@ const permittedTerms = [
   'Node',
   'SQL',
 ];
-const permittedLocations = ['london', 'south east england', 'kent', 'essex'];
-
 
 export const SearchProvider = (props) => {
   // Store a number of variables in state, firstly the input from the search text box, second the
@@ -74,15 +72,17 @@ export const SearchProvider = (props) => {
   function addSearchTerm(event) {
     const term = event.target.id;
 
-    // Only add the item if it is not already included
-    if (!search.searchTerms.includes(term)) {
-      setSearch((previousValues) => {
+    setSearch((previousValues) => {
+      // Only add the item if it is not already included
+      if (!(previousValues.searchTerms.includes(term))) {
         return {
           ...previousValues,
           searchTerms: [...previousValues.searchTerms, term],
         };
-      });
-    }
+      } else {
+        return previousValues;
+      }
+    });
   }
 
   // Remove from search terms array

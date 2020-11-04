@@ -2,17 +2,16 @@ import React from 'react';
 import './App.css';
 import { ViewProvider } from './context/ViewContext';
 import { SearchProvider } from './context/SearchContext';
-import Routes from './routes/Routes'
-import Search from './components/search/SearchBox';
+import Routes from './routes/Routes';
 
 function App() {
   return (
     <div className="app">
-        <ViewProvider>
+      <ViewProvider>
         <SearchProvider>
           <Routes />
         </SearchProvider>
-        </ViewProvider>
+      </ViewProvider>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event'
 
 import SearchContainer from './SearchContainer';
+import { SearchProvider } from '../../context/SearchContext';
 
 describe('SearchContainer component', () => {
   let container = null;
@@ -13,6 +14,10 @@ describe('SearchContainer component', () => {
     // setup a DOM element as a render target
     container = document.createElement('div');
     document.body.appendChild(container);
+
+    act(() => {
+      render(<SearchProvider><SearchContainer /></SearchProvider>, container);
+    });
   });
 
   afterEach(() => {
@@ -23,10 +28,6 @@ describe('SearchContainer component', () => {
   });
 
   it('search suggestions "JavaScript" and "Java" appear when "Jav" is entered', () => {
-    act(() => {
-      render(<SearchContainer />, container);
-    });
-
     // Typing in Jav should suggest all permitted technical terms that begin with Jav, including
     // JavaScript and Java
     fireEvent.change(screen.getByRole('textbox'), {
@@ -38,10 +39,6 @@ describe('SearchContainer component', () => {
   });
 
   it('clicking a search suggestion adds it to the list of search terms', () => {
-    act(() => {
-      render(<SearchContainer />, container);
-    });
-
     // Start by typing the desired search term
     fireEvent.change(screen.getByRole('textbox'), {
       target: { value: 'Jav' },
@@ -53,10 +50,6 @@ describe('SearchContainer component', () => {
   });
 
   it('clicking a search suggestion twice does not duplicate term', () => {
-    act(() => {
-      render(<SearchContainer />, container);
-    });
-
     // Start by typing the desired search term
     fireEvent.change(screen.getByRole('textbox'), {
       target: { value: 'Jav' },
@@ -70,10 +63,6 @@ describe('SearchContainer component', () => {
   });
 
   it('a search suggestion add it to the list of search terms', () => {
-    act(() => {
-      render(<SearchContainer />, container);
-    });
-
     // Start by typing the desired search term
     fireEvent.change(screen.getByRole('textbox'), {
       target: { value: 'Jav' },
