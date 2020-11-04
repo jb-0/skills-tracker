@@ -30,7 +30,7 @@ function Routes() {
   return (
     
     <Router>
-    <Navbar />
+    <Navbar authenticated={userState.authenticated} />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={RegisterLogin} />

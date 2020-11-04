@@ -4,7 +4,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import './Navbar.css';
 
-function Navbar() {
+function Navbar(props) {
   const [burgerItemsVisible, setBurgerItemsVisible] = useState(false);
   const size = useContext(ViewContext);
 
@@ -12,7 +12,9 @@ function Navbar() {
     setBurgerItemsVisible(!burgerItemsVisible);
   }
 
-  const profileItem = (
+  // Only show profile link if user is authenticated
+  const profileItem = props.authenticated ?
+  (
     <a href="/profile" id="profile-icon">
       <AccountCircleIcon
         className="profile-icon"
@@ -20,11 +22,15 @@ function Navbar() {
         fontSize="large"
       />
     </a>
-  );
+  ) : null;
+
   const navbarItems = (
     <div className="navbarItems">
       <a href="/">Home</a>
-      <a href="/login">Register/Login</a>
+      
+      {/* Only display register/login link if the user is not authenticated */}
+      { !props.authenticated ? 
+      <a href="/login">Register/Login</a> : null } 
     </div>
   );
 
