@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import isAuthenticated from '../services/auth'
+import isAuthenticated from '../services/auth';
+import Navbar from '../components/common/Navbar';
 import Home from '../pages/Home';
 import RegisterLogin from '../pages/RegisterLogin';
 import Profile from '../pages/Profile';
@@ -27,7 +28,9 @@ function Routes() {
      return <div>LOADING...</div>
   }
   return (
+    
     <Router>
+    <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={RegisterLogin} />
