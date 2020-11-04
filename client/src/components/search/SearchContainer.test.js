@@ -52,6 +52,23 @@ describe('SearchContainer component', () => {
     expect(screen.getByText('x JavaScript')).toBeInTheDocument();
   });
 
+  it('clicking a search suggestion twice does not duplicate term', () => {
+    act(() => {
+      render(<SearchContainer />, container);
+    });
+
+    // Start by typing the desired search term
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'Jav' },
+    });
+
+    // Click on the suggested term Javascript, creating a search term container prefixed with x
+    userEvent.click(screen.getByText('JavaScript'))
+    userEvent.click(screen.getByText('JavaScript'))
+    
+    expect(screen.getAllByText('x JavaScript').length).toEqual(1);
+  });
+
   it('a search suggestion add it to the list of search terms', () => {
     act(() => {
       render(<SearchContainer />, container);
