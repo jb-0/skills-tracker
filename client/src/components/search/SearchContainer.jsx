@@ -5,7 +5,6 @@ import SearchTerms from './SearchTerms';
 import SearchResultsContainer from './SearchResultsContainer';
 import DropdownSelect from '../common/DropdownSelect';
 import Button from '../common/Button';
-import { v4 as uuidv4 } from 'uuid';
 import { SearchContext } from '../../context/SearchContext';
 
 // TEMP TERMS DATA TILL MOVED INTO DB
@@ -28,12 +27,7 @@ function SearchContainer() {
       <SearchBox />
       <SearchSuggestion />
       <Button buttonText="Search" buttonAction={search.handleSearchButtonClick} />
-
-      <SearchTerms
-        searchTerms={search.searchTerms}
-        removeSearchTerm={search.removeSearchTerm}
-        key={uuidv4()}
-      />
+      <SearchTerms />
 
       {search.submittedSearchTerms.length > 0 ? (
         <SearchResultsContainer

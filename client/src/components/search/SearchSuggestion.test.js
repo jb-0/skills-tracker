@@ -8,6 +8,7 @@ import { act } from "react-dom/test-utils";
 // SearchContainer rather than directly.
 import SearchContainer from "./SearchContainer";
 import { SearchProvider } from '../../context/SearchContext';
+import userEvent from '@testing-library/user-event';
 
 describe('SearchTerms component', () => {
   let container = null;
@@ -27,6 +28,10 @@ describe('SearchTerms component', () => {
     container = null;
   });
 
+  it('no suggested terms are rendered when the suggestedTerms array is empty', () => {
+    expect(screen.queryAllByTestId('suggested-term-container')).toHaveLength(0);
+  });
+
   it('search suggestions "JavaScript" and "Java" appear when "Jav" is entered', () => {
     // Start by typing the desired search term
     fireEvent.change(screen.getByRole('textbox'), {
@@ -37,7 +42,27 @@ describe('SearchTerms component', () => {
     expect(screen.getByText('JavaScript')).toBeInTheDocument();
   });
 
-  it('no suggested terms are rendered when the suggestedTerms array is empty', () => {
-    expect(screen.queryAllByTestId('suggested-term-container')).toHaveLength(0);
+  it('clicking a search suggestion adds it to the list of search terms', () => {
+    // Start by typing the desired search term
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'Jav' },
+    });
+
+    // Click on the suggested term Javascript, creating a search term container prefixed with x
+    userEvent.click(screen.getByText('JavaScript'))
+    expect(screen.getByText('x JavaScript')).toBeInTheDocument();
+  });
+
+  it('clicking a search suggestion twice does not duplicate term', () => {
+    // Start by typing the desired search term
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'Jav' },
+    });
+
+    // Click on the suggested term Javascript, creating a search term container prefixed with x
+    userEvent.click(screen.getByText('JavaScript'))
+    userEvent.click(screen.getByText('JavaScript'))
+    
+    expect(screen.getAllByText('x JavaScript').length).toEqual(1);
   });
 });

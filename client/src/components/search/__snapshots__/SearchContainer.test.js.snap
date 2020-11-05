@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchContainer component combined search components render correctly with default state 1`] = `
+<div>
+  <div
+    className="dropdown-select"
+  >
+    <select
+      id="location"
+      name="location"
+      onChange={[Function]}
+      value="london"
+    >
+      <option
+        value="london"
+      >
+        london
+      </option>
+      <option
+        value="south east england"
+      >
+        south east england
+      </option>
+      <option
+        value="kent"
+      >
+        kent
+      </option>
+      <option
+        value="essex"
+      >
+        essex
+      </option>
+    </select>
+  </div>
+  <div
+    className="search-container"
+  >
+    <input
+      autoComplete="off"
+      id="searchInputText"
+      name="searchInputText"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </div>
+  <div />
+  <button
+    className="base-button undefined"
+    onClick={[Function]}
+    type="button"
+  >
+    Search
+  </button>
+  <div />
+</div>
+`;

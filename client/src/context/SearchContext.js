@@ -18,7 +18,6 @@ export const SearchProvider = (props) => {
     location: 'london',
     submittedLocation: '',
     handleDropDownSelectUpdates,
-    removeSearchTerm,
     handleSearchButtonClick
   });
 
@@ -28,22 +27,6 @@ export const SearchProvider = (props) => {
 
     setSearch((previousValues) => {
       return { ...previousValues, [target]: value };
-    });
-  }
-
-  // Remove from search terms array
-  function removeSearchTerm(event) {
-    const term = event.target.id;
-
-    setSearch((previousValues) => {
-      const searchTerms = previousValues.searchTerms.filter(
-        (word) => word.toLowerCase() !== term.toLowerCase()
-      );
-
-      return {
-        ...previousValues,
-        searchTerms: searchTerms,
-      };
     });
   }
 
