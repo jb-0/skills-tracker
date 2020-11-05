@@ -17,6 +17,7 @@ function SearchContainer() {
   // Return the various elements that make up the search view and pass the necessary props
   return (
     <div>
+      {/* While props are used for common components, search functionality uses the SearchContext */}
       <DropdownSelect
         name="location"
         selectOptions={permittedLocations}
@@ -25,13 +26,7 @@ function SearchContainer() {
       />
 
       <SearchBox />
-
-      <SearchSuggestion
-        suggestedTerms={search.suggestedTerms}
-        addSearchTerm={search.addSearchTerm}
-        key={uuidv4()}
-      />
-
+      <SearchSuggestion />
       <Button buttonText="Search" buttonAction={search.handleSearchButtonClick} />
 
       <SearchTerms

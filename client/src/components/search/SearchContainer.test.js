@@ -27,17 +27,6 @@ describe('SearchContainer component', () => {
     container = null;
   });
 
-  it('search suggestions "JavaScript" and "Java" appear when "Jav" is entered', () => {
-    // Typing in Jav should suggest all permitted technical terms that begin with Jav, including
-    // JavaScript and Java
-    fireEvent.change(screen.getByRole('textbox'), {
-      target: { value: 'Jav' },
-    });
-
-    expect(screen.getByText('Java')).toBeInTheDocument();
-    expect(screen.getByText('JavaScript')).toBeInTheDocument();
-  });
-
   it('clicking a search suggestion adds it to the list of search terms', () => {
     // Start by typing the desired search term
     fireEvent.change(screen.getByRole('textbox'), {

@@ -1,11 +1,13 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from "react";
 import { unmountComponentAtNode } from "react-dom";
-import { render, screen } from '@testing-library/react';
-import renderer from 'react-test-renderer';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from "react-dom/test-utils";
 
-import SearchSuggestion from "./SearchSuggestion";
+// Given the shared context from state, the searchSuggestion component is rendered via
+// SearchContainer rather than directly.
+import SearchContainer from "./SearchContainer";
+import { SearchProvider } from '../../context/SearchContext';
 
 describe('SearchTerms component', () => {
   let container = null;
@@ -13,6 +15,9 @@ describe('SearchTerms component', () => {
     // setup a DOM element as a render target
     container = document.createElement("div");
     document.body.appendChild(container);
+    act(() => {
+      render(<SearchProvider><SearchContainer/></SearchProvider>, container);
+    });
   });
 
   afterEach(() => {
@@ -22,34 +27,17 @@ describe('SearchTerms component', () => {
     container = null;
   });
 
-  it('suggested terms passed in via array are rendered successfully', () => {
-    act(() => {
-      render(<SearchSuggestion suggestedTerms={['node', 'sql']} />, container);
+  it('search suggestions "JavaScript" and "Java" appear when "Jav" is entered', () => {
+    // Start by typing the desired search term
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'Jav' },
     });
 
-    expect(screen.getByText('node')).toBeInTheDocument();
-    expect(screen.getByText('sql')).toBeInTheDocument();
+    expect(screen.getByText('Java')).toBeInTheDocument();
+    expect(screen.getByText('JavaScript')).toBeInTheDocument();
   });
 
-  it('when an empty array is passed, no suggested terms are rendered', () => {
-    act(() => {
-      render(<SearchSuggestion suggestedTerms={[]} />, container);
-    });
-
+  it('no suggested terms are rendered when the suggestedTerms array is empty', () => {
     expect(screen.queryAllByTestId('suggested-term-container')).toHaveLength(0);
   });
-
-  it('renders correctly when passed an array containing suggested terms', () => {
-    const tree = renderer
-      .create(<SearchSuggestion suggestedTerms={['node', 'sql']} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('renders correctly when passed an empty array', () => {
-    const tree = renderer
-      .create(<SearchSuggestion suggestedTerms={[]} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });  
 });

@@ -2,16 +2,35 @@ import React, { useContext } from 'react';
 import './SearchSuggestion.css';
 import { v4 as uuidv4 } from 'uuid';
 import { ViewContext } from '../../context/ViewContext';
+import { SearchContext } from '../../context/SearchContext';
 
-function SearchSuggestion(props) {
+function SearchSuggestion() {
   const size = useContext(ViewContext);
+  const [search, setSearch]  = useContext(SearchContext);
+
+  // Add items to the search terms array
+  function addSearchTerm(event) {
+    const term = event.target.id;
+
+    setSearch((previousValues) => {
+      // Only add the item if it is not already included
+      if (!(previousValues.searchTerms.includes(term))) {
+        return {
+          ...previousValues,
+          searchTerms: [...previousValues.searchTerms, term],
+        };
+      } else {
+        return previousValues;
+      }
+    });
+  }
 
   return (
     <div>
-      {props.suggestedTerms.map((suggestedTerm) => {
+      {search.suggestedTerms.map((suggestedTerm) => {
         return (
           <div
-            onClick={props.addSearchTerm}
+            onClick={addSearchTerm}
             id={suggestedTerm}
             className={
               size.device === 'Desktop'
