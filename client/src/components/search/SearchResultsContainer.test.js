@@ -8,7 +8,6 @@ import { act } from 'react-dom/test-utils';
 // SearchContainer rather than directly.
 import SearchContainer from "./SearchContainer";
 import { SearchProvider } from '../../context/SearchContext';
-import SearchResultsContainer from './SearchResultsContainer';
 import userEvent from '@testing-library/user-event';
 
 describe('SearchResultsContainer component', () => {
