@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SearchResults from './SearchResults';
+import { SearchContext } from '../../context/SearchContext';
 
-function SearchResultsContainer(props) {
+function SearchResultsContainer() {
   const [jobs, setJobs] = useState([]);
+  const [search]  = useContext(SearchContext);
 
   useEffect(() => {
     async function fetchData() {
-      const searchTermString = props.searchTerms.join(' ');
+      const searchTermString = search.searchTerms.join(' ');
   
       let apiQuery = `/api/job/search?keywords=${searchTermString}`;
-      apiQuery += `&locationName=${props.location}`;
+      apiQuery += `&locationName=${search.location}`;
       apiQuery += `&distanceFromLocation=10`;
   
       const res = await fetch(
@@ -32,10 +34,10 @@ function SearchResultsContainer(props) {
     }
     
     fetchData();
-  }, [props.searchTerms, props.location]);
+  }, [search.searchTerms, search.location]);
 
   return (
-    <SearchResults searchTerms={props.searchTerms} location={props.location} jobs={jobs}/>
+    <SearchResults searchTerms={search.searchTerms} location={search.location} jobs={jobs}/>
   );
 }
 

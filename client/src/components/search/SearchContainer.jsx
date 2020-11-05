@@ -30,10 +30,7 @@ function SearchContainer() {
       <SearchTerms />
 
       {search.submittedSearchTerms.length > 0 ? (
-        <SearchResultsContainer
-          searchTerms={search.submittedSearchTerms}
-          location={search.submittedLocation}
-        />
+        <SearchResultsContainer />
       ) : null}
     </div>
   );
