@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import SearchResults from './SearchResults';
 import { SearchContext } from '../../context/SearchContext';
 import './SearchResults.css'
 
