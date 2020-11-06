@@ -54,5 +54,6 @@ exports[`SearchContainer component combined search components render correctly w
     Search
   </button>
   <div />
+  <div />
 </div>
 `;

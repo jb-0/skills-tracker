@@ -4,16 +4,15 @@ import SearchSuggestion from './SearchSuggestion';
 import SearchTerms from './SearchTerms';
 import SearchResults from './SearchResults';
 import DropdownSelect from '../common/DropdownSelect';
+import SearchSaveButton from './SearchSaveButton';
 import Button from '../common/Button';
 import { SearchContext } from '../../context/SearchContext';
-import { UserContext } from '../../context/UserContext';
 
 // TEMP TERMS DATA TILL MOVED INTO DB
 const permittedLocations = ['london', 'south east england', 'kent', 'essex'];
 
 function SearchContainer() {
   const [search]  = useContext(SearchContext);
-  const [userState] = useContext(UserContext)
 
   // Return the various elements that make up the search view and pass the necessary props
   return (
@@ -51,12 +50,7 @@ function SearchContainer() {
 
       {/* When a search is submitted by an authenticated user they will have the option to save
       their search */}
-      {(search.submittedSearchTerms.length > 0 && userState.authenticated) ? (
-        <Button
-          buttonText="Save"
-          buttonAction={() => {}}
-        />
-      ) : null}
+      <SearchSaveButton />
 
       
     </div>
