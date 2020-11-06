@@ -197,7 +197,7 @@ describe('Job Services', function () {
 
           // Confirm positive response from server
           assert.strictEqual(res.status, 200);
-          assert.strictEqual(res.text, 'search saved to user profile');
+          assert.include(res.text, 'search saved to user profile');
 
           //Confirm that an entry has been added to the user's savedSearches
           const user = await User.findOne({ email: process.env.TEST_USER }).exec();
@@ -219,7 +219,7 @@ describe('Job Services', function () {
 
           // Confirm positive response from server
           assert.strictEqual(res.status, 409);
-          assert.strictEqual(res.text, 'user has already saved this search');
+          assert.include(res.text, 'user has already saved this search');
 
           //Confirm that only one entry exists in the user's savedSearches
           const user = await User.findOne({ email: process.env.TEST_USER }).exec();
@@ -240,7 +240,7 @@ describe('Job Services', function () {
 
         // Confirm positive response from server
         assert.strictEqual(res.status, 200);
-        assert.strictEqual(res.text, 'search saved to user profile');
+        assert.include(res.text, 'search saved to user profile');
 
         // Confirm that an entry has been added to the user's savedSearches
         const user = await User.findOne({ email: process.env.TEST_USER_2 }).exec();
@@ -282,7 +282,7 @@ describe('Job Services', function () {
 
           // Confirm positive response from server
           assert.strictEqual(res.status, 200);
-          assert.strictEqual(res.text, 'user saved search removed');
+          assert.include(res.text, 'user saved search removed');
 
           // Confirm that no entries exist in the user's savedSearches
           const user = await User.findOne({ email: process.env.TEST_USER }).exec();
@@ -297,7 +297,7 @@ describe('Job Services', function () {
 
           // Verify 404 and message stating the item does not exist
           assert.strictEqual(res.status, 404);
-          assert.strictEqual(res.text, 'search does not exist in user saved searches');
+          assert.include(res.text, 'search does not exist in user saved searches');
         });
 
       it('unauthenticated user cannot access the delete search route', async function () {
