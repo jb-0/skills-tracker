@@ -26,7 +26,8 @@ function Routes() {
       });
     }
     checkAuth();
-  }, [userState, setUserState]);
+  }, []);
+  
   if (userState.checkingAuthentication) {
     return <div>LOADING...</div>;
   }
