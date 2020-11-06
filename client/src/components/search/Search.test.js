@@ -3,13 +3,19 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import Search from './Search';
+import { UserProvider } from '../../context/UserContext';
 import { SearchProvider } from '../../context/SearchContext';
 
 describe('SearchContainer component', () => {
-
   it('combined search components render correctly with default state', () => {
     const tree = renderer
-      .create(<SearchProvider><Search /></SearchProvider>)
+      .create(
+        <UserProvider>
+          <SearchProvider>
+            <Search />
+          </SearchProvider>
+        </UserProvider>
+      )
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

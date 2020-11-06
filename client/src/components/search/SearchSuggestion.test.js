@@ -5,8 +5,9 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from "react-dom/test-utils";
 
 // Given the shared context from state, the searchSuggestion component is rendered via
-// SearchContainer rather than directly.
-import SearchContainer from "./SearchContainer";
+// Search rather than directly.
+import Search from "./Search";
+import { UserProvider } from '../../context/UserContext';
 import { SearchProvider } from '../../context/SearchContext';
 import userEvent from '@testing-library/user-event';
 
@@ -17,7 +18,7 @@ describe('SearchTerms component', () => {
     container = document.createElement("div");
     document.body.appendChild(container);
     act(() => {
-      render(<SearchProvider><SearchContainer/></SearchProvider>, container);
+      render(<UserProvider><SearchProvider><Search/></SearchProvider></UserProvider>, container);
     });
   });
 
