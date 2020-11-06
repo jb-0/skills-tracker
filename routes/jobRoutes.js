@@ -27,7 +27,7 @@ jobRoutes.get('/search/saved', isLoggedIn, async (req, res) => {
 // POST Save search
 jobRoutes.post('/search/save', isLoggedIn, async (req, res) => {
   const result = await saveSearch(req);
-  res.status(result.code).send(result.msg);
+  res.status(result.code).send({ msg: result.msg });
 });
 
 // PATCH Edit saved search, will delete trend history
@@ -36,7 +36,7 @@ jobRoutes.patch('/search/edit/:id', (req, res) => {});
 // DELETE Saved search
 jobRoutes.delete('/search/delete/:id', isLoggedIn, async (req, res) => {
   const result = await deleteUserSavedSearch(req);
-  res.status(result.code).send(result.msg);
+  res.status(result.code).send({ msg: result.msg });
 });
 
 module.exports = jobRoutes;
