@@ -1,19 +1,21 @@
 import React, { useContext, useState } from 'react';
 import { ViewContext } from '../../context/ViewContext';
+import { UserContext } from '../../context/UserContext';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import './Navbar.css';
 
-function Navbar(props) {
+function Navbar() {
   const [burgerItemsVisible, setBurgerItemsVisible] = useState(false);
   const size = useContext(ViewContext);
+  const [userState] = useContext(UserContext);
 
   function handleBurgerClick() {
     setBurgerItemsVisible(!burgerItemsVisible);
   }
 
   // Only show profile link if user is authenticated
-  const profileItem = props.authenticated ? (
+  const profileItem = userState.authenticated ? (
     <a href="/profile" id="profile-icon">
       <AccountCircleIcon
         className="profile-icon"
@@ -27,7 +29,7 @@ function Navbar(props) {
     <div className="navbarItems">
       <a href="/">Home</a>
       {/* Only display register/login link if the user is not authenticated */}
-      {!props.authenticated ? <a href="/login">Register/Login</a> : null}
+      {!userState.authenticated ? <a href="/login">Register/Login</a> : null}
     </div>
   );
 
