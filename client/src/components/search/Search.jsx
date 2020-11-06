@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import SearchBox from './SearchBox';
 import SearchSuggestion from './SearchSuggestion';
 import SearchTerms from './SearchTerms';
-import SearchResultsContainer from './SearchResultsContainer';
+import SearchResults from './SearchResults';
 import DropdownSelect from '../common/DropdownSelect';
 import Button from '../common/Button';
 import { SearchContext } from '../../context/SearchContext';
@@ -46,7 +46,7 @@ function SearchContainer() {
       {/* As long as the user has select at least one search term and pressed search, the search
       results will be returned and displayed */}
       {search.submittedSearchTerms.length > 0 ? (
-        <SearchResultsContainer />
+        <SearchResults />
       ) : null}
 
       {/* When a search is submitted by an authenticated user they will have the option to save

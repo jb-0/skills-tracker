@@ -1,18 +1,27 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
-import { render, screen } from '@testing-library/react';
-import renderer from 'react-test-renderer';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 
-import SearchResults from './SearchResults';
+// Given the shared context from state, the searchSuggestion component is rendered via
+// Search rather than directly.
+import Search from "./Search";
+import { UserProvider } from '../../context/UserContext';
+import { SearchProvider } from '../../context/SearchContext';
+import userEvent from '@testing-library/user-event';
 
-describe('SearchResults component', () => {
+describe('SearchResultsContainer component', () => {
   let container = null;
+
   beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement('div');
     document.body.appendChild(container);
+  });
+
+  beforeEach(() => {
+    fetch.resetMocks();
   });
 
   afterEach(() => {
@@ -22,33 +31,60 @@ describe('SearchResults component', () => {
     container = null;
   });
 
-  it('props passed are rendered successfully and prefixed with "x"', () => {
+  test('the number of search results are successfully rendered', async () => {
+    // Construct a positive mock server response
+    fetch.mockResponseOnce(
+      JSON.stringify({ noOfResults: 254, msg: 'results found' })
+    );
+
     act(() => {
       render(
-        <SearchResults
-          searchTerms={['node', 'react']}
-          location={'london'}
-          jobs={{ noOfResults: 254, msg: 'results found' }}
-        />,
+        <UserProvider><SearchProvider><Search/></SearchProvider></UserProvider>,
         container
       );
     });
 
-    expect(
-      screen.getByText('There are currently 254 "node react" jobs in london')
-    ).toBeInTheDocument();
+    // Type desired search term
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'Jav' },
+    });
+
+    // Click on the suggested term Javascript to add it to add it to the search terms array
+    userEvent.click(screen.getByText('JavaScript'))
+
+    // Click the search button to trigger search
+    userEvent.click(screen.getByRole('button'))
+
+    expect(await screen.findByText(/254/)).toBeInTheDocument();
+    expect(fetch).toHaveBeenCalledTimes(1);
   });
 
-  it('renders correctly when passed props', () => {
-    const tree = renderer
-      .create(
-        <SearchResults
-          searchTerms={['node', 'react']}
-          location={'london'}
-          jobs={{ noOfResults: 254, msg: 'results found' }}
-        />
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
+  test('server error results in 0 results being returned', async () => {
+    // Construct a server error response
+    fetch.mockResponseOnce(JSON.stringify({ noOfResults: 254, msg: 'results found' }), {
+      status: 500,
+      headers: { 'content-type': 'application/json' },
+    });
+
+    act(() => {
+      render(
+        <UserProvider><SearchProvider><Search/></SearchProvider></UserProvider>,
+        container
+      );
+    });
+
+    // Type desired search term
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'Jav' },
+    });
+
+    // Click on the suggested term Javascript to add it to add it to the search terms array
+    userEvent.click(screen.getByText('JavaScript'))
+
+    // Click the search button to trigger search
+    userEvent.click(screen.getByRole('button'))
+
+    expect(await screen.findByText(/0/)).toBeInTheDocument();
+    expect(fetch).toHaveBeenCalledTimes(1);
   });
 });
