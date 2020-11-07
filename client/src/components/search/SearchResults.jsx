@@ -8,10 +8,10 @@ function SearchResultsContainer() {
 
   useEffect(() => {
     async function fetchData() {
-      const searchTermString = search.searchTerms.join(' ');
+      const searchTermString = search.submittedSearchTerms.join(' ');
   
       let apiQuery = `/api/job/search?keywords=${searchTermString}`;
-      apiQuery += `&locationName=${search.location}`;
+      apiQuery += `&locationName=${search.submittedLocation}`;
       apiQuery += `&distanceFromLocation=10`;
   
       const res = await fetch(
@@ -34,13 +34,13 @@ function SearchResultsContainer() {
     }
     
     fetchData();
-  }, [search.searchTerms, search.location]);
+  }, [search.submittedSearchTerms, search.submittedLocation]);
 
   return (
     <div className="search-results-container">
       <p>
-        There are currently {jobs.noOfResults} "{search.searchTerms.join(' ')}" jobs in 
-        {' '} {search.location}
+        There are currently {jobs.noOfResults} "{search.submittedSearchTerms.join(' ')}" jobs in 
+        {' '} {search.submittedLocation}
       </p>
     </div>
   );
