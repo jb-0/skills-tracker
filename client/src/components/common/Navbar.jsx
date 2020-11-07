@@ -43,10 +43,9 @@ function Navbar() {
           {profileItem}
         </div>
       ) : 
-
-      {/* If the user is not on a desktop then they will see a burger menu */}
       (
         <div className="burger-nav">
+        {/* If the user is not on a desktop then they will see a burger menu */}
           <MenuIcon
             onClick={handleBurgerClick}
             htmlColor="white"
