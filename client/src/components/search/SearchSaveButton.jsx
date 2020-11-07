@@ -8,7 +8,6 @@ function SearchSaveButton() {
   const [userState] = useContext(UserContext);
   const [search] = useContext(SearchContext);
 
-
   const alertDefaults = {
     msg: undefined,
     severity: undefined,
@@ -18,11 +17,11 @@ function SearchSaveButton() {
   const [alert, setAlert] = useState(alertDefaults);
 
   async function saveSearch() {
-    const searchTermString = search.searchTerms.join(' ');
+    const searchTermString = search.submittedSearchTerms.join(' ');
 
     const body = {
       keywords: searchTermString,
-      locationName: search.location,
+      locationName: search.submittedLocation,
       distanceFromLocation: '10',
     };
 
