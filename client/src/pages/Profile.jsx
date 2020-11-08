@@ -1,8 +1,9 @@
 import React from 'react';
 import './Profile.css';
+import ProfileContainer from '../components/profile/ProfileContainer'
 
 function Profile() {
-  return <h1 className='logged-in-message'>Logged in</h1>
+  return <ProfileContainer />
 };
 
 export default Profile;
