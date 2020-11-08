@@ -14,13 +14,27 @@ import userEvent from '@testing-library/user-event';
 describe('SearchSaveButton component', () => {
   let container = null;
 
+  function renderWithContext(userContextValue, searchContextValue) {
+    let doc;
+    act(() => {
+      doc = render(
+        <UserContext.Provider value={[userContextValue, jest.fn()]}>
+          <SearchContext.Provider value={[searchContextValue, jest.fn()]}>
+            <SearchSaveButton />
+          </SearchContext.Provider>
+        </UserContext.Provider>,
+        container
+      );
+    });
+
+    return doc;
+  }
+
   beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement('div');
     document.body.appendChild(container);
-  });
 
-  beforeEach(() => {
     fetch.resetMocks();
   });
 
@@ -31,19 +45,126 @@ describe('SearchSaveButton component', () => {
     container = null;
   });
 
-  test('when no search terms are submitted the save button is not rendered', async () => {});
+  test('when no search terms are submitted the save button is not rendered', async () => {
+    // Define user context mark authenticated as true, this would mock state of auth'd user
+    const userContextValue = { authenticated: true };
 
-  test('when a user is unauthenticated the save button is not rendered', async () => {});
+    // Define search context
+    const searchContextValue = {
+      submittedLocation: 'london',
+      submittedSearchTerms: [],
+    };
 
-  test('when search terms are submitted and a user is authenticated the search button is rendered', 
-    async () => {
-      
+    // Render the Search Save Button Component with relevant surrounding context providers
+    // as no search terms are provided we expect the button not to be rendered
+    const doc = renderWithContext(userContextValue, searchContextValue);
+    expect(screen.queryAllByRole('button')).toHaveLength(0);
+  });
+
+  test('when a user is unauthenticated the save button is not rendered', async () => {
+    // Define user context mark authenticated as true, this would mock state of auth'd user
+    const userContextValue = { authenticated: false };
+
+    // Define search context
+    const searchContextValue = {
+      submittedLocation: 'london',
+      submittedSearchTerms: ['node', 'react'],
+    };
+
+    // Render the Search Save Button Component with relevant surrounding context providers
+    // as the user is not authenticated we expect the button not to be rendered
+    const doc = renderWithContext(userContextValue, searchContextValue);
+    expect(screen.queryAllByRole('button')).toHaveLength(0);
+  });
+
+  test('when search terms are submitted and a user is authenticated the search button is rendered', async () => {
+    // Define user context mark authenticated as true, this would mock state of auth'd user
+    const userContextValue = { authenticated: true };
+
+    // Define search context
+    const searchContextValue = {
+      submittedLocation: 'london',
+      submittedSearchTerms: ['node', 'react'],
+    };
+
+    // Render the Search Save Button Component with relevant surrounding context providers
+    // as the user is not authenticated we expect the button not to be rendered
+    const doc = renderWithContext(userContextValue, searchContextValue);
+    expect(screen.queryAllByRole('button')).toHaveLength(1);
+  });
+
+  test('on clicking save if the response status is not 200 or 409 an error alert is displayed', async () => {
+    // Define user context mark authenticated as true, this would mock state of auth'd user
+    const userContextValue = { authenticated: true };
+
+    // Define search context
+    const searchContextValue = {
+      submittedLocation: 'london',
+      submittedSearchTerms: ['node', 'react'],
+    };
+
+    // Render the Search Save Button with relevant surrounding context providers
+    const doc = renderWithContext(userContextValue, searchContextValue);
+
+    // Mock server response for a 500, meaning a record has already been saved
+    fetch.mockResponseOnce(JSON.stringify({ msg: 'server error' }), {
+      status: 500,
     });
 
-  
-  test('if on clicking the save button a 200 or 409 response is not returned, an error alert is displayed', async () => {});
+    // Click the search button to trigger search
+    await act(async () => {
+      userEvent.click(screen.getByRole('button'));
+    });
 
-  test('clicking the save button for a duplicate search displays a warning alert', async () => {});
+    // Get error alert classes
+    const errorAlertClasses = doc.container.getElementsByClassName(
+      'MuiAlert-standardError'
+    );
+
+    // Using length asset that one success alert is present, also check that the msg is rendered
+    expect(errorAlertClasses.length).toEqual(1);
+
+    // Unlike 409 and 200 returns, any other code is given a default message rather than using the 
+    // server sent "msg"
+    expect(
+      await screen.findByText('an unexpected error has occurred, please try again')
+    ).toBeInTheDocument();
+  });
+
+  test('clicking the save button for a duplicate search displays a warning alert', async () => {
+    // Define user context mark authenticated as true, this would mock state of auth'd user
+    const userContextValue = { authenticated: true };
+
+    // Define search context
+    const searchContextValue = {
+      submittedLocation: 'london',
+      submittedSearchTerms: ['node', 'react'],
+    };
+
+    // Render the Search Save Button with relevant surrounding context providers
+    const doc = renderWithContext(userContextValue, searchContextValue);
+
+    // Mock server response for a 409, meaning a record has already been saved
+    fetch.mockResponseOnce(JSON.stringify({ msg: 'record already exists' }), {
+      status: 409,
+    });
+
+    // Click the search button to trigger search
+    await act(async () => {
+      userEvent.click(screen.getByRole('button'));
+    });
+
+    // Get warning alert classes
+    const warningAlertClasses = doc.container.getElementsByClassName(
+      'MuiAlert-standardWarning'
+    );
+
+    // Using length asset that one success alert is present, also check that the msg is rendered
+    expect(warningAlertClasses.length).toEqual(1);
+    expect(
+      await screen.findByText('record already exists')
+    ).toBeInTheDocument();
+  });
 
   test('clicking the save button for a new search displays a success alert', async () => {
     // Define user context mark authenticated as true, this would mock state of auth'd user
@@ -56,17 +177,7 @@ describe('SearchSaveButton component', () => {
     };
 
     // Render the Search Save Button with relevant surrounding context providers
-    let doc;
-    act(() => {
-      doc = render(
-        <UserContext.Provider value={[userContextValue, jest.fn()]}>
-          <SearchContext.Provider value={[searchContextValue, jest.fn()]}>
-            <SearchSaveButton />
-          </SearchContext.Provider>
-        </UserContext.Provider>,
-        container
-      );
-    });
+    const doc = renderWithContext(userContextValue, searchContextValue);
 
     // Mock server response for a 200, meaning a record was successfully created
     fetch.mockResponseOnce(JSON.stringify({ msg: 'record created' }), {
@@ -84,7 +195,7 @@ describe('SearchSaveButton component', () => {
     );
 
     // Using length asset that one success alert is present, also check that the msg is rendered
-    expect(successAlertClasses.length).toEqual(1)
+    expect(successAlertClasses.length).toEqual(1);
     expect(await screen.findByText('record created')).toBeInTheDocument();
   });
 });
