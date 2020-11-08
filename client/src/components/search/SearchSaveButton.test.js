@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 
 // Given the shared context from state, the SearchSaveButton component is rendered via
@@ -57,7 +57,7 @@ describe('SearchSaveButton component', () => {
 
     // Render the Search Save Button Component with relevant surrounding context providers
     // as no search terms are provided we expect the button not to be rendered
-    const doc = renderWithContext(userContextValue, searchContextValue);
+    renderWithContext(userContextValue, searchContextValue);
     expect(screen.queryAllByRole('button')).toHaveLength(0);
   });
 
@@ -73,7 +73,7 @@ describe('SearchSaveButton component', () => {
 
     // Render the Search Save Button Component with relevant surrounding context providers
     // as the user is not authenticated we expect the button not to be rendered
-    const doc = renderWithContext(userContextValue, searchContextValue);
+    renderWithContext(userContextValue, searchContextValue);
     expect(screen.queryAllByRole('button')).toHaveLength(0);
   });
 
@@ -89,7 +89,7 @@ describe('SearchSaveButton component', () => {
 
     // Render the Search Save Button Component with relevant surrounding context providers
     // as the user is not authenticated we expect the button not to be rendered
-    const doc = renderWithContext(userContextValue, searchContextValue);
+    renderWithContext(userContextValue, searchContextValue);
     expect(screen.queryAllByRole('button')).toHaveLength(1);
   });
 
