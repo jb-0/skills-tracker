@@ -170,9 +170,13 @@ const deleteUserSavedSearch = async (req) => {
  */
 const getUserSavedSearches = async (userId) => {
   try {
-    const user = await User.findById({ _id: userId }).exec();
+    const user = await User.findById({ _id: userId }).populate('savedSearches').exec();
     if (user.savedSearches.length > 0) {
-      return { code: 200, msg: 'saved searches found for user', savedSearches: user.savedSearches };
+      return {
+        code: 200,
+        msg: 'saved searches found for user',
+        savedSearches: user.savedSearches,
+      };
     }
 
     return { code: 200, msg: 'no saved searches for user' };
