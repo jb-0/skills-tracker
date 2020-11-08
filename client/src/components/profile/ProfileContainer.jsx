@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProfileSavedSearchCard from './ProfileSavedSearchCard'
 import { v4 as uuidv4 } from 'uuid';
+import './ProfileContainer.css'
 
 function ProfileContainer() {
   const [savedSearches, setSavedSearches] = useState();
@@ -28,7 +29,7 @@ function ProfileContainer() {
   }, []);
 
   return (
-    <div>
+    <div className="saved-searches-grid">
       {savedSearches ? savedSearches.map((search) => {
         return <ProfileSavedSearchCard search={search} key={uuidv4()}/>
       }) : null}
