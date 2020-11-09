@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import ProfileSavedSearchCard from './ProfileSavedSearchCard'
+import ProfileSavedSearchCard from './ProfileSavedSearchCard';
 import { v4 as uuidv4 } from 'uuid';
-import './ProfileContainer.css'
+import './ProfileContainer.css';
 
 function ProfileContainer() {
   const [savedSearches, setSavedSearches] = useState();
+  console.log(savedSearches);
 
   useEffect(() => {
     async function fetchData() {
@@ -29,10 +30,23 @@ function ProfileContainer() {
   }, []);
 
   return (
-    <div className="saved-searches-grid">
-      {savedSearches ? savedSearches.map((search) => {
-        return <ProfileSavedSearchCard search={search} key={uuidv4()}/>
-      }) : null}
+    <div className="saved-searches">
+      {!savedSearches && (
+        <div>
+          <h1>:(</h1>
+          <p>
+            You have no saved searches, go to the home page to search for a
+            skillset and click save.
+          </p>
+        </div>
+      )}
+      <div className="saved-searches-grid">
+        {savedSearches
+          ? savedSearches.map((search) => {
+              return <ProfileSavedSearchCard search={search} key={uuidv4()} />;
+            })
+          : null}
+      </div>
     </div>
   );
 }
