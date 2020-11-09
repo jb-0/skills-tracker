@@ -33,10 +33,15 @@ passport.use(
 /* *************************************************************************************************
 FACEBOOK STRATEGY
 ************************************************************************************************* */
+// The callback for FB differs in prod vs production
+const facebookCallback = process.env.PROD
+  ? 'https://the-skills-tracker.herokuapp.com/auth/facebook/callback'
+  : '/auth/facebook/callback';
+
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'https://the-skills-tracker.herokuapp.com/auth/facebook/callback',
+  callbackURL: facebookCallback,
 },
 ((accessToken, refreshToken, profile, cb) => {
   User.findOrCreate({ facebookId: profile.id }, (err, user) => cb(err, user));
