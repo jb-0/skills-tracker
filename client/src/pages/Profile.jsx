@@ -1,9 +1,25 @@
 import React from 'react';
 import './Profile.css';
-import ProfileContainer from '../components/profile/ProfileContainer'
+import ProfileContainer from '../components/profile/ProfileContainer';
+import Button from '../components/common/Button';
 
 function Profile() {
-  return <ProfileContainer />
-};
+  function logout() {
+    fetch('/api/user/logout');
+  }
+
+  return (
+    <div>
+      <ProfileContainer />
+      <a href="/">
+        <Button
+          buttonText="Logout"
+          buttonAction={logout}
+          classNames="social-button"
+        />
+      </a>
+    </div>
+  );
+}
 
 export default Profile;

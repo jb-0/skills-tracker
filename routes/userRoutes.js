@@ -13,7 +13,7 @@ userRoutes.get('/loginfailure', (req, res) => {
 
 userRoutes.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect(process.env.LOGOUT_REDIRECT);
 });
 
 userRoutes.get('/isloggedin', (req, res) => {
