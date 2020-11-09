@@ -65,10 +65,6 @@ async function main() {
     });
   }
 
-  app.get('/', (req, res) => {
-    res.send('Temp Home');
-  });
-
   app.listen(PORT, () => {
     console.log(`Server is running on Port: ${PORT}`);
   });
