@@ -12,6 +12,7 @@ const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const jobRoutes = require('./routes/jobRoutes');
 
+const requireHTTPS = require('./middleware/requireHTTPS');
 const { connection } = mongoose;
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -37,6 +38,7 @@ async function main() {
   /* ***************************************
   APP CONFIG AND ROUTES
   *************************************** */
+  if (process.env.PROD) app.use(requireHTTPS);
   if (process.env.PROD) app.use(enforce.HTTPS({ trustProtoHeader: true }));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
