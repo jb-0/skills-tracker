@@ -36,7 +36,7 @@ FACEBOOK STRATEGY
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: '/auth/facebook/callback',
+  callbackURL: 'https://the-skills-tracker.herokuapp.com/auth/facebook/callback',
 },
 ((accessToken, refreshToken, profile, cb) => {
   User.findOrCreate({ facebookId: profile.id }, (err, user) => cb(err, user));
