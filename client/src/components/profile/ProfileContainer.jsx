@@ -5,8 +5,6 @@ import './ProfileContainer.css';
 
 function ProfileContainer() {
   const [savedSearches, setSavedSearches] = useState();
-  console.log(savedSearches);
-
   useEffect(() => {
     async function fetchData() {
       const res = await fetch('/api/job/search/saved', {
