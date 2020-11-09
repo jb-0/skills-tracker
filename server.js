@@ -2,6 +2,7 @@ require('dotenv').config();
 
 // Require packages
 const express = require('express');
+const enforce = require('express-sslify');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
@@ -36,6 +37,7 @@ async function main() {
   /* ***************************************
   APP CONFIG AND ROUTES
   *************************************** */
+  if (process.env.PROD) app.use(enforce.HTTPS({ trustProtoHeader: true }));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
