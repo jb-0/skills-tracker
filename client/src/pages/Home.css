@@ -23,3 +23,8 @@
 .home-top-container-mobile .overlay-image-container h1 {
   font-size: 1.7rem;
 }
+
+.home-top-container-mobile img  {
+  object-fit: cover;
+  height: 100vh;
+}
