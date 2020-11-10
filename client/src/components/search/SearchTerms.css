@@ -1,6 +1,6 @@
 .search-term-container {
   display:inline-block;
-  background-color: #ffb703;
+  background-color: var(--tertiary-color);
   margin: 10px 5px;
   padding: 0 10px;
   border-radius: 15px;

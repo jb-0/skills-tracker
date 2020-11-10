@@ -1,10 +1,10 @@
 .suggested-term-container {
   width: 300px;
-  background-color: white;
+  background-color: var(--secondary-color);
   margin: auto;
   padding: 10px 0;
   border: solid;
-  border-color: #023047;
+  border-color: var(--primary-color);
   border-width: thin;
 }
 
@@ -17,6 +17,10 @@
 }
 
 .suggested-term-container:hover {
-  color: #ffb703;
-  background-color: #023047;
+  color: var(--tertiary-color);
+  background-color: var(--primary-color);
+}
+
+.suggested-term-container:hover p {
+  color: var(--tertiary-color);
 }

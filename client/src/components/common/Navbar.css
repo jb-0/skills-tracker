@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #023047;
+  background-color: var(--primary-color);
   overflow: hidden;
   position: relative;
 }
@@ -7,16 +7,15 @@
 .navbar a {
   float: left;
   display: block;
-  color: white;
+  color: var(--secondary-color);
   text-align: center;
   padding: 20px 16px;
   text-decoration: none;
-  font-size: 1.2rem;
 }
 
 .navbar a:hover {
-  background-color: white;
-  color: #023047;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 .burger-nav {

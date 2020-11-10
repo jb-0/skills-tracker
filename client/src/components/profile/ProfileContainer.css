@@ -7,6 +7,5 @@
 }
 
 .saved-searches {
-  color: white;
-  font-size: 1.4rem;
+  color: var(--secondary-color);
 }
