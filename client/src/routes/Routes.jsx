@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
-import Home from '../pages/Home';
+import Landing from '../pages/Landing';
+import Search from '../pages/Search';
 import RegisterLogin from '../pages/RegisterLogin';
 import Profile from '../pages/Profile';
 import { UserContext } from '../context/UserContext';
@@ -36,7 +37,8 @@ function Routes() {
     <Router>
       <Navbar />
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/search" component={Search} />
         <Route exact path="/login" component={RegisterLogin} />
 
         {/* The profile page is only available for authenticated user's, redirect unauth'd
