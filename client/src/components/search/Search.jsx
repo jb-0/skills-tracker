@@ -9,7 +9,7 @@ import Button from '../common/Button';
 import { SearchContext } from '../../context/SearchContext';
 
 // TEMP TERMS DATA TILL MOVED INTO DB
-const permittedLocations = ['london', 'south east england', 'kent', 'essex'];
+const permittedLocations = ['London', 'South East England', 'Kent', 'Essex'];
 
 function SearchContainer() {
   const [search]  = useContext(SearchContext);
