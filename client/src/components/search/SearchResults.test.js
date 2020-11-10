@@ -11,7 +11,7 @@ import { UserProvider } from '../../context/UserContext';
 import { SearchProvider } from '../../context/SearchContext';
 import userEvent from '@testing-library/user-event';
 
-describe('SearchResultsContainer component', () => {
+describe('SearchResults component', () => {
   let container = null;
 
   beforeEach(() => {

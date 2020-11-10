@@ -6,7 +6,7 @@ import Search from './Search';
 import { UserProvider } from '../../context/UserContext';
 import { SearchProvider } from '../../context/SearchContext';
 
-describe('SearchContainer component', () => {
+describe('Search component', () => {
   it('combined search components render correctly with default state', () => {
     const tree = renderer
       .create(
