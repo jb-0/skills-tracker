@@ -5,25 +5,27 @@
   */
 import React, { createContext, useState, useLayoutEffect } from 'react';
 
-export const ViewContext = createContext({
-  width: window.innerWidth,
-  height: window.innerHeight,
-  device: window.innerWidth <= 480 ? 'Mobile' : 'Desktop'
-});
+// Determine device type based on width
+function sizeName(width) {
+  if (width <= 480) return 'Mobile'
+  if (width <= 770) return 'Tablet'
+  return 'Desktop'
+}
+
+// Set initial window sized on creating context
+export const ViewContext = createContext({width: window.innerWidth, 
+  height: window.innerHeight, 
+  device: sizeName(window.innerWidth)});
 
 export const ViewProvider = (props) => {
-  const [size, setSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-    device: window.innerWidth <= 480 ? 'Mobile' : 'Desktop'
-  });
+  const [size, setSize] = useState();
 
   useLayoutEffect(() => {
     function updateSize() {
       setSize({ 
         width: window.innerWidth, 
         height: window.innerHeight, 
-        device: window.innerWidth <= 480 ? 'Mobile' : 'Desktop' 
+        device: sizeName(window.innerWidth)
       });
     }
 
