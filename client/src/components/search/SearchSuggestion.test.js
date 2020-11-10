@@ -11,7 +11,7 @@ import { UserProvider } from '../../context/UserContext';
 import { SearchProvider } from '../../context/SearchContext';
 import userEvent from '@testing-library/user-event';
 
-describe('SearchTerms component', () => {
+describe('SearchSuggestion component', () => {
   let container = null;
   beforeEach(() => {
     // setup a DOM element as a render target
@@ -62,6 +62,13 @@ describe('SearchTerms component', () => {
 
     // Click on the suggested term Javascript, creating a search term container prefixed with x
     userEvent.click(screen.getByText('JavaScript'))
+
+    // Type the value again to get suggestions
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'Jav' },
+    });
+
+    // Click JavaScript for the second time, it should not be added again
     userEvent.click(screen.getByText('JavaScript'))
     
     expect(screen.getAllByText('x JavaScript').length).toEqual(1);
