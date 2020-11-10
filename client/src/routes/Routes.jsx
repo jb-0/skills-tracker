@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Navbar from '../components/common/Navbar';
+import Footer from '../components/common/Footer';
 import Home from '../pages/Home';
 import RegisterLogin from '../pages/RegisterLogin';
 import Profile from '../pages/Profile';
@@ -53,6 +54,7 @@ function Routes() {
           <Redirect to="/" />
         </Route>
       </Switch>
+      <Footer />
     </Router>
   );
 }
