@@ -13,11 +13,14 @@ function SearchSuggestion() {
     const term = event.target.id;
 
     setSearch((previousValues) => {
-      // Only add the item if it is not already included
+      // Only add the item if it is not already included, also clear the input text and suggested
+      // terms allowing user's to type their next skill
       if (!(previousValues.searchTerms.includes(term))) {
         return {
           ...previousValues,
           searchTerms: [...previousValues.searchTerms, term],
+          searchInputText: '',
+          suggestedTerms: [],
         };
       } else {
         return previousValues;
