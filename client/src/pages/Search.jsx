@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import './Home.css'
+import './Search.css'
 import Image from '../components/common/Image';
 import Search from '../components/search/Search'
 import { ViewContext } from '../context/ViewContext';
