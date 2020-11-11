@@ -1,8 +1,17 @@
 .footer-text {
-  margin: 30px 0;
   color: var(--secondary-color);
 }
 
 .footer-text a {
   color: var(--secondary-color);
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  text-align: center;
+  padding: 10px;
 }
