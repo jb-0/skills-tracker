@@ -1,26 +1,24 @@
-.home-top-container {
+.image-container {
   width: 100%;
-  height: 100%;
-  position: relative;
+  height: 100vh;
+  background-image: url('../images/home-hero.png');
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: var(--primary-pad);
 }
 
-.overlay-image-container{
+.image-container-mobile  {
+  padding: var(--primary-pad) 0;
+}
+
+.search-container{
   width: 80%;
-  height: 100%;
-  position: absolute;
-  top: 10%;
-  left: 0;
-  right: 0;
-  z-index: 10;
   margin: auto;
 }
 
-.overlay-image-container h1 {
+.search-container h1 {
   color: var(--secondary-color);
   text-shadow: 2px 2px var(--primary-color);
 }
 
-.home-top-container-mobile img  {
-  object-fit: cover;
-  height: 100vh;
-}
