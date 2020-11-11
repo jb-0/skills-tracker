@@ -6,6 +6,7 @@ import {
   FacebookLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons';
+import iphoneImg from '../images/iphone.png'
 
 function Landing() {
   const size = useContext(ViewContext);
@@ -26,7 +27,7 @@ function Landing() {
           </p>
           <div className="first-landing-container-first-image">
             <Image
-              src="/images/iphone.png"
+              src={iphoneImg}
               alt="Man sitting in breakout area with laptop"
             />
           </div>
