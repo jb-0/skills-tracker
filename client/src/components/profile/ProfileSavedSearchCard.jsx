@@ -27,7 +27,7 @@ function ProfileSavedSearchCard(props) {
               label: 'Number of jobs (dummy data)',
               backgroundColor: 'rgb(255, 99, 132)',
               borderColor: 'rgb(255, 99, 132)',
-              data: [0, 10, 5, 2, 20, 30, 45],
+              data: Array.from({length: 7}, () => Math.floor(Math.random() * 100)),
             },
           ],
         },
