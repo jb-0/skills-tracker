@@ -4,3 +4,8 @@
   border-radius: 25px;
   border-color: var(--primary-color);
 }
+
+.saved-searches .saved-search-card p {
+  color: var(--primary-color);
+  padding: 10px;
+}

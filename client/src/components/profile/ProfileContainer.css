@@ -1,11 +1,14 @@
 .saved-searches-grid {
+  padding: 30px 0;
   margin: auto;
-  width: 85%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-gap: 1rem;
+  grid-gap: 1rem; 
 }
 
-.saved-searches {
+.saved-searches,
+.saved-searches p {
   color: var(--secondary-color);
+  width: 90%;
+  margin: auto;
 }
