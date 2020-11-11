@@ -38,3 +38,11 @@
   width: 270px;
   margin: 50px auto;
 }
+
+.second-landing-container {
+  width: 70%;
+  margin: auto;
+  background-color: var(--primary-color);
+  padding: 20px 20px 75px 20px;
+  color: var(--secondary-color);
+}
