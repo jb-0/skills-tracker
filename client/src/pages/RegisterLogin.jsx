@@ -1,22 +1,17 @@
 import React from 'react';
-import './RegisterLogin.css'
-import Button from '../components/common/Button'
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+} from 'react-social-login-buttons';
 
 function RegisterLogin() {
   return (
-    <div>
+    <div className="social-login-buttons">
       <a href="/auth/facebook">
-        <Button
-          buttonText="Login with Facebook"
-          classNames="social-button"
-        />
+        <FacebookLoginButton>Sign up with Facebook</FacebookLoginButton>
       </a>
-
       <a href="/auth/google">
-        <Button
-          buttonText="Login with Google"
-          classNames="social-button"
-        />
+        <GoogleLoginButton>Sign up with Google</GoogleLoginButton>
       </a>
     </div>
   );

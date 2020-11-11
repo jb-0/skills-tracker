@@ -2,6 +2,10 @@ import React, { useContext } from 'react';
 import './Landing.css';
 import Image from '../components/common/Image';
 import { ViewContext } from '../context/ViewContext';
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+} from 'react-social-login-buttons';
 
 function Landing() {
   const size = useContext(ViewContext);
@@ -12,12 +16,13 @@ function Landing() {
     >
       <h1>Track in demand skills in your area</h1>
       <div className="top-landing-container-grid">
-        <p className="top-landing-container-text">
+        <h2 className="top-landing-container-text">
           While there are plenty of great job sites out there it can be
           challenging to get a true gauge of how in demand a set of skills are,
           especially when you want to track this over time or observe historic
-          trends.
-        </p>
+          trends. Skills Search provides an easy to use solution to this
+          problem.
+        </h2>
         <div className="top-landing-container-first-image">
           <Image
             src="/images/guy-in-breakout-area.jpeg"
@@ -25,13 +30,14 @@ function Landing() {
           />
         </div>
       </div>
-      <p className="top-landing-container-bottom-text">
-          Introducing Skills Tracker, a community driven skills tracking app.
-          You can search for your skills combination and save it to your
-          profile. We will periodically scan presenting it on a beautiful chart.
-          If your skills and location already exist in our database you will
-          have immediate access to historic chart data.
-        </p>
+      <div className="social-login-buttons">
+        <a href="/auth/facebook">
+          <FacebookLoginButton>Sign up with Facebook</FacebookLoginButton>
+        </a>
+        <a href="/auth/google">
+          <GoogleLoginButton>Sign up with Google</GoogleLoginButton>
+        </a>
+      </div>
     </div>
   );
 }

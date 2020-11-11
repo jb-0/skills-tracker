@@ -33,3 +33,8 @@
 .top-landing-container-mobile .top-landing-container-text {
   text-align: center;
 }
+
+.social-login-buttons {
+  width: 270px;
+  margin: 50px auto;
+}
