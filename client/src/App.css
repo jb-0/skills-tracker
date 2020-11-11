@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #023047;
+  --primary-color: #212529;
   --secondary-color: white;
   --tertiary-color: #ffb703;
   --main-font: 'Roboto', sans-serif;
@@ -25,4 +25,8 @@ button {
 
 h1 {
   font-size: 3rem;
+}
+
+a {
+  text-decoration: none;
 }
