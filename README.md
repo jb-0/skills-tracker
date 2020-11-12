@@ -14,7 +14,7 @@ instructions: https://nodejs.org/en/download/
 Once you have NPM installed you can run the following shell commands to install this project, two
 npm:
 ```
-git clone https://github.com/jb-0/site-react.git
+git clone https://github.com/jb-0/skills-tracker.git
 cd skill-search
 npm install
 cd client
@@ -33,7 +33,8 @@ mongodb://127.0.0.1:27017/skillsearch
 - **TEST_USER_2** - A different email address used for authenticating a user while running tests
 - **TEST_USER_PASSWORD_2** - A password for authenticating the test user
 - **REED_B64** - REED API key converted to base64 https://www.reed.co.uk/developers/jobseeker
-
+- **LOGIN_REDIRECT** - In dev this will be http://localhost:3000/profile
+- **LOGOUT_REDIRECT** - In dev this will be http://localhost:3000/
 
 Per the passport.js strategy documentation (http://www.passportjs.org/packages/) you need to acquire 
 a number of secrets from auth providers, specifically:
@@ -42,16 +43,12 @@ a number of secrets from auth providers, specifically:
 - **FACEBOOK_APP_ID**
 - **FACEBOOK_APP_SECRET**
 
-
-
-
 ## Running the application
 To run the app you can execute the following commands in the project root directory:
 ```
 node server.js
 cd client
 npm start
-
 ```
 
 Using your preferred web browser you can navigate to localhost:3000 to view and use the app.
