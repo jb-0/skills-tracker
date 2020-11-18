@@ -12,6 +12,7 @@ body {
   text-align: center;
   color: var(--primary-color);
   background-color: var(--primary-color);
+  margin-bottom: 60px;
 }
 
 p,
