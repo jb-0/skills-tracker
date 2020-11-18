@@ -42,3 +42,7 @@
   width: 270px;
   margin: 20px auto;
 }
+
+.second-landing-container-mobile .social-login-button {
+  width: 100%;
+}
