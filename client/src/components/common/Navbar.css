@@ -18,6 +18,10 @@
   color: var(--primary-color);
 }
 
+#profile-icon:hover{
+  background-color: var(--primary-color);
+}
+
 .burger-nav {
   text-align: left;
   padding: 10px;
