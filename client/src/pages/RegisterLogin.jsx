@@ -3,16 +3,21 @@ import {
   FacebookLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons';
+import './RegisterLogin.css'
 
 function RegisterLogin() {
   return (
     <div className="social-login-buttons">
-      <a href="/auth/facebook">
-        <FacebookLoginButton>Sign up with Facebook</FacebookLoginButton>
-      </a>
-      <a href="/auth/google">
-        <GoogleLoginButton>Sign up with Google</GoogleLoginButton>
-      </a>
+      <div className="social-login-button">
+        <a href="/auth/facebook">
+          <FacebookLoginButton>Log in / Sign up with Facebook</FacebookLoginButton>
+        </a>
+      </div>
+      <div className="social-login-button">
+        <a href="/auth/google">
+          <GoogleLoginButton>Log in / Sign up with Google</GoogleLoginButton>
+        </a>
+      </div>
     </div>
   );
 }
