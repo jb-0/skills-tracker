@@ -34,6 +34,13 @@ function ProfileSavedSearchCard(props) {
                 },
               },
             ],
+            yAxes: [
+              {
+                ticks: {
+                  precision: 0,
+                },
+              },
+            ],
           },
         },
       });
