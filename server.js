@@ -10,7 +10,7 @@ const session = require('express-session');
 // Require routes
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
-const jobRoutes = require('./routes/jobRoutes');
+const searchRoutes = require('./routes/searchRoutes');
 
 const requireHTTPS = require('./middleware/requireHTTPS');
 const { connection } = mongoose;
@@ -56,7 +56,7 @@ async function main() {
 
   app.use('/api/user', userRoutes);
   app.use('/auth/', authRoutes);
-  app.use('/api/job', jobRoutes);
+  app.use('/api/job', searchRoutes);
 
   if (process.env.PROD) {
     app.use(express.static(`${__dirname}/client/build`));

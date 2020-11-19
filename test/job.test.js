@@ -5,7 +5,7 @@ const request = require('supertest');
 const { assert } = require('chai');
 
 const app = require('../server.js');
-const { prepareQuery, searchReed } = require('../services/jobServices');
+const { prepareQuery, searchReed } = require('../services/searchServices');
 
 const { Search } = require('../models/searchModel.js');
 const { User } = require('../models/userModel.js');
