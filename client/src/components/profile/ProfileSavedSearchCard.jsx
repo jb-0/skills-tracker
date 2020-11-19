@@ -7,27 +7,20 @@ function ProfileSavedSearchCard(props) {
   useEffect(() => {
     async function createChart() {
       const ctx = document.getElementById(props.search._id).getContext('2d');
+      console.log(props.search.dailySearchTermCount.timestamp);
       const chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'line',
-
+        
         // The data for our dataset
         data: {
-          labels: [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-          ],
+          labels: props.search.dailySearchTermCount.map(day => day.timestamp),
           datasets: [
             {
-              label: 'Number of jobs (dummy data)',
-              backgroundColor: 'rgb(255, 99, 132)',
-              borderColor: 'rgb(255, 99, 132)',
-              data: Array.from({length: 7}, () => Math.floor(Math.random() * 100)),
+              label: 'Number of jobs',
+              backgroundColor: '#ffb703',
+              borderColor: '#212529',
+              data: props.search.dailySearchTermCount.map(day => day.count)
             },
           ],
         },
