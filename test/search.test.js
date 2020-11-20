@@ -13,7 +13,7 @@ const { User } = require('../models/userModel.js');
 // *************************************
 // JOB SERVICES TESTS
 // *************************************
-describe('Job Services', function () {
+describe('Search Services', function () {
   describe('GET /api/jobs/search', function () {
     it('the number of jobs available is returned when the search route is called',
       async function () {
@@ -264,6 +264,18 @@ describe('Job Services', function () {
           assert.strictEqual(searchExistsInDb.length, 1);
         });
     });
+  });
+
+  describe('GET /api/jobs/search/trending', function () {
+    it('up to three results are returned when the trending route is called',
+      async function () {
+        const res = await request(app)
+          .get('/api/job/search/trending');
+
+        assert.strictEqual(res.status, 200);
+        assert.isAtLeast(res.body.trendingSearches.length, 1);
+        assert.isAtMost(res.body.trendingSearches.length, 3);
+      });
   });
 
   describe('DELETE /api/job/search/delete/:id', function () {
