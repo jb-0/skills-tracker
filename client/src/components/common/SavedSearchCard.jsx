@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './ProfileSavedSearchCard.css';
+import './SavedSearchCard.css';
 import Chart from 'chart.js';
 
 function ProfileSavedSearchCard(props) {

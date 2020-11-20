@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ProfileSavedSearchCard from './ProfileSavedSearchCard';
+import ProfileSavedSearchCard from '../common/SavedSearchCard';
 import { v4 as uuidv4 } from 'uuid';
 import './ProfileContainer.css';
 
