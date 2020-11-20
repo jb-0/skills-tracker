@@ -3,6 +3,9 @@ import './SavedSearchCard.css';
 import Chart from 'chart.js';
 
 function ProfileSavedSearchCard(props) {
+  const locationCapitalised = props.search.searchTerms.locationName.charAt(0).toUpperCase() + 
+    props.search.searchTerms.locationName.slice(1);
+    
   useEffect(() => {
     async function createChart() {
       const ctx = document.getElementById(props.search._id).getContext('2d');
@@ -54,7 +57,7 @@ function ProfileSavedSearchCard(props) {
       <p>
         Search terms: {props.search.searchTerms.keywords}
         <br />
-        Location: {props.search.searchTerms.locationName}
+        Location: {locationCapitalised}
       </p>
       <canvas id={props.search._id}></canvas>
     </div>
