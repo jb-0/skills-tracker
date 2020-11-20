@@ -50,6 +50,12 @@ function Landing() {
           </a>
         </div>
       </div>
+      <div
+        className={`third-landing-container third-landing-container-${size.device.toLowerCase()}`}
+      >
+        <h1>🔥 Trending skill searches</h1>
+        
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-.first-landing-container {
+.first-landing-container, .third-landing-container {
   background-color: var(--secondary-color);
   padding: var(--primary-pad) var(--primary-pad) 0;
 }
