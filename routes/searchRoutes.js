@@ -7,6 +7,7 @@ const {
   saveSearch,
   deleteUserSavedSearch,
   getUserSavedSearches,
+  getTrendingSearches,
 } = require('../services/searchServices');
 const isLoggedIn = require('../middleware/isLoggedIn');
 
@@ -16,6 +17,12 @@ searchRoutes.get('/search', async (req, res) => {
   const noOfResults = data.totalResults;
   const msg = noOfResults > 0 ? 'results found' : 'no results found';
   res.send({ noOfResults, msg });
+});
+
+// GET trending searches
+searchRoutes.get('/search/trending', async (req, res) => {
+  const result = await getTrendingSearches();
+  res.status(result.code).send({ msg: result.msg, trendingSearches: result.trendingSearches });
 });
 
 // GET Saved searches for a given user

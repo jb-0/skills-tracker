@@ -185,11 +185,30 @@ const getUserSavedSearches = async (userId) => {
   }
 };
 
+/**
+ * Returns an array of searches from the Searches collection, these are not user specific
+ * @return {Object} Returns an object containing a response code and message, also sends the
+ * data in an array.
+ */
+const getTrendingSearches = async () => {
+  try {
+    const searches = await Search.find({}).limit(3).exec();
+    return {
+      code: 200,
+      msg: 'trending searches found',
+      trendingSearches: searches,
+    };
+  } catch (err) {
+    return { code: 500, msg: err.message };
+  }
+};
+
 module.exports = {
   searchReed,
   prepareQuery,
   saveSearch,
   pushSearchToUser,
   deleteUserSavedSearch,
-  getUserSavedSearches
+  getUserSavedSearches,
+  getTrendingSearches
 };
