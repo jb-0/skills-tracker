@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import './Landing.css';
 import Image from '../components/common/Image';
+import TrendingContainer from '../components/trending/TrendingContainer';
 import { ViewContext } from '../context/ViewContext';
 import {
   FacebookLoginButton,
@@ -54,7 +55,7 @@ function Landing() {
         className={`third-landing-container third-landing-container-${size.device.toLowerCase()}`}
       >
         <h1>🔥 Trending skill searches</h1>
-        
+        <TrendingContainer />
       </div>
     </div>
   );
