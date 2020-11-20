@@ -8,7 +8,7 @@
 
 .trending-searches,
 .trending-searches p {
-  color: var(--secondary-color);
+  color: var(--primary-color);
   width: 90%;
   margin: auto;
 }
