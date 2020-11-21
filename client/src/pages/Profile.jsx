@@ -8,6 +8,7 @@ function Profile() {
     fetch('/api/user/logout');
   }
 
+  //TODO: await fetch and if succesfully loggedout then redirect, remove href
   return (
     <div>
       <ProfileContainer />

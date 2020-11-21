@@ -13,6 +13,7 @@ userRoutes.get('/loginfailure', (req, res) => {
 
 userRoutes.get('/logout', (req, res) => {
   req.logout();
+  // TODO, no need for redirect, instead send a res for react to use?
   res.redirect(process.env.LOGOUT_REDIRECT);
 });
 
