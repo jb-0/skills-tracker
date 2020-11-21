@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import './SearchBox.css';
 import './SearchSuggestion';
 import { ViewContext } from '../../context/ViewContext';
@@ -22,6 +22,7 @@ const permittedTerms = [
 function Search(props) {
   const size = useContext(ViewContext);
   const [search, setSearch]  = useContext(SearchContext);
+  const searchBoxRef = useRef();
 
   // Handle changes to the text box and provide suggested terms
   function handleTextBoxUpdates(event) {
@@ -43,6 +44,11 @@ function Search(props) {
     });
   }
 
+  // Scroll down on focus to ensure user see's suggestions and selected items (especially on mobile)
+  function handleOnFocus(){
+    searchBoxRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
+
   return (
     <div
       className={
@@ -52,7 +58,9 @@ function Search(props) {
       }
     >
       <input
+        ref={searchBoxRef}
         onChange={handleTextBoxUpdates}
+        onFocus={handleOnFocus}
         type="text"
         id="searchInputText"
         name="searchInputText"
