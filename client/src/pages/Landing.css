@@ -32,10 +32,10 @@
 }
 
 .second-landing-container {
-  width: 80%;
+  width: 700px;
   margin: auto;
   background-color: var(--primary-color);
-  padding: var(--primary-pad) var(--primary-pad) 50px;
+  padding: var(--primary-pad) 0 50px;
   height: 400px;
 }
 
@@ -45,5 +45,10 @@
 }
 
 .second-landing-container-mobile .social-login-button {
+  width: 100%;
+}
+
+.second-landing-container-mobile,
+.second-landing-container-tablet {
   width: 100%;
 }
