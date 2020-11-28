@@ -1,10 +1,7 @@
 # Skill search
 
-This project is helps job seekers track in demand skills, it works by calling the REED API and
-allowing the user to create bespoke combinations of skills from a predefined list of skills. The u
-ser can sign in using Google or Facebook and can save these skill combinations. Once a combination 
-is saved a job is run on a periodic basis to identify the number of jobs available for their skill 
-combination and location.
+This project helps job seekers track in demand skills, it works by calling the REED API and
+allowing the user to create bespoke combinations of skills from a predefined list of skills. The user can sign in using Google or Facebook and can save these skill combinations. Once a combination is saved a job is run on a periodic basis to identify the number of jobs available for their skill combination and location.
 
 ## Requirements
 You will need to have Node.js installed to run this project, please visit the node site for install
@@ -24,7 +21,7 @@ npm install
 ## Environment variables
 For assigning environment variables in dev I opted to use https://www.npmjs.com/package/dotenv,
 however you can use your preferred approach to assigning environment variables.
-- **DEV_DB_PATH** - The path to your development mongo instance, for example 
+- **DEV_DB_PATH** - The path to your development mongo instance, for example
 mongodb://127.0.0.1:27017/skillsearch
 - **SESSION_SECRET** - A secret used for session generation
 - **LOGIN_REDIRECT** - This should be http://localhost:3000/profile
@@ -36,7 +33,7 @@ mongodb://127.0.0.1:27017/skillsearch
 - **LOGIN_REDIRECT** - In dev this will be http://localhost:3000/profile
 - **LOGOUT_REDIRECT** - In dev this will be http://localhost:3000/
 
-Per the passport.js strategy documentation (http://www.passportjs.org/packages/) you need to acquire 
+Per the passport.js strategy documentation (http://www.passportjs.org/packages/) you need to acquire
 a number of secrets from auth providers, specifically:
 - **GOOGLE_CLIENT_ID**
 - **GOOGLE_CLIENT_SECRET**
