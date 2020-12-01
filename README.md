@@ -8,8 +8,7 @@ You will need to have Node.js installed to run this project, please visit the no
 instructions: https://nodejs.org/en/download/
 
 ## Installation
-Once you have NPM installed you can run the following shell commands to install this project, two
-npm:
+Once you have NPM installed you can run the following shell commands to install this project:
 ```
 git clone https://github.com/jb-0/skills-tracker.git
 cd skill-search
