@@ -15,7 +15,7 @@ export const SearchProvider = (props) => {
     searchTerms: [],
     suggestedTerms: [],
     submittedSearchTerms: [],
-    location: 'london',
+    location: 'London',
     submittedLocation: '',
     handleDropDownSelectUpdates,
     handleSearchButtonClick

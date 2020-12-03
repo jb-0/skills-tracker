@@ -9,8 +9,8 @@ import Button from '../common/Button';
 import { SearchContext } from '../../context/SearchContext';
 
 // TEMP TERMS DATA TILL MOVED INTO DB
-const permittedLocations = ['Bristol', 'Birmingham', 'Coventry', 'London', 'Liverpool', 'Manchester',
- 'Newcastle upon tyne', 'Kent', 'Essex'];
+const permittedLocations = ['Bristol', 'Birmingham', 'Coventry', 'Essex', 'London', 'Kent', 
+  'Liverpool', 'Manchester', 'Newcastle upon tyne'];
 
 function SearchContainer() {
   const [search]  = useContext(SearchContext);
