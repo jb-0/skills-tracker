@@ -30,7 +30,7 @@ function ProfileSavedSearchCard(props) {
               {
                 type: 'time',
                 time: {
-                  unit: 'day',
+                  unit: 'week',
                   displayFormats: {
                     day: 'MMM D',
                   },
