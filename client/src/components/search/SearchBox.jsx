@@ -9,14 +9,24 @@ const permittedTerms = [
   'Angular',
   'Babel',
   'CSS',
+  'C++',
+  'Django',
   'DOM',
+  'Express',
+  'Go',
   'HTML',
   'Java',
   'JavaScript',
+  'Jest',
+  'Kotlin',
+  'Mongo',
+  'Node',
+  'Objective-C',
   'Python',
   'React',
-  'Node',
-  'SQL',
+  'React testing library',
+  'Ruby on Rails',
+  'SQL'
 ];
 
 function Search(props) {
