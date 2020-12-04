@@ -19,7 +19,7 @@ const permittedTerms = [
   'JavaScript',
   'Jest',
   'Kotlin',
-  'Mongo',
+  'MongoDB',
   'Node',
   'Objective-C',
   'Python',
