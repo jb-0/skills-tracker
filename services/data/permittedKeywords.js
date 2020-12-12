@@ -5,7 +5,7 @@ exports.permittedKeywords = [
   'css',
   'c++',
   'django',
-  'dOM',
+  'dom',
   'express',
   'go',
   'html',
