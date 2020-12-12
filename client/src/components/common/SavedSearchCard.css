@@ -3,9 +3,10 @@
   color: var(--primary-color);
   border-radius: 25px;
   border-color: var(--primary-color);
+  border: solid 2px;
+  padding: 10px 20px;
 }
 
 .saved-searches .saved-search-card p {
   color: var(--primary-color);
-  padding: 10px;
 }

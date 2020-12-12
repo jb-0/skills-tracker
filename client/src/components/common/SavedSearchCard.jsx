@@ -50,7 +50,7 @@ function ProfileSavedSearchCard(props) {
     }
 
     createChart();
-  }, []);
+  }, [props.search._id, props.search.dailySearchTermCount]);
 
   return (
     <div className="saved-search-card">
