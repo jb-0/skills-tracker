@@ -19,7 +19,6 @@ function TrendingContainer() {
       try {
         const response = await res.json();
         setTrendingSearches(response.trendingSearches);
-        console.log(response);
       } catch (err) {
         // TODO: add error handling
       }
