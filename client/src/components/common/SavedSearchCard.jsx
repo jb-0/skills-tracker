@@ -9,7 +9,7 @@ function ProfileSavedSearchCard(props) {
   useEffect(() => {
     async function createChart() {
       const ctx = document.getElementById(props.search._id).getContext('2d');
-      const chart = new Chart(ctx, {
+      new Chart(ctx, {
         type: 'line',
 
         data: {
