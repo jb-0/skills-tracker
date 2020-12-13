@@ -26,7 +26,7 @@ function Navbar() {
   ) : null;
 
   const navbarItems = (
-    <div className="navbarItems">
+    <div className="navbarItems large-p">
       <a href="/">Home</a>
       <a href="/search">Search</a>
       {/* Only display register/login link if the user is not authenticated */}
