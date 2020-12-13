@@ -1,57 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './SavedSearchCard.css';
-import Chart from 'chart.js';
+import JobCountChart from './JobCountChart';
 
 function ProfileSavedSearchCard(props) {
   const locationCapitalised = props.search.searchTerms.locationName.charAt(0).toUpperCase() + 
     props.search.searchTerms.locationName.slice(1);
-    
-  useEffect(() => {
-    async function createChart() {
-      const ctx = document.getElementById(props.search._id).getContext('2d');
-      new Chart(ctx, {
-        type: 'line',
 
-        data: {
-          labels: props.search.dailySearchTermCount.map((day) => day.timestamp),
-          datasets: [
-            {
-              label: 'Number of jobs',
-              backgroundColor: '#ffb703',
-              borderColor: '#212529',
-              data: props.search.dailySearchTermCount.map((day) => day.count),
-            },
-          ],
-        },
-
-        options: {
-          scales: {
-            xAxes: [
-              {
-                type: 'time',
-                time: {
-                  unit: 'week',
-                  displayFormats: {
-                    day: 'MMM D',
-                  },
-                },
-              },
-            ],
-            yAxes: [
-              {
-                ticks: {
-                  precision: 0,
-                },
-              },
-            ],
-          },
-        },
-      });
-    }
-
-    createChart();
-  }, [props.search._id, props.search.dailySearchTermCount]);
-
+  function deleteSearch() {
+    console.log(props.search._id);
+  }
+  
   return (
     <div className="saved-search-card">
       <p>
@@ -59,7 +17,10 @@ function ProfileSavedSearchCard(props) {
         <br />
         Location: {locationCapitalised}
       </p>
-      <canvas id={props.search._id}></canvas>
+      <JobCountChart search={props.search} />
+      {props.source === 'profile' ?
+        <button onClick={deleteSearch}>x</button> :
+        null }
     </div>
   );
 }

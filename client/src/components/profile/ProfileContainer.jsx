@@ -41,7 +41,7 @@ function ProfileContainer() {
       <div className="saved-searches-grid">
         {savedSearches
           ? savedSearches.map((search) => {
-              return <ProfileSavedSearchCard search={search} key={uuidv4()} />;
+              return <ProfileSavedSearchCard search={search} key={uuidv4()} source="profile" />;
             })
           : null}
       </div>
