@@ -8,6 +8,10 @@ function ProfileSavedSearchCard(props) {
     props.search.searchTerms.locationName.slice(1);
 
   async function deleteSearch() {
+    // Update state to ensure the visual representation is removed
+    props.removeSavedSearch(props.search._id);
+
+    // API call to remove the search from the user's saved search in the DB
     const res = await fetch(`/api/job/search/delete/${props.search._id}`, {
       method: 'DELETE',
       headers: {

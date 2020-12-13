@@ -5,6 +5,8 @@ import './ProfileContainer.css';
 
 function ProfileContainer() {
   const [savedSearches, setSavedSearches] = useState();
+
+  // On load get all the user's saved searches
   useEffect(() => {
     async function fetchData() {
       const res = await fetch('/api/job/search/saved', {
@@ -27,6 +29,14 @@ function ProfileContainer() {
     fetchData();
   }, []);
 
+  // Handle removal of saved searches, while the card calls API and removes from backend this func
+  // is required to remove it from the FE
+  function removeSavedSearch(searchId) {  
+    setSavedSearches(previousValues => {
+      return previousValues.filter(search => search._id !== searchId)
+    });
+  }
+
   return (
     <div className="saved-searches">
       {!savedSearches && (
@@ -41,7 +51,14 @@ function ProfileContainer() {
       <div className="saved-searches-grid">
         {savedSearches
           ? savedSearches.map((search) => {
-              return <ProfileSavedSearchCard search={search} key={uuidv4()} source="profile" />;
+              return (
+                <ProfileSavedSearchCard
+                  search={search}
+                  removeSavedSearch={removeSavedSearch}
+                  key={uuidv4()}
+                  source="profile"
+                />
+              );
             })
           : null}
       </div>
