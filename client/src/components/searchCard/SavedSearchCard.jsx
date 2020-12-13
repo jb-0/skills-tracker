@@ -1,13 +1,27 @@
 import React from 'react';
 import './SavedSearchCard.css';
 import JobCountChart from './JobCountChart';
+import Delete from '@material-ui/icons/Delete';
 
 function ProfileSavedSearchCard(props) {
   const locationCapitalised = props.search.searchTerms.locationName.charAt(0).toUpperCase() + 
     props.search.searchTerms.locationName.slice(1);
 
-  function deleteSearch() {
-    console.log(props.search._id);
+  async function deleteSearch() {
+    const res = await fetch(`/api/job/search/delete/${props.search._id}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        frontend: 'react-frontend',
+      },
+    });
+
+    try {
+      const response = await res.json();
+    } catch (err) {
+      // TODO: add error handling
+    }
   }
   
   return (
@@ -19,7 +33,12 @@ function ProfileSavedSearchCard(props) {
       </p>
       <JobCountChart search={props.search} />
       {props.source === 'profile' ?
-        <button onClick={deleteSearch}>x</button> :
+        <Delete
+        onClick={deleteSearch}
+        className="delete-icon"
+        htmlColor="#212529"
+        fontSize="large"
+      /> :
         null }
     </div>
   );
