@@ -11,15 +11,26 @@
   text-align: center;
   padding: 12px 20px;
   text-decoration: none;
+  /* border-bottom: solid var(--primary-color) */
 }
 
 .navbar a:hover {
   background-color: var(--secondary-color);
   color: var(--primary-color);
+  border-bottom: solid var(--secondary-color)
+}
+
+.navbar-desktop .active {
+  border-bottom: solid var(--tertiary-color);
+}
+
+.navbar-tablet .active, .navbar-mobile .active {
+  border-left: solid var(--tertiary-color);
 }
 
 #profile-icon:hover{
   background-color: var(--primary-color);
+  border-bottom: solid var(--primary-color);
 }
 
 .burger-nav {

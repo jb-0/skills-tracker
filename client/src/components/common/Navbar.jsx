@@ -9,6 +9,7 @@ function Navbar() {
   const [burgerItemsVisible, setBurgerItemsVisible] = useState(false);
   const size = useContext(ViewContext);
   const [userState] = useContext(UserContext);
+  const page = window.location.pathname;
 
   function handleBurgerClick() {
     setBurgerItemsVisible(!burgerItemsVisible);
@@ -27,15 +28,15 @@ function Navbar() {
 
   const navbarItems = (
     <div className="navbarItems large-p">
-      <a href="/">Home</a>
-      <a href="/search">Search</a>
+      <a className={page === '/' ? 'active' : null} href="/">Home</a>
+      <a className={page === '/search' ? 'active' : null} href="/search">Search</a>
       {/* Only display register/login link if the user is not authenticated */}
-      {!userState.authenticated ? <a href="/login">Register/Login</a> : null}
+      {!userState.authenticated ? <a className={page === '/login' ? 'active' : null} href="/login">Register/Login</a> : null}
     </div>
   );
 
   return (
-    <div className="navbar">
+    <div className={`navbar navbar-${size.device.toLowerCase()}`}>
       {/* If the user is on a desktop render a standard navbar and profileItem (which may be null if
        authenticated) */}
       {size.device === 'Desktop' ? (
