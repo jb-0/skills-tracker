@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SavedSearchCard from '../common/SavedSearchCard';
+import SavedSearchCard from '../searchCard/SavedSearchCard';
 import { v4 as uuidv4 } from 'uuid';
 import './TrendingContainer.css';
 
