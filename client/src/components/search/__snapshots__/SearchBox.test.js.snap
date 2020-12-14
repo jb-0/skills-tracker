@@ -9,6 +9,7 @@ exports[`SearchBox component renders correctly when passed arrays containing sug
     id="searchInputText"
     name="searchInputText"
     onChange={[Function]}
+    onFocus={[Function]}
     type="text"
     value=""
   />

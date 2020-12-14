@@ -9,17 +9,32 @@ exports[`Search component combined search components render correctly with defau
       id="location"
       name="location"
       onChange={[Function]}
-      value="london"
+      value="London"
     >
+      <option
+        value="Bristol"
+      >
+        Bristol
+      </option>
+      <option
+        value="Birmingham"
+      >
+        Birmingham
+      </option>
+      <option
+        value="Coventry"
+      >
+        Coventry
+      </option>
+      <option
+        value="Essex"
+      >
+        Essex
+      </option>
       <option
         value="London"
       >
         London
-      </option>
-      <option
-        value="South East England"
-      >
-        South East England
       </option>
       <option
         value="Kent"
@@ -27,9 +42,19 @@ exports[`Search component combined search components render correctly with defau
         Kent
       </option>
       <option
-        value="Essex"
+        value="Liverpool"
       >
-        Essex
+        Liverpool
+      </option>
+      <option
+        value="Manchester"
+      >
+        Manchester
+      </option>
+      <option
+        value="Newcastle upon tyne"
+      >
+        Newcastle upon tyne
       </option>
     </select>
   </div>
@@ -41,6 +66,7 @@ exports[`Search component combined search components render correctly with defau
       id="searchInputText"
       name="searchInputText"
       onChange={[Function]}
+      onFocus={[Function]}
       type="text"
       value=""
     />
