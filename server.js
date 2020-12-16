@@ -6,6 +6,7 @@ const enforce = require('express-sslify');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 // Require routes
 const userRoutes = require('./routes/userRoutes');
@@ -48,6 +49,8 @@ async function main() {
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
+      store: new MongoStore({ mongooseConnection: mongoose.connection }),
+      cookie: { maxAge: 7 * (24 * 60 * 60 * 1000) }
     }),
   );
   app.use(passport.initialize());
