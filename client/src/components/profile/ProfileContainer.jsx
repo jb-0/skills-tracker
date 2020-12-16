@@ -5,6 +5,7 @@ import './ProfileContainer.css';
 
 function ProfileContainer() {
   const [savedSearches, setSavedSearches] = useState();
+  const [fetchingData, setFetchingData] = useState(true);
 
   // On load get all the user's saved searches
   useEffect(() => {
@@ -21,6 +22,7 @@ function ProfileContainer() {
       try {
         const response = await res.json();
         setSavedSearches(response.savedSearches);
+        setFetchingData(false);
       } catch (err) {
         // TODO: add error handling
       }
@@ -37,6 +39,10 @@ function ProfileContainer() {
     });
   }
 
+  // If we are currently fetching the user's data then
+  if (fetchingData) {
+    return <div>LOADING...</div>;
+  }
   return (
     <div className="saved-searches">
       {!savedSearches && (
