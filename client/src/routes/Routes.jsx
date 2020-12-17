@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
+import Loader from '../components/common/Loader'
 import Landing from '../pages/Landing';
 import Search from '../pages/Search';
 import RegisterLogin from '../pages/RegisterLogin';
@@ -31,7 +32,7 @@ function Routes() {
   }, []);
   
   if (userState.checkingAuthentication) {
-    return <div>LOADING...</div>;
+    return <Loader />;
   }
   return (
     <Router>

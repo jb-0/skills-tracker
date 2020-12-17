@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProfileSavedSearchCard from '../searchCard/SavedSearchCard';
+import Loader from '../common/Loader'
 import { v4 as uuidv4 } from 'uuid';
 import './ProfileContainer.css';
 
@@ -41,7 +42,7 @@ function ProfileContainer() {
 
   // If we are currently fetching the user's data then
   if (fetchingData) {
-    return <div>LOADING...</div>;
+    return <Loader />;
   }
   return (
     <div className="saved-searches">
