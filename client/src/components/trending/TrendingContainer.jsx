@@ -20,15 +20,18 @@ function TrendingContainer() {
         const response = await res.json();
         setTrendingSearches(response.trendingSearches);
       } catch (err) {
-        // TODO: add error handling
+        // If an error occurs set trending searches to false to ensure the section is not rendered
+        setTrendingSearches(false);
       }
     }
 
     fetchData();
   }, []);
 
+  if (!trendingSearches) return null
   return (
     <div className="trending-searches">
+      <h1>🔥 Trending skill searches</h1>
       <div className="trending-searches-grid">
         {trendingSearches
           ? trendingSearches.map((search) => {
