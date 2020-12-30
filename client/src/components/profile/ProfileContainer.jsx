@@ -25,7 +25,8 @@ function ProfileContainer() {
         setSavedSearches(response.savedSearches);
         setFetchingData(false);
       } catch (err) {
-        // TODO: add error handling
+        setSavedSearches(false);
+        setFetchingData(false);
       }
     }
 
