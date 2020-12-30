@@ -4,7 +4,6 @@ const { Search } = require('../models/searchModel.js');
 const { User } = require('../models/userModel.js');
 const { ObjectId } = require('mongoose').Types;
 
-// TODO: Once DB is in place, these will live in the DB
 const { permittedKeywords } = require('./data/permittedKeywords');
 const { permittedLocations } = require('./data/permittedLocations');
 
