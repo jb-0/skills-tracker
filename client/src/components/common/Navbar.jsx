@@ -17,7 +17,7 @@ function Navbar() {
 
   // Only show profile link if user is authenticated
   const profileItem = userState.authenticated ? (
-    <a href="/profile" id="profile-icon">
+    <a href="/profile" id="profile-icon" data-testid="profile-icon">
       <AccountCircleIcon
         className="profile-icon"
         htmlColor="white"
