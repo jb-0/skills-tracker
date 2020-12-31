@@ -22,3 +22,8 @@
   text-shadow: 2px 2px var(--primary-color);
 }
 
+.search-container p {
+  color: var(--secondary-color);
+  text-shadow: 2px 2px var(--primary-color);
+  font-size: 1.2rem;
+}
