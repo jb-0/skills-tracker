@@ -8,6 +8,7 @@ import { createMemoryHistory } from 'history';
 
 import Routes from './Routes';
 import { UserContext } from '../context/UserContext';
+import { SearchProvider } from '../context/SearchContext';
 
 describe('Routes testing', () => {
   let container = null;
@@ -18,9 +19,11 @@ describe('Routes testing', () => {
     act(() => {
       doc = render(
         <UserContext.Provider value={[userContextValue, jest.fn()]}>
+        <SearchProvider>
           <Router history={history}>
             <Routes />
           </Router>
+          </SearchProvider>
         </UserContext.Provider>,
         container
       );
@@ -121,6 +124,95 @@ describe('Routes testing', () => {
     const doc = renderWithContext(userContextValue, history);
 
     expect(screen.getByText('Logout')).toBeInTheDocument();
+
+    // Await completion
+    await act(() => promise);
+  });
+
+  it('users can access the home route', async () => {
+    // Define a promise as downstream components (trending will change)
+    const promise = Promise.resolve();
+
+    // Define user context mark authenticated as true, this mocks state of auth'd user
+    const userContextValue = {
+      checkingAuthentication: false,
+      authenticated: true,
+      isAuthenticated: jest.fn(() => promise),
+    };
+
+    history.push('/profile');
+
+    // Render the app with including the history that would route to profile page, as user is
+    // auth'd they would see a logout button
+    const doc = renderWithContext(userContextValue, history);
+
+    expect(screen.getByText('Logout')).toBeInTheDocument();
+
+    // Await completion
+    await act(() => promise);
+  });
+
+  it('users can access the search route', async () => {
+    // Define a promise as downstream components (trending will change)
+    const promise = Promise.resolve();
+
+    // Define user context mark authenticated as true, this mocks state of auth'd user
+    const userContextValue = {
+      checkingAuthentication: false,
+      authenticated: false,
+      isAuthenticated: jest.fn(() => promise),
+    };
+
+    history.push('/search');
+
+    // Render the app with context including the history that would route to the search page and 
+    // validate expected text appears
+    const doc = renderWithContext(userContextValue, history);
+    expect(screen.getByText('Search for your skillset')).toBeInTheDocument();
+
+    // Await completion
+    await act(() => promise);
+  });
+
+  it('users can access the login route', async () => {
+    // Define a promise as downstream components (trending will change)
+    const promise = Promise.resolve();
+
+    // Define user context mark authenticated as true, this mocks state of auth'd user
+    const userContextValue = {
+      checkingAuthentication: false,
+      authenticated: false,
+      isAuthenticated: jest.fn(() => promise),
+    };
+
+    history.push('/login');
+
+    // Render the app with context including the history that would route to the login page and 
+    // validate that the two (google & fb) login buttons appear
+    const doc = renderWithContext(userContextValue, history);
+    expect(screen.getAllByRole('button')).toHaveLength(2)
+
+    // Await completion
+    await act(() => promise);
+  });
+
+  it('attempting to access a non existent route redirects to the home route', async () => {
+    // Define a promise as downstream components (trending will change)
+    const promise = Promise.resolve();
+
+    // Define user context mark authenticated as true, this mocks state of auth'd user
+    const userContextValue = {
+      checkingAuthentication: false,
+      authenticated: false,
+      isAuthenticated: jest.fn(() => promise),
+    };
+
+    history.push('/');
+
+    // Render the app with context including the history that would route to the home page and 
+    // validate expected text appears
+    const doc = renderWithContext(userContextValue, history);
+    expect(screen.getByText('Track in demand skills in your area')).toBeInTheDocument();
 
     // Await completion
     await act(() => promise);
