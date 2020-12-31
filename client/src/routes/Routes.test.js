@@ -11,16 +11,17 @@ import { UserContext } from '../context/UserContext';
 
 describe('Routes testing', () => {
   let container = null;
+  const history = createMemoryHistory();
 
-  function renderWithContext(userContextValue, history) {
+  function renderWithContext(userContextValue) {
     let doc;
     act(() => {
       doc = render(
-        <Router history={history}>
-          <UserContext.Provider value={[userContextValue, jest.fn()]}>
+        <UserContext.Provider value={[userContextValue, jest.fn()]}>
+          <Router history={history}>
             <Routes />
-          </UserContext.Provider>
-        </Router>,
+          </Router>
+        </UserContext.Provider>,
         container
       );
     });
@@ -52,7 +53,7 @@ describe('Routes testing', () => {
     };
 
     // Render the app, as it is in a checking auth state only a loader should be returned
-    const doc = renderWithContext(userContextValue, createMemoryHistory());
+    const doc = renderWithContext(userContextValue);
     expect(doc.container.querySelectorAll('.loader')).toHaveLength(1);
   });
 
@@ -67,18 +68,61 @@ describe('Routes testing', () => {
       isAuthenticated: jest.fn(() => promise),
     };
 
-    // Render the app, as checking auth is set to false no loader should appear and the home page should be rendered
-    const doc = renderWithContext(userContextValue, createMemoryHistory());
+    // Render the app, as checking auth is set to false no loader should appear and the home page 
+    // should be rendered and this is confirmed by checking the header text appears
+    const doc = renderWithContext(userContextValue);
     expect(doc.container.querySelectorAll('.loader')).toHaveLength(0);
     expect(
       screen.getByText('Track in demand skills in your area')
     ).toBeInTheDocument();
 
-    // Await completion to ensure 
+    // Await completion
     await act(() => promise)
   });
 
-  it('unauthenticated users cannot access the profiles route', () => {});
+  it('unauthenticated users cannot access the profiles route', async () => {
+    // Define a promise as downstream components (trending will change)
+    const promise = Promise.resolve();
 
-  it('authenticated users can access the profiles route', () => {});
+    // Define user context mark authenticated as true, this would mock state of auth'd user
+    const userContextValue = {
+      checkingAuthentication: false,
+      authenticated: false,
+      isAuthenticated: jest.fn(() => promise),
+    };
+
+    history.push('/profile');
+
+    // Render the app with including the history that would route to profile page, as user is
+    // unauth'd they would be redirected to home page
+    const doc = renderWithContext(userContextValue, history);
+
+    expect(screen.getByText('Track in demand skills in your area')).toBeInTheDocument();
+
+    // Await completion
+    await act(() => promise);
+  });
+
+  it('authenticated users can access the profiles route', async () => {
+    // Define a promise as downstream components (trending will change)
+    const promise = Promise.resolve();
+
+    // Define user context mark authenticated as true, this mocks state of auth'd user
+    const userContextValue = {
+      checkingAuthentication: false,
+      authenticated: true,
+      isAuthenticated: jest.fn(() => promise),
+    };
+
+    history.push('/profile');
+
+    // Render the app with including the history that would route to profile page, as user is
+    // auth'd they would see a logout button
+    const doc = renderWithContext(userContextValue, history);
+
+    expect(screen.getByText('Logout')).toBeInTheDocument();
+
+    // Await completion
+    await act(() => promise);
+  });
 });
