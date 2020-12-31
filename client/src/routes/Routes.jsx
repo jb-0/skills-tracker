@@ -35,7 +35,7 @@ function Routes() {
     return <Loader />;
   }
   return (
-    <Router>
+    <>
       <Navbar />
       <Switch>
         <Route exact path="/" component={Landing} />
@@ -58,7 +58,7 @@ function Routes() {
         </Route>
       </Switch>
       <Footer />
-    </Router>
+      </>
   );
 }
 

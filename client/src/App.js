@@ -4,6 +4,7 @@ import { ViewProvider } from './context/ViewContext';
 import { SearchProvider } from './context/SearchContext';
 import { UserProvider } from './context/UserContext';
 import Routes from './routes/Routes';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       <UserProvider>
         <ViewProvider>
           <SearchProvider>
-            <Routes />
+            <Router>
+              <Routes />
+            </Router>
           </SearchProvider>
         </ViewProvider>
       </UserProvider>
