@@ -5,7 +5,7 @@
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: var(--primary-pad);
+  padding: var(--primary-pad) 0;
 }
 
 .image-container-mobile  {
