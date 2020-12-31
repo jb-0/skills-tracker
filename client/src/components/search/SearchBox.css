@@ -1,16 +1,6 @@
-.search-container {
-  width: 320px;
-  margin: auto;
-}
-
-.search-container-mobile {
-  width: 80%;
-}
-
 #searchInputText {
-  width: 80%;
   height: 40px;
-  padding: 0 5%;
+  padding: 0 10px;
   color: var(--primary-color);
   border-radius: 25px;
   outline-width: 0;

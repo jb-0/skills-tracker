@@ -12,11 +12,6 @@
   padding: var(--primary-pad) 0;
 }
 
-.search-container{
-  width: 80%;
-  margin: auto;
-}
-
 .search-container h1 {
   color: var(--secondary-color);
   text-shadow: 2px 2px var(--primary-color);
@@ -26,4 +21,18 @@
   color: var(--secondary-color);
   text-shadow: 2px 2px var(--primary-color);
   font-size: 1.2rem;
+}
+
+.search-container {
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-container-mobile {
+  width: 90%;
 }

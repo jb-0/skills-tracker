@@ -58,19 +58,16 @@ exports[`Search component combined search components render correctly with defau
       </option>
     </select>
   </div>
-  <div
-    className="search-container"
-  >
-    <input
-      autoComplete="off"
-      id="searchInputText"
-      name="searchInputText"
-      onChange={[Function]}
-      onFocus={[Function]}
-      type="text"
-      value=""
-    />
-  </div>
+  <input
+    autoComplete="off"
+    id="searchInputText"
+    name="searchInputText"
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Start typing a skill.."
+    type="text"
+    value=""
+  />
   <div />
   <button
     className="base-button undefined"

@@ -60,13 +60,6 @@ function Search(props) {
   }
 
   return (
-    <div
-      className={
-        size.device === 'Desktop'
-          ? 'search-container'
-          : 'search-container-mobile search-container'
-      }
-    >
       <input
         ref={searchBoxRef}
         onChange={handleTextBoxUpdates}
@@ -78,7 +71,6 @@ function Search(props) {
         placeholder="Start typing a skill.."
         autoComplete="off"
       ></input>
-    </div>
   );
 }
 

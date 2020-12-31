@@ -9,10 +9,19 @@ function HomePage() {
     <div
       className={`image-container image-container-${size.device.toLowerCase()}`}
     >
-      <div className="search-container">
+      <div
+        className={
+          size.device === 'Desktop'
+            ? 'search-container'
+            : 'search-container-mobile search-container'
+        }
+      >
         <h1>Search for your skillset</h1>
-        <p className="search-guidance-text">Select a location and begin typing a skill, click a skill from the predefined list to add
-        it to your search. Finally click the search button to start searching. </p>
+        <p className="search-guidance-text">
+          Select a location and begin typing a skill, click a skill from the
+          predefined list to add it to your search. Finally click the search
+          button to start searching.{' '}
+        </p>
         <Search />
       </div>
     </div>
