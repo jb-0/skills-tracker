@@ -75,6 +75,7 @@ function Search(props) {
         id="searchInputText"
         name="searchInputText"
         value={search.searchInputText}
+        placeholder="Start typing a skill.."
         autoComplete="off"
       ></input>
     </div>
