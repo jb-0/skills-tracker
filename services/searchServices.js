@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-const https = require('https');
+const axios = require('axios').default;
 const { Search } = require('../models/searchModel.js');
 const { User } = require('../models/userModel.js');
 const { ObjectId } = require('mongoose').Types;
@@ -54,39 +54,23 @@ const prepareQuery = (query) => {
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
  * @return {Object} First page of query results from reed API
  */
-const searchReed = (query) => {
-  // Define options for the upcoming https request, per reed's API documentation Basic Auth is used
+const searchReed = async (query) => {
+  // Request data from reed, per their API documentation Basic Auth is used
   // and the issued key is provided as the username, password is left blank.
-  const options = {
-    hostname: 'www.reed.co.uk',
-    path: `/api/1.0/search?${prepareQuery(query).encodedQuery}`,
-    port: 443,
-    method: 'GET',
-    headers: {
-      Authorization: `Basic ${process.env.REED_B64}`,
-    },
-  };
-
-  // Returning a promise, this means await can be used to await all data to be returned prior to
-  // providing an api response
-  return new Promise((resolve, reject) => {
-    const req = https.request(options, (res) => {
-      let results = '';
-      res.setEncoding('utf8');
-      res.on('data', (chunk) => {
-        results += chunk;
-      });
-      res.on('end', () => {
-        resolve(JSON.parse(results));
-      });
+  try {
+    const response = await axios({
+      method: 'get',
+      baseURL: 'https://www.reed.co.uk',
+      url: `/api/1.0/search?${prepareQuery(query).encodedQuery}`,
+      headers: {
+        Authorization: `Basic ${process.env.REED_B64}`,
+      },
     });
 
-    req.on('error', (err) => {
-      reject(err);
-    });
-
-    req.end();
-  });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
