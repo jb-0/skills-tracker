@@ -23,7 +23,6 @@ however you can use your preferred approach to assigning environment variables.
 - **DEV_DB_PATH** - The path to your development mongo instance, for example
 mongodb://127.0.0.1:27017/skillsearch
 - **SESSION_SECRET** - A secret used for session generation
-- **LOGIN_REDIRECT** - This should be http://localhost:3000/profile
 - **TEST_USER** - An email address used for authenticating a user while running tests
 - **TEST_USER_PASSWORD** - A password for authenticating the test user
 - **TEST_USER_2** - A different email address used for authenticating a user while running tests
