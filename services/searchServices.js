@@ -17,19 +17,7 @@ const prepareQuery = (query) => {
 
   cleanQuery.distanceFromLocation = cleanseDistance(cleanQuery.distanceFromLocation);
 
-  // Validate keywords exist in pre-defined list, drop those that do not.
-  // These are sorted to allow matching to duplicate saved searches
-  const keywordsArray = cleanQuery.keywords.split(' ');
-  keywordsArray.sort();
-  cleanQuery.keywords = '';
-
-  keywordsArray.forEach((keyword) => {
-    if (permittedKeywords.includes(keyword.toLowerCase())) {
-      cleanQuery.keywords += `${keyword} `;
-    }
-  });
-
-  cleanQuery.keywords = cleanQuery.keywords.trim();
+  cleanQuery.keywords = cleanseKeywords(cleanQuery.keywords);
 
   // Validate location exists in pre-defined list, if not default to london
   if (!permittedLocations.includes(cleanQuery.locationName.toLowerCase())) cleanQuery.locationName = 'london';
@@ -56,6 +44,27 @@ const cleanseDistance = (distance) => {
   const distanceRoundedAndTruncated = Math.trunc(Math.round(distanceFromLocationAsFloat));
 
   return distanceRoundedAndTruncated;
+};
+
+/**
+ * Take the string of keywords, ensure they match the list of permitted words and return clean
+ * @param {String} keywords Search terms provided by the user.
+ * @return {String} Returns a cleansed version of the search terms.
+ */
+const cleanseKeywords = (keywords) => {
+  const keywordsArray = keywords.split(' ');
+  keywordsArray.sort();
+  let keywordsToReturn = '';
+
+  keywordsArray.forEach((keyword) => {
+    if (permittedKeywords.includes(keyword.toLowerCase())) {
+      keywordsToReturn += `${keyword} `;
+    }
+  });
+
+  keywordsToReturn = keywordsToReturn.trim();
+
+  return keywordsToReturn;
 };
 
 /**
