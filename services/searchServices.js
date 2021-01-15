@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-const https = require('https');
+const axios = require('axios').default;
 const { Search } = require('../models/searchModel.js');
 const { User } = require('../models/userModel.js');
 const { ObjectId } = require('mongoose').Types;
@@ -8,45 +8,74 @@ const { permittedKeywords } = require('./data/permittedKeywords');
 const { permittedLocations } = require('./data/permittedLocations');
 
 /**
- * Build query string, sanitise as needed and encode
+ * Review the number provided and default (to 10) or round it as required
+ * @param {Number} distance Value for the search distance (miles).
+ * @return {Number} Returns a distance value.
+ */
+const cleanseDistance = (distance) => {
+  const distanceFromLocationAsFloat = parseFloat(distance, 10);
+
+  if (Number.isNaN(distanceFromLocationAsFloat)) {
+    return 10;
+  }
+
+  const distanceRoundedAndTruncated = Math.trunc(Math.round(distanceFromLocationAsFloat));
+
+  return distanceRoundedAndTruncated;
+};
+
+/**
+ * Take the string of keywords, ensure they match the list of permitted words and return clean
+ * @param {String} keywords Search terms provided by the user.
+ * @return {String} Returns a cleansed version of the search terms.
+ */
+const cleanseKeywords = (keywords) => {
+  const keywordsArray = keywords.split(' ');
+  keywordsArray.sort();
+  let keywordsToReturn = '';
+
+  keywordsArray.forEach((keyword) => {
+    if (permittedKeywords.includes(keyword.toLowerCase())) {
+      keywordsToReturn += `${keyword} `;
+    }
+  });
+
+  keywordsToReturn = keywordsToReturn.trim();
+
+  return keywordsToReturn;
+};
+
+/**
+ * Check if the location is in the list of permitted locations, otherwise default it to London
+ * @param {String} location A location string as supplied by the user
+ * @return {String} Returns a default location or the supplied location if it is permitted
+ */
+const cleanseLocation = (location) => {
+  if (!permittedLocations.includes(location.toLowerCase())) {
+    return 'london';
+  }
+
+  return location;
+};
+
+/**
+ * Build query string for API call
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
  * @return {Object} Returns a Encoded and sanitised query string, and also an object version.
  */
 const prepareQuery = (query) => {
-  const q = query;
+  const cleanQuery = query;
 
-  // Validate that the distance provided is a valid integer, otherwise default to 10
-  const distanceFromLocationAsFloat = parseFloat(q.distanceFromLocation, 10);
+  cleanQuery.distanceFromLocation = cleanseDistance(cleanQuery.distanceFromLocation);
 
-  if (Number.isNaN(distanceFromLocationAsFloat)) {
-    q.distanceFromLocation = 10;
-  } else {
-    const distanceFromLocationAsInt = Math.round(distanceFromLocationAsFloat);
-    q.distanceFromLocation = Math.trunc(distanceFromLocationAsInt);
-  }
+  cleanQuery.keywords = cleanseKeywords(cleanQuery.keywords);
 
-  // Validate keywords exist in pre-defined list, drop those that do not.
-  // These are sorted to allow matching to duplicate saved searches
-  const keywordsArray = q.keywords.split(' ');
-  keywordsArray.sort();
-  q.keywords = '';
+  cleanQuery.locationName = cleanseLocation(cleanQuery.locationName);
 
-  keywordsArray.forEach((keyword) => {
-    if (permittedKeywords.includes(keyword.toLowerCase())) {
-      q.keywords += `${keyword} `;
-    }
-  });
+  const queryToEncode = `keywords=${cleanQuery.keywords}&locationName=${
+    cleanQuery.locationName}&distanceFromLocation=${cleanQuery.distanceFromLocation}`;
 
-  q.keywords = q.keywords.trim();
-
-  // Validate location exists in pre-defined list, if not default to london
-  if (!permittedLocations.includes(q.locationName.toLowerCase())) q.locationName = 'london';
-
-  // Encoded query
-  const encodedQuery = `keywords=${q.keywords}&locationName=${
-    q.locationName}&distanceFromLocation=${q.distanceFromLocation}`;
-
-  return { encodedQuery: encodeURI(encodedQuery), cleanQueryObject: q };
+  return { encodedQuery: encodeURI(queryToEncode), cleanQueryObject: cleanQuery };
 };
 
 /**
@@ -54,39 +83,26 @@ const prepareQuery = (query) => {
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
  * @return {Object} First page of query results from reed API
  */
-const searchReed = (query) => {
-  // Define options for the upcoming https request, per reed's API documentation Basic Auth is used
+const searchReed = async (query) => {
+  // Request data from reed, per their API documentation Basic Auth is used
   // and the issued key is provided as the username, password is left blank.
-  const options = {
-    hostname: 'www.reed.co.uk',
-    path: `/api/1.0/search?${prepareQuery(query).encodedQuery}`,
-    port: 443,
-    method: 'GET',
-    headers: {
-      Authorization: `Basic ${process.env.REED_B64}`,
-    },
-  };
-
-  // Returning a promise, this means await can be used to await all data to be returned prior to
-  // providing an api response
-  return new Promise((resolve, reject) => {
-    const req = https.request(options, (res) => {
-      let results = '';
-      res.setEncoding('utf8');
-      res.on('data', (chunk) => {
-        results += chunk;
-      });
-      res.on('end', () => {
-        resolve(JSON.parse(results));
-      });
+  try {
+    const response = await axios({
+      method: 'get',
+      baseURL: 'https://www.reed.co.uk',
+      url: `/api/1.0/search?${prepareQuery(query).encodedQuery}`,
+      headers: {
+        Authorization: `Basic ${process.env.REED_B64}`,
+      },
     });
 
-    req.on('error', (err) => {
-      reject(err);
-    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 
-    req.end();
-  });
+  // If we hit an error we return nothing
+  return { totalResults: 0 };
 };
 
 /**
