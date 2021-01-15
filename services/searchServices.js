@@ -71,6 +71,9 @@ const searchReed = async (query) => {
   } catch (error) {
     console.error(error);
   }
+
+  // If we hit an error we return nothing
+  return { totalResults: 0 };
 };
 
 /**
