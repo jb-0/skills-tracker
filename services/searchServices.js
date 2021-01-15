@@ -13,40 +13,49 @@ const { permittedLocations } = require('./data/permittedLocations');
  * @return {Object} Returns a Encoded and sanitised query string, and also an object version.
  */
 const prepareQuery = (query) => {
-  const q = query;
+  const cleanQuery = query;
 
-  // Validate that the distance provided is a valid integer, otherwise default to 10
-  const distanceFromLocationAsFloat = parseFloat(q.distanceFromLocation, 10);
-
-  if (Number.isNaN(distanceFromLocationAsFloat)) {
-    q.distanceFromLocation = 10;
-  } else {
-    const distanceFromLocationAsInt = Math.round(distanceFromLocationAsFloat);
-    q.distanceFromLocation = Math.trunc(distanceFromLocationAsInt);
-  }
+  cleanQuery.distanceFromLocation = cleanseDistance(cleanQuery.distanceFromLocation);
 
   // Validate keywords exist in pre-defined list, drop those that do not.
   // These are sorted to allow matching to duplicate saved searches
-  const keywordsArray = q.keywords.split(' ');
+  const keywordsArray = cleanQuery.keywords.split(' ');
   keywordsArray.sort();
-  q.keywords = '';
+  cleanQuery.keywords = '';
 
   keywordsArray.forEach((keyword) => {
     if (permittedKeywords.includes(keyword.toLowerCase())) {
-      q.keywords += `${keyword} `;
+      cleanQuery.keywords += `${keyword} `;
     }
   });
 
-  q.keywords = q.keywords.trim();
+  cleanQuery.keywords = cleanQuery.keywords.trim();
 
   // Validate location exists in pre-defined list, if not default to london
-  if (!permittedLocations.includes(q.locationName.toLowerCase())) q.locationName = 'london';
+  if (!permittedLocations.includes(cleanQuery.locationName.toLowerCase())) cleanQuery.locationName = 'london';
 
   // Encoded query
-  const encodedQuery = `keywords=${q.keywords}&locationName=${
-    q.locationName}&distanceFromLocation=${q.distanceFromLocation}`;
+  const encodedQuery = `keywords=${cleanQuery.keywords}&locationName=${
+    cleanQuery.locationName}&distanceFromLocation=${cleanQuery.distanceFromLocation}`;
 
-  return { encodedQuery: encodeURI(encodedQuery), cleanQueryObject: q };
+  return { encodedQuery: encodeURI(encodedQuery), cleanQueryObject: cleanQuery };
+};
+
+/**
+ * Review the number provided and default (to 10) or round it as required
+ * @param {Number} distance Value for the search distance (miles).
+ * @return {Number} Returns a distance value.
+ */
+const cleanseDistance = (distance) => {
+  const distanceFromLocationAsFloat = parseFloat(distance, 10);
+
+  if (Number.isNaN(distanceFromLocationAsFloat)) {
+    return 10;
+  }
+
+  const distanceRoundedAndTruncated = Math.trunc(Math.round(distanceFromLocationAsFloat));
+
+  return distanceRoundedAndTruncated;
 };
 
 /**
