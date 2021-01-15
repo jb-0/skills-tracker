@@ -8,26 +8,6 @@ const { permittedKeywords } = require('./data/permittedKeywords');
 const { permittedLocations } = require('./data/permittedLocations');
 
 /**
- * Build query string for API call
- * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
- * @return {Object} Returns a Encoded and sanitised query string, and also an object version.
- */
-const prepareQuery = (query) => {
-  const cleanQuery = query;
-
-  cleanQuery.distanceFromLocation = cleanseDistance(cleanQuery.distanceFromLocation);
-
-  cleanQuery.keywords = cleanseKeywords(cleanQuery.keywords);
-
-  cleanQuery.locationName = cleanseLocation(cleanQuery.locationName);
-
-  const queryToEncode = `keywords=${cleanQuery.keywords}&locationName=${
-    cleanQuery.locationName}&distanceFromLocation=${cleanQuery.distanceFromLocation}`;
-
-  return { encodedQuery: encodeURI(queryToEncode), cleanQueryObject: cleanQuery };
-};
-
-/**
  * Review the number provided and default (to 10) or round it as required
  * @param {Number} distance Value for the search distance (miles).
  * @return {Number} Returns a distance value.
@@ -76,6 +56,26 @@ const cleanseLocation = (location) => {
   }
 
   return location;
+};
+
+/**
+ * Build query string for API call
+ * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
+ * @return {Object} Returns a Encoded and sanitised query string, and also an object version.
+ */
+const prepareQuery = (query) => {
+  const cleanQuery = query;
+
+  cleanQuery.distanceFromLocation = cleanseDistance(cleanQuery.distanceFromLocation);
+
+  cleanQuery.keywords = cleanseKeywords(cleanQuery.keywords);
+
+  cleanQuery.locationName = cleanseLocation(cleanQuery.locationName);
+
+  const queryToEncode = `keywords=${cleanQuery.keywords}&locationName=${
+    cleanQuery.locationName}&distanceFromLocation=${cleanQuery.distanceFromLocation}`;
+
+  return { encodedQuery: encodeURI(queryToEncode), cleanQueryObject: cleanQuery };
 };
 
 /**
