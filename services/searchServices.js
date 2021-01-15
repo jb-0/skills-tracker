@@ -23,10 +23,10 @@ const prepareQuery = (query) => {
   if (!permittedLocations.includes(cleanQuery.locationName.toLowerCase())) cleanQuery.locationName = 'london';
 
   // Encoded query
-  const encodedQuery = `keywords=${cleanQuery.keywords}&locationName=${
+  const queryToEncode = `keywords=${cleanQuery.keywords}&locationName=${
     cleanQuery.locationName}&distanceFromLocation=${cleanQuery.distanceFromLocation}`;
 
-  return { encodedQuery: encodeURI(encodedQuery), cleanQueryObject: cleanQuery };
+  return { encodedQuery: encodeURI(queryToEncode), cleanQueryObject: cleanQuery };
 };
 
 /**
