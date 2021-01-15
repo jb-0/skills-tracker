@@ -8,7 +8,7 @@ const { permittedKeywords } = require('./data/permittedKeywords');
 const { permittedLocations } = require('./data/permittedLocations');
 
 /**
- * Build query string, sanitise as needed and encode
+ * Build query string for API call
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
  * @return {Object} Returns a Encoded and sanitised query string, and also an object version.
  */
@@ -19,10 +19,8 @@ const prepareQuery = (query) => {
 
   cleanQuery.keywords = cleanseKeywords(cleanQuery.keywords);
 
-  // Validate location exists in pre-defined list, if not default to london
-  if (!permittedLocations.includes(cleanQuery.locationName.toLowerCase())) cleanQuery.locationName = 'london';
+  cleanQuery.locationName = cleanseLocation(cleanQuery.locationName);
 
-  // Encoded query
   const queryToEncode = `keywords=${cleanQuery.keywords}&locationName=${
     cleanQuery.locationName}&distanceFromLocation=${cleanQuery.distanceFromLocation}`;
 
@@ -65,6 +63,19 @@ const cleanseKeywords = (keywords) => {
   keywordsToReturn = keywordsToReturn.trim();
 
   return keywordsToReturn;
+};
+
+/**
+ * Check if the location is in the list of permitted locations, otherwise default it to London
+ * @param {String} location A location string as supplied by the user
+ * @return {String} Returns a default location or the supplied location if it is permitted
+ */
+const cleanseLocation = (location) => {
+  if (!permittedLocations.includes(location.toLowerCase())) {
+    return 'london';
+  }
+
+  return location;
 };
 
 /**
