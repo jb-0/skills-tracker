@@ -19,7 +19,7 @@ function Landing() {
         <Styles.FirstLandingSectionFlex device={size.device.toLowerCase()}>
           <div>
             <h1>Track in demand skills in your area</h1>
-            <p className="first-landing-container-text large-p">
+            <p className="large-p">
               While there are plenty of great job sites out there it can be
               challenging to get a true gauge of how in demand a set of skills
               are, especially when you want to track this over time or observe
