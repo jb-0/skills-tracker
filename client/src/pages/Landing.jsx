@@ -8,48 +8,33 @@ import {
   GoogleLoginButton,
 } from 'react-social-login-buttons';
 import iphoneImg from '../images/iphone.png'
-import { FirstLandingSection } from './Landing.Styles';
+import * as Styles from './Landing.Styles';
 
 function Landing() {
   const size = useContext(ViewContext);
-
+  console.log(size.device.toLowerCase());
   return (
     <div>
-      <FirstLandingSection>
-        <div>
-          <h1>Track in demand skills in your area</h1>
-          <p className="first-landing-container-text large-p">
-            While there are plenty of great job sites out there it can be
-            challenging to get a true gauge of how in demand a set of skills
-            are, especially when you want to track this over time or observe
-            historic trends. Skills Search provides an easy to use solution to
-            this problem.
-          </p>
-        </div>
-        <div>
-          <Image src={iphoneImg} alt="Man sitting in breakout area with laptop" />
+      <Styles.FirstLandingSection>
+        <Styles.FirstLandingSectionFlex device={size.device.toLowerCase()}>
+          <div>
+            <h1>Track in demand skills in your area</h1>
+            <p className="first-landing-container-text large-p">
+              While there are plenty of great job sites out there it can be
+              challenging to get a true gauge of how in demand a set of skills
+              are, especially when you want to track this over time or observe
+              historic trends. Skills Search provides an easy to use solution to
+              this problem.
+            </p>
           </div>
-      </FirstLandingSection>
-      {/* <div
-        className={`first-landing-container first-landing-container-${size.device.toLowerCase()}`}
-      >
-        <h1>Track in demand skills in your area</h1>
-        <div className="first-landing-container-grid">
-          <p className="first-landing-container-text large-p">
-            While there are plenty of great job sites out there it can be
-            challenging to get a true gauge of how in demand a set of skills
-            are, especially when you want to track this over time or observe
-            historic trends. Skills Search provides an easy to use solution to
-            this problem.
-          </p>
-          <div className="first-landing-container-first-image">
-            <Image
+          <div>
+            <Styles.AppOnPhoneImg
               src={iphoneImg}
               alt="Man sitting in breakout area with laptop"
             />
           </div>
-        </div>
-      </div> */}
+        </Styles.FirstLandingSectionFlex>
+      </Styles.FirstLandingSection>
       <div
         className={`second-landing-container second-landing-container-${size.device.toLowerCase()}`}
       >
