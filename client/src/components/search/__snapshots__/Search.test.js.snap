@@ -2,7 +2,7 @@
 
 exports[`Search component combined search components render correctly with default state 1`] = `
 <form
-  className="sc-gsTCUz gDLXjf"
+  className="sc-hKgILt ejmXmq"
 >
   <div
     className="dropdown-select"
@@ -62,7 +62,7 @@ exports[`Search component combined search components render correctly with defau
   </div>
   <input
     autoComplete="off"
-    className="sc-bdfBwQ kxZudN"
+    className="sc-gsTCUz jLicsd"
     id="searchInputText"
     name="searchInputText"
     onChange={[Function]}
@@ -71,7 +71,6 @@ exports[`Search component combined search components render correctly with defau
     type="text"
     value=""
   />
-  <div />
   <button
     className="base-button undefined"
     onClick={[Function]}
