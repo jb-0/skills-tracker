@@ -2,7 +2,7 @@
 
 exports[`Search component combined search components render correctly with default state 1`] = `
 <form
-  className="sc-hKgILt ejmXmq"
+  className="sc-eCssSg iFXDMV"
 >
   <div
     className="dropdown-select"
