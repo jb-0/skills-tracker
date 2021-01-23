@@ -7,6 +7,7 @@ import DropdownSelect from '../common/DropdownSelect';
 import SearchSaveButton from './SearchSaveButton';
 import Button from '../common/Button';
 import { SearchContext } from '../../context/SearchContext';
+import { SearchForm } from './Search.Styles';
 
 // TEMP TERMS DATA TILL MOVED INTO DB
 const permittedLocations = ['Bristol', 'Birmingham', 'Coventry', 'Essex', 'London', 'Kent', 
@@ -17,7 +18,7 @@ function SearchContainer() {
 
   // Return the various elements that make up the search view and pass the necessary props
   return (
-    <div>
+    <SearchForm>
       {/* While props are used for common components, search functionality uses the SearchContext 
       and as a result no props are passed down */}
       {/* The dropdown selection allows the user to choose a city/location */}
@@ -54,7 +55,7 @@ function SearchContainer() {
       <SearchSaveButton />
 
       
-    </div>
+    </SearchForm>
   );
 }
 

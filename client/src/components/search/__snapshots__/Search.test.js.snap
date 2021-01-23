@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Search component combined search components render correctly with default state 1`] = `
-<div>
+<form
+  className="sc-bdfBwQ eWqaGH"
+>
   <div
     className="dropdown-select"
   >
@@ -78,5 +80,5 @@ exports[`Search component combined search components render correctly with defau
   </button>
   <div />
   <div />
-</div>
+</form>
 `;
