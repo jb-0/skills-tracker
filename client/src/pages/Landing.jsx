@@ -6,15 +6,16 @@ import {
   GoogleLoginButton,
 } from 'react-social-login-buttons';
 import iphoneImg from '../images/iphone.png'
-import * as Styles from './Landing.Styles';
+import { FirstLandingSection, FirstLandingSectionFlex, AppOnPhoneImg, SecondLandingSection, 
+  SecondLandingSectionContent, SocialLoginSection, ThirdLandingSection  } from './Landing.Styles';
 
 function Landing() {
   const size = useContext(ViewContext);
-  console.log(size.device.toLowerCase());
+  
   return (
     <>
-      <Styles.FirstLandingSection>
-        <Styles.FirstLandingSectionFlex device={size.device.toLowerCase()}>
+      <FirstLandingSection>
+        <FirstLandingSectionFlex device={size.device.toLowerCase()}>
           <article>
             <h1>Track in demand skills in your area</h1>
             <p className="large-p">
@@ -26,33 +27,33 @@ function Landing() {
             </p>
           </article>
           <div>
-            <Styles.AppOnPhoneImg
+            <AppOnPhoneImg
               src={iphoneImg}
               alt="Man sitting in breakout area with laptop"
             />
           </div>
-        </Styles.FirstLandingSectionFlex>
-      </Styles.FirstLandingSection>
-      <Styles.SecondLandingSection>
-        <Styles.SecondLandingSectionContent>
+        </FirstLandingSectionFlex>
+      </FirstLandingSection>
+      <SecondLandingSection>
+        <SecondLandingSectionContent>
           <h1>Sign up now</h1>
           <p className="large-p secondary-font-color">
             Creating an account allows you to save searches as well as track new
             searches that are not currently in our database.
           </p>
-          <Styles.SocialLoginSection>
+          <SocialLoginSection>
             <a href="/auth/facebook">
               <FacebookLoginButton>Sign up with Facebook</FacebookLoginButton>
             </a>
             <a href="/auth/google">
               <GoogleLoginButton>Sign up with Google</GoogleLoginButton>
             </a>
-          </Styles.SocialLoginSection>
-        </Styles.SecondLandingSectionContent>
-      </Styles.SecondLandingSection>
-      <Styles.ThirdLandingSection>
+          </SocialLoginSection>
+        </SecondLandingSectionContent>
+      </SecondLandingSection>
+      <ThirdLandingSection>
         <TrendingContainer />
-      </Styles.ThirdLandingSection>
+      </ThirdLandingSection>
     </>
   );
 }
