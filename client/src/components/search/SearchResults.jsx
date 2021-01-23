@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SearchContext } from '../../context/SearchContext';
 import './SearchResults.css'
+import { SearchResultsSection } from './SearchResults.Styles'
 
 function SearchResultsContainer() {
   const [jobs, setJobs] = useState([]);
@@ -37,12 +38,12 @@ function SearchResultsContainer() {
   }, [search.submittedSearchTerms, search.submittedLocation]);
 
   return (
-    <div className="search-results-container">
+    <SearchResultsSection>
       <p>
         There are currently {jobs.noOfResults} "{search.submittedSearchTerms.join(' ')}" jobs in 
         {' '} {search.submittedLocation}
       </p>
-    </div>
+    </SearchResultsSection>
   );
 }
 
