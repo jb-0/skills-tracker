@@ -30,7 +30,7 @@ export const AppOnPhoneImg = styled.img`
 export const SecondLandingSection = styled.section`
   width: 100%;
   background-color: var(--primary-color);
-  height: 400px;
+  height: 500px;
   color: var(--secondary-color);
 `;
 
@@ -47,7 +47,7 @@ export const SocialLoginSection = styled.section`
 `;
 
 export const ThirdLandingSection = styled.section`
-  padding: var(--primary-pad) var(--primary-pad) 0;
+  padding: var(--primary-pad) var(--primary-pad) 50px;
   background-color: var(--secondary-color);
 
   & :empty {

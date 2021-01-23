@@ -1,14 +1,12 @@
 .trending-searches-grid {
-  padding: 30px 0;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-gap: 1rem; 
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-gap: 1rem;
 }
 
 .trending-searches,
 .trending-searches p {
   color: var(--primary-color);
-  width: 90%;
   margin: auto;
 }
