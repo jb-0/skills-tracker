@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SearchContext } from '../../context/SearchContext';
-import './SearchResults.css'
 import { SearchResultsSection } from './SearchResults.Styles'
 
 function SearchResultsContainer() {
