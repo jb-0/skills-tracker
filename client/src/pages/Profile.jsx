@@ -1,5 +1,4 @@
 import React from 'react';
-import './Profile.css';
 import ProfileContainer from '../components/profile/ProfileContainer';
 import Button from '../components/common/Button';
 
