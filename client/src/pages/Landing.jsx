@@ -15,7 +15,7 @@ function Landing() {
     <>
       <Styles.FirstLandingSection>
         <Styles.FirstLandingSectionFlex device={size.device.toLowerCase()}>
-          <div>
+          <article>
             <h1>Track in demand skills in your area</h1>
             <p className="large-p">
               While there are plenty of great job sites out there it can be
@@ -24,7 +24,7 @@ function Landing() {
               historic trends. Skills Search provides an easy to use solution to
               this problem.
             </p>
-          </div>
+          </article>
           <div>
             <Styles.AppOnPhoneImg
               src={iphoneImg}
