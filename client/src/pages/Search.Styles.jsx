@@ -15,6 +15,8 @@ export const SearchInstructions = styled.article`
   color: var(--secondary-color);
   text-shadow: 2px 2px var(--primary-color);
   padding: 0 var(--primary-pad);
+  max-width: 700px;
+  margin: 0 auto;
 
   & p {
     color: var(--secondary-color);

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import './SearchTerms.css'
 import { v4 as uuidv4 } from 'uuid';
 import { SearchContext } from '../../context/SearchContext';
+import { SearchTermBox } from './SearchTerms.Styles';
 
 function SearchTerms() {
   const [search, setSearch]  = useContext(SearchContext);
@@ -26,11 +26,11 @@ function SearchTerms() {
     <div>
       {search.searchTerms.map((searchTerm) => {
         return (
-          <div className="search-term-container" key={uuidv4()} data-testid="search-term-container">
+          <SearchTermBox key={uuidv4()} data-testid="search-term-container">
             <p onClick={removeSearchTerm} id={searchTerm}>
               x {searchTerm}
             </p>
-          </div>
+          </SearchTermBox>
         );
       })}
     </div>
