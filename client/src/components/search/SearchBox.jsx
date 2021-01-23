@@ -1,10 +1,8 @@
 import React, { useContext, useRef } from 'react';
-import './SearchBox.css';
 import './SearchSuggestion';
-import { ViewContext } from '../../context/ViewContext';
 import { SearchContext } from '../../context/SearchContext';
+import { SearchInput } from './SearchBox.Styles'
 
-// TEMP TERMS DATA TILL MOVED INTO DB
 const permittedTerms = [
   'Angular',
   'Babel',
@@ -30,7 +28,6 @@ const permittedTerms = [
 ];
 
 function Search(props) {
-  const size = useContext(ViewContext);
   const [search, setSearch]  = useContext(SearchContext);
   const searchBoxRef = useRef();
 
@@ -60,7 +57,7 @@ function Search(props) {
   }
 
   return (
-      <input
+      <SearchInput
         ref={searchBoxRef}
         onChange={handleTextBoxUpdates}
         onFocus={handleOnFocus}
@@ -70,7 +67,7 @@ function Search(props) {
         value={search.searchInputText}
         placeholder="Start typing a skill.."
         autoComplete="off"
-      ></input>
+      ></SearchInput>
   );
 }
 
