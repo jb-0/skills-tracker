@@ -6,4 +6,8 @@ export const SearchTermBox = styled.div`
   margin: 10px 5px;
   padding: 0 10px;
   border-radius: 15px;
+
+  & p {
+    margin: 5px;
+  }
 `;
