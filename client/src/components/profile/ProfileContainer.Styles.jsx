@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 
 export const SavedSearchesContainer = styled.div`
-  color: var(--secondary-color);
   width: 90%;
   margin: auto;
-  
+`;
+
+export const NoSavedSearchesMessage = styled.article`
+  color: var(--secondary-color);
+
   & p {
     color: var(--secondary-color);
   }

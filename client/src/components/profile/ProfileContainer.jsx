@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ProfileSavedSearchCard from '../searchCard/SavedSearchCard';
 import Loader from '../common/Loader'
 import { v4 as uuidv4 } from 'uuid';
-import { SavedSearchCardsGrid, SavedSearchesContainer } from './ProfileContainer.Styles'
+import { SavedSearchCardsGrid, SavedSearchesContainer, 
+  NoSavedSearchesMessage} from './ProfileContainer.Styles'
 
 function ProfileContainer() {
   const [savedSearches, setSavedSearches] = useState();
@@ -48,13 +49,13 @@ function ProfileContainer() {
   return (
     <SavedSearchesContainer>
       {!savedSearches && (
-        <>
+        <NoSavedSearchesMessage>
           <h1>:(</h1>
           <p>
             You have no saved searches, go to the Search page to search for a
             skillset and click save to add it to your profile.
           </p>
-        </>
+        </NoSavedSearchesMessage>
       )}
       <SavedSearchCardsGrid>
         {savedSearches
