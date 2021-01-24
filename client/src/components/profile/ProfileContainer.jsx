@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ProfileSavedSearchCard from '../searchCard/SavedSearchCard';
 import Loader from '../common/Loader'
 import { v4 as uuidv4 } from 'uuid';
-import './ProfileContainer.css';
+import { SavedSearchCardsGrid, SavedSearchesContainer, 
+  NoSavedSearchesMessage} from './ProfileContainer.Styles'
 
 function ProfileContainer() {
   const [savedSearches, setSavedSearches] = useState();
@@ -41,22 +42,22 @@ function ProfileContainer() {
     });
   }
 
-  // If we are currently fetching the user's data then
+  // If we are currently fetching the user's data then display a loader
   if (fetchingData) {
     return <Loader />;
   }
   return (
-    <div className="saved-searches">
+    <SavedSearchesContainer>
       {!savedSearches && (
-        <div>
+        <NoSavedSearchesMessage>
           <h1>:(</h1>
           <p>
-            You have no saved searches, go to the home page to search for a
-            skillset and click save.
+            You have no saved searches, go to the Search page to search for a
+            skillset and click save to add it to your profile.
           </p>
-        </div>
+        </NoSavedSearchesMessage>
       )}
-      <div className="saved-searches-grid">
+      <SavedSearchCardsGrid>
         {savedSearches
           ? savedSearches.map((search) => {
               return (
@@ -69,8 +70,8 @@ function ProfileContainer() {
               );
             })
           : null}
-      </div>
-    </div>
+      </SavedSearchCardsGrid>
+    </SavedSearchesContainer>
   );
 }
 

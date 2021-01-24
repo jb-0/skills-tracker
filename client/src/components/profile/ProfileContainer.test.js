@@ -127,7 +127,7 @@ describe('ProfileContainer component', () => {
     await waitForElementToBeRemoved(() => screen.getByTestId('loader'));
  
     // Once loader has gone expect that the saved searches are displayed
-    expect(screen.getByText('You have no saved searches, go to the home page to search for a skillset and click save.')).toBeInTheDocument();
+    expect(screen.getByText('You have no saved searches, go to the Search page to search for a skillset and click save to add it to your profile.')).toBeInTheDocument();
   });
 
   it('if a server error occurs an informative message is displayed', async () => {
@@ -151,6 +151,6 @@ describe('ProfileContainer component', () => {
     await waitForElementToBeRemoved(() => screen.getByTestId('loader'));
  
     // Once loader has gone expect that the saved searches are displayed
-    expect(screen.getByText('You have no saved searches, go to the home page to search for a skillset and click save.')).toBeInTheDocument();
+    expect(screen.getByText('You have no saved searches, go to the Search page to search for a skillset and click save to add it to your profile.')).toBeInTheDocument();
   });
 });
