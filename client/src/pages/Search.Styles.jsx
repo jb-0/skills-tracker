@@ -3,7 +3,7 @@ import homeHeroImg from '../images/home-hero.png';
 
 export const BackgroundImageContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 120vh;
   background-image: url(${homeHeroImg});
   background-position: center top;
   background-repeat: no-repeat;
