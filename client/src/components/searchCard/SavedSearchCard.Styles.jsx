@@ -7,8 +7,10 @@ export const SavedSearchCardContainer = styled.div`
   border-color: var(--primary-color);
   border: solid 2px;
   padding: 10px 20px;
+  max-width: 400px;
 
   & p {
     color: var(--primary-color);
+    margin: 0;
   }
 `;
