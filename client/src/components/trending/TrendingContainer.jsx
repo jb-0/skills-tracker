@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import SavedSearchCard from '../searchCard/SavedSearchCard';
 import { v4 as uuidv4 } from 'uuid';
-import './TrendingContainer.css';
+import { TrendingSearchCardsGrid } from './TrendingContainer.Styles';
+
 
 function TrendingContainer() {
   const [trendingSearches, setTrendingSearches] = useState();
@@ -30,16 +31,16 @@ function TrendingContainer() {
 
   if (!trendingSearches) return null
   return (
-    <div className="trending-searches">
+    <>
       <h1>🔥 Trending skill searches</h1>
-      <div className="trending-searches-grid">
+      <TrendingSearchCardsGrid>
         {trendingSearches
           ? trendingSearches.map((search) => {
               return <SavedSearchCard search={search} key={uuidv4()} />;
             })
           : null}
-      </div>
-    </div>
+      </TrendingSearchCardsGrid>
+    </>
   );
 }
 
