@@ -21,12 +21,17 @@ function JobCountChart(props) {
         },
 
         options: {
+          elements: {
+            point:{
+                radius: 0
+            }
+        },
           scales: {
             xAxes: [
               {
                 type: 'time',
                 time: {
-                  unit: 'week',
+                  unit: 'month',
                   displayFormats: {
                     day: 'MMM D',
                   },
@@ -48,7 +53,7 @@ function JobCountChart(props) {
     createChart();
   }, [props.search._id, props.search.dailySearchTermCount]);
 
-  return (<canvas id={props.search._id}></canvas>)
+  return <canvas id={props.search._id}></canvas>;
 }
 
 export default JobCountChart;
