@@ -2,82 +2,88 @@
 
 exports[`Search component combined search components render correctly with default state 1`] = `
 <form
-  className="sc-eCssSg iFXDMV"
+  className="sc-eCssSg hKEeFl"
 >
   <div
-    className="dropdown-select"
+    className="sc-jSgupP jaIGcc"
   >
-    <select
-      id="location"
-      name="location"
-      onChange={[Function]}
-      value="London"
+    <div
+      className="dropdown-select"
     >
-      <option
-        value="Bristol"
-      >
-        Bristol
-      </option>
-      <option
-        value="Birmingham"
-      >
-        Birmingham
-      </option>
-      <option
-        value="Coventry"
-      >
-        Coventry
-      </option>
-      <option
-        value="Essex"
-      >
-        Essex
-      </option>
-      <option
+      <select
+        id="location"
+        name="location"
+        onChange={[Function]}
         value="London"
       >
-        London
-      </option>
-      <option
-        value="Kent"
-      >
-        Kent
-      </option>
-      <option
-        value="Liverpool"
-      >
-        Liverpool
-      </option>
-      <option
-        value="Manchester"
-      >
-        Manchester
-      </option>
-      <option
-        value="Newcastle upon tyne"
-      >
-        Newcastle upon tyne
-      </option>
-    </select>
+        <option
+          value="Bristol"
+        >
+          Bristol
+        </option>
+        <option
+          value="Birmingham"
+        >
+          Birmingham
+        </option>
+        <option
+          value="Coventry"
+        >
+          Coventry
+        </option>
+        <option
+          value="Essex"
+        >
+          Essex
+        </option>
+        <option
+          value="London"
+        >
+          London
+        </option>
+        <option
+          value="Kent"
+        >
+          Kent
+        </option>
+        <option
+          value="Liverpool"
+        >
+          Liverpool
+        </option>
+        <option
+          value="Manchester"
+        >
+          Manchester
+        </option>
+        <option
+          value="Newcastle upon tyne"
+        >
+          Newcastle upon tyne
+        </option>
+      </select>
+    </div>
+    <div>
+      <input
+        autoComplete="off"
+        className="sc-gsTCUz gmbZjy"
+        id="searchInputText"
+        name="searchInputText"
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Start typing a skill.."
+        type="text"
+        value=""
+      />
+    </div>
+    <button
+      className="base-button undefined"
+      onClick={[Function]}
+      type="button"
+    >
+      Search
+    </button>
   </div>
-  <input
-    autoComplete="off"
-    className="sc-gsTCUz jLicsd"
-    id="searchInputText"
-    name="searchInputText"
-    onChange={[Function]}
-    onFocus={[Function]}
-    placeholder="Start typing a skill.."
-    type="text"
-    value=""
-  />
-  <button
-    className="base-button undefined"
-    onClick={[Function]}
-    type="button"
-  >
-    Search
-  </button>
   <div />
   <div />
 </form>

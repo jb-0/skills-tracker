@@ -7,7 +7,7 @@ import DropdownSelect from '../common/DropdownSelect';
 import SearchSaveButton from './SearchSaveButton';
 import Button from '../common/Button';
 import { SearchContext } from '../../context/SearchContext';
-import { SearchForm } from './Search.Styles';
+import { SearchForm, SearchInputs } from './Search.Styles';
 
 // TEMP TERMS DATA TILL MOVED INTO DB
 const permittedLocations = ['Bristol', 'Birmingham', 'Coventry', 'Essex', 'London', 'Kent', 
@@ -22,24 +22,28 @@ function SearchContainer() {
       {/* While props are used for common components, search functionality uses the SearchContext 
       and as a result no props are passed down */}
       {/* The dropdown selection allows the user to choose a city/location */}
-      <DropdownSelect
-        name="location"
-        selectOptions={permittedLocations}
-        value={search.location}
-        onChange={search.handleDropDownSelectUpdates}
-      />
+      <SearchInputs>
+        <DropdownSelect
+          name="location"
+          selectOptions={permittedLocations}
+          value={search.location}
+          onChange={search.handleDropDownSelectUpdates}
+        />
 
-      {/* The search box allows users to start typing a skill */}
-      <SearchBox />
+        {/* The search box allows users to start typing a skill */}
+        <div>
+        <SearchBox />
 
-      {/* Search suggestions are rendered as the user starts typing in the search box */}
-      <SearchSuggestion />
+        {/* Search suggestions are rendered as the user starts typing in the search box */}
+        <SearchSuggestion />
+        </div>
 
-      {/* The search button triggers a fetch to the backend to return the number of jobs */}
-      <Button
-        buttonText="Search"
-        buttonAction={search.handleSearchButtonClick}
-      />
+        {/* The search button triggers a fetch to the backend to return the number of jobs */}
+        <Button
+          buttonText="Search"
+          buttonAction={search.handleSearchButtonClick}
+        />
+      </SearchInputs>
 
       {/* When a suggestion is clicked it is rendered as a selected search term  */}
       <SearchTerms />

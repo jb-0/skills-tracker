@@ -3,7 +3,7 @@
 exports[`SearchBox component renders correctly when passed arrays containing suggested terms and search terms 1`] = `
 <input
   autoComplete="off"
-  className="sc-gsTCUz jLicsd"
+  className="sc-gsTCUz gmbZjy"
   id="searchInputText"
   name="searchInputText"
   onChange={[Function]}
