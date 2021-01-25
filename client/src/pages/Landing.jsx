@@ -7,7 +7,8 @@ import {
 } from 'react-social-login-buttons';
 import iphoneImg from '../images/phone.png'
 import { FirstLandingSection, FirstLandingSectionFlex, AppOnPhoneImg, SecondLandingSection, 
-  SecondLandingSectionContent, SocialLoginSection, ThirdLandingSection  } from './Landing.Styles';
+  SecondLandingSectionContent, SocialLoginSection, ThirdLandingSection, SocialButton } 
+  from './Landing.Styles';
 
 function Landing() {
   const size = useContext(ViewContext);
@@ -35,20 +36,27 @@ function Landing() {
         </FirstLandingSectionFlex>
       </FirstLandingSection>
       <SecondLandingSection>
-        <SecondLandingSectionContent>
-          <h1>Sign up now</h1>
-          <p className="large-p secondary-font-color">
-            Creating an account allows you to save searches as well as track new
-            searches that are not currently in our database.
-          </p>
-          <SocialLoginSection>
-            <a href="/auth/facebook">
-              <FacebookLoginButton>Sign up with Facebook</FacebookLoginButton>
-            </a>
-            <a href="/auth/google">
-              <GoogleLoginButton>Sign up with Google</GoogleLoginButton>
-            </a>
+        <SecondLandingSectionContent device={size.device.toLowerCase()}>
+          <SocialLoginSection device={size.device.toLowerCase()}>
+            <SocialButton>
+              <a href="/auth/facebook">
+                <FacebookLoginButton>Sign up with Facebook</FacebookLoginButton>
+              </a>
+            </SocialButton>
+            <SocialButton>
+              <a href="/auth/google">
+                <GoogleLoginButton>Sign up with Google</GoogleLoginButton>
+              </a>
+            </SocialButton>
           </SocialLoginSection>
+          <div>
+            
+            <h1>Sign up now</h1>
+            <p className="large-p secondary-font-color">
+              Creating an account allows you to save searches as well as track new
+              searches that are not currently in our database.
+            </p>
+          </div>
         </SecondLandingSectionContent>
       </SecondLandingSection>
       <ThirdLandingSection>

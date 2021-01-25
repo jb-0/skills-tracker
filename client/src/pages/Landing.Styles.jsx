@@ -8,7 +8,7 @@ export const FirstLandingSection = styled.section`
 export const FirstLandingSectionFlex = styled.section`
   margin: 0 auto;
   padding: var(--primary-pad) var(--primary-pad) 0;
-  max-width: 700px;
+  max-width: 900px;
   display: flex;
   flex-direction: row;
   flex-wrap: ${(props) => (props.device === 'desktop' ? 'nowrap' : 'wrap')};
@@ -17,6 +17,10 @@ export const FirstLandingSectionFlex = styled.section`
 
   & > div {
     padding: 0 20px;
+  }
+
+  & p {
+    text-align: justify;
   }
 `;
 
@@ -30,20 +34,34 @@ export const AppOnPhoneImg = styled.img`
 export const SecondLandingSection = styled.section`
   width: 100%;
   background-color: var(--primary-color);
-  height: 500px;
+  padding: 50px 0;
   color: var(--secondary-color);
+
+  & p {
+    text-align: justify;
+  }
 `;
 
 export const SecondLandingSectionContent = styled.article`
-  max-width: 700px;
+  max-width: 900px;
   margin: auto;
   padding: var(--primary-pad) var(--primary-pad) 0;
+  display: flex;
+  flex-wrap: ${(props) => (props.device === 'desktop' ? 'nowrap' : 'wrap-reverse')};
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const SocialLoginSection = styled.section`
   text-align: center;
   max-width: 280px;
-  margin: 20px auto;
+  min-width: 260px;
+  margin: ${(props) => (props.device === 'desktop' ? '0 100px 0 0' : 'auto')};
+`;
+
+export const SocialButton = styled.div `
+  margin: 20px 0;
 `;
 
 export const ThirdLandingSection = styled.section`
