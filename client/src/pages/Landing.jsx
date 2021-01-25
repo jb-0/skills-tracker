@@ -5,7 +5,7 @@ import {
   FacebookLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons';
-import iphoneImg from '../images/iphone.png'
+import iphoneImg from '../images/phone.png'
 import { FirstLandingSection, FirstLandingSectionFlex, AppOnPhoneImg, SecondLandingSection, 
   SecondLandingSectionContent, SocialLoginSection, ThirdLandingSection  } from './Landing.Styles';
 

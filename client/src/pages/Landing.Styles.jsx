@@ -21,9 +21,9 @@ export const FirstLandingSectionFlex = styled.section`
 `;
 
 export const AppOnPhoneImg = styled.img`
-  -webkit-filter: drop-shadow(5px 3px 7px #212529);
-  filter: drop-shadow(5px 3px 7px #212529);
-  width: 200px;
+  -webkit-filter: drop-shadow(0 0 10px #212529);
+  filter: drop-shadow(0 0 10px #212529);
+  width: 250px;
   vertical-align: bottom;
 `;
 
