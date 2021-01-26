@@ -1,11 +1,11 @@
 import React from 'react';
-import './Button.css';
+import { ButtonStyled } from './Button.Styles';
 
 function Button(props) {
   return (
-    <button className={"base-button " + props.classNames} onClick={props.buttonAction} type="button">
+    <ButtonStyled onClick={props.buttonAction} type="button">
       {props.buttonText}
-    </button>
+    </ButtonStyled>
   );
 }
 
