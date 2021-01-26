@@ -3,7 +3,7 @@ import { ViewContext } from '../../context/ViewContext';
 import { UserContext } from '../../context/UserContext';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import './Navbar.css';
+import { NavbarStyled, ProfileIcon, NavItem, BurgerNav } from './Navbar.Styles';
 
 function Navbar() {
   const [burgerItemsVisible, setBurgerItemsVisible] = useState(false);
@@ -17,26 +17,34 @@ function Navbar() {
 
   // Only show profile link if user is authenticated
   const profileItem = userState.authenticated ? (
-    <a href="/profile" id="profile-icon" data-testid="profile-icon">
+    <ProfileIcon href="/profile" data-testid="profile-icon">
       <AccountCircleIcon
         className="profile-icon"
         htmlColor="white"
         fontSize="large"
       />
-    </a>
+    </ProfileIcon>
   ) : null;
 
   const navbarItems = (
-    <div className="navbarItems large-p">
-      <a className={page === '/' ? 'active' : null} href="/">Home</a>
-      <a className={page === '/search' ? 'active' : null} href="/search">Search</a>
+    <div className="large-p">
+      <NavItem active={page === '/'} device={size.device.toLowerCase()} href="/">
+        Home
+      </NavItem>
+      <NavItem active={page === '/search'} device={size.device.toLowerCase()} href="/search">
+        Search
+      </NavItem>
       {/* Only display register/login link if the user is not authenticated */}
-      {!userState.authenticated ? <a className={page === '/login' ? 'active' : null} href="/login">Register/Login</a> : null}
+      {!userState.authenticated ? (
+        <NavItem active={page === '/login'} device={size.device.toLowerCase()} href="/login">
+          Register/Login
+        </NavItem>
+      ) : null}
     </div>
   );
 
   return (
-    <div className={`navbar navbar-${size.device.toLowerCase()}`}>
+    <NavbarStyled>
       {/* If the user is on a desktop render a standard navbar and profileItem (which may be null if
        authenticated) */}
       {size.device === 'Desktop' ? (
@@ -46,7 +54,7 @@ function Navbar() {
         </div>
       ) : 
       (
-        <div className="burger-nav">
+        <BurgerNav>
         {/* If the user is not on a desktop then they will see a burger menu */}
           <MenuIcon
             onClick={handleBurgerClick}
@@ -55,9 +63,9 @@ function Navbar() {
           />
           {profileItem}
           {burgerItemsVisible ? navbarItems : null}
-        </div>
+        </BurgerNav>
       )}
-    </div>
+    </NavbarStyled>
   );
 }
 
