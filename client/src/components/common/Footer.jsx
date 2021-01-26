@@ -1,17 +1,17 @@
 import React from 'react';
-import './Footer.css';
+import { FooterStyled } from './Footer.styles'
 
 function Footer() {
   const todaysDate = new Date();
   const yearPart = todaysDate.getFullYear();
 
   return (
-    <div className="footer">
+    <FooterStyled>
       <p className="footer-text">
         Copyright © {yearPart}{' '}
         <a href="https://www.jamiebarrett.co.uk">Jamie Barrett</a>
       </p>
-    </div>
+    </FooterStyled>
   );
 }
 
