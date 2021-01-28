@@ -15,12 +15,14 @@ export const FirstLandingSectionFlex = styled.section`
   align-items: flex-end;
   justify-content: center;
 
-  & > div {
-    padding: 0 20px;
+  & article {
+    text-align: justify;
+    align-self: center;
+    padding-right: ${(props) => (props.device === 'desktop' ? '70' : '0')}px;
   }
 
-  & p {
-    text-align: justify;
+  & h1 {
+    text-align: center;
   }
 `;
 
