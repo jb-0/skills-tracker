@@ -23,6 +23,14 @@ export const ThemeProvider = (props) => {
 };
 
 export const GlobalStyle = createGlobalStyle`
+  :root {
+  --primary-color: #212529;
+  --secondary-color: white;
+  --tertiary-color: #ffb703;
+  --primary-pad: 20px;
+  --main-font: 'Nunito', sans-serif; 
+  }
+
   body {
   margin: 0;
   font-family: var(--main-font);
