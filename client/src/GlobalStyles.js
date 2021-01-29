@@ -1,26 +1,7 @@
 /**
  * The theme context provides styling theme attributes as well as defining global styles
  */
-import React, { createContext } from 'react';
 import { createGlobalStyle } from 'styled-components';
-
-export const ThemeContext = createContext();
-
-export const ThemeProvider = (props) => {
-  const theme = {
-    primaryColor: '#212529',
-    secondaryColor: 'white',
-    tertiaryColor: '#ffb703',
-    primaryPad: '20px',
-    mainFont: `Nunito', sans-serif`,
-  };
-
-  return (
-    <ThemeContext.Provider value={theme}>
-      {props.children}
-    </ThemeContext.Provider>
-  );
-};
 
 export const GlobalStyle = createGlobalStyle`
   :root {

@@ -1,9 +1,8 @@
 import React from 'react';
-import './App.css';
 import { ViewProvider } from './context/ViewContext';
 import { SearchProvider } from './context/SearchContext';
 import { UserProvider } from './context/UserContext';
-import { ThemeProvider, GlobalStyle } from './context/ThemeContext'
+import { GlobalStyle } from './GlobalStyles'
 import Routes from './routes/Routes';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -13,10 +12,10 @@ function App() {
       <UserProvider>
         <ViewProvider>
           <SearchProvider>
-            <Router>
-              <GlobalStyle />
-              <Routes />
-            </Router>
+              <Router>
+                <GlobalStyle />
+                <Routes />
+              </Router>
           </SearchProvider>
         </ViewProvider>
       </UserProvider>
