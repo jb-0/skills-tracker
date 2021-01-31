@@ -9,10 +9,11 @@ function DropdownSelect(props) {
       id={props.name}
       value={props.value}
       onChange={props.onChange}
+      data-testid="select"
     >
       {props.selectOptions.map((selection) => {
         return (
-          <option key={uuidv4()} value={selection} data-testid={selection}>
+          <option key={uuidv4()} value={selection}>
             {selection}
           </option>
         );
