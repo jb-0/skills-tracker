@@ -57,6 +57,7 @@ function ProfileSavedSearchCard(props) {
               className="delete-icon"
               htmlColor="#212529"
               fontSize="large"
+              data-testid="delete"
             />
           ) : null}
         </>
