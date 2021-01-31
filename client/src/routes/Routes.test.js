@@ -57,7 +57,9 @@ describe('Routes testing', () => {
 
     // Render the app, as it is in a checking auth state only a loader should be returned
     const doc = renderWithContext(userContextValue);
-    expect(doc.container.querySelectorAll('.loader')).toHaveLength(1);
+
+    // At this point a loader should be displayed
+    expect(screen.queryAllByTestId('loader')).toHaveLength(1);
   });
 
   it('loader is not present once authentication check is complete', async () => {
