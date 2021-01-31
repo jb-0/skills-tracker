@@ -4,9 +4,18 @@ import { DropdownSelectStyled } from './DropdownSelect.Styles';
 
 function DropdownSelect(props) {
   return (
-    <DropdownSelectStyled name={props.name} id={props.name} value={props.value} onChange={props.onChange}>
+    <DropdownSelectStyled
+      name={props.name}
+      id={props.name}
+      value={props.value}
+      onChange={props.onChange}
+    >
       {props.selectOptions.map((selection) => {
-        return <option key={uuidv4()} value={selection}>{selection}</option>;
+        return (
+          <option key={uuidv4()} value={selection} data-testid={selection}>
+            {selection}
+          </option>
+        );
       })}
     </DropdownSelectStyled>
   );
