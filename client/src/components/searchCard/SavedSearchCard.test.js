@@ -39,7 +39,7 @@ describe('Saved Search Card component', () => {
     container = null;
   });
 
-  it('card renders with props passed in and locations are capitalised', async () => {
+  it('card renders with props passed in and locations are capitalised', () => {
     act(() => {
       render(
         <SavedSearchCard
@@ -83,8 +83,45 @@ describe('Saved Search Card component', () => {
     expect(screen.queryAllByTestId('delete')).toHaveLength(0);
   });
 
-  it('the delete api route is called when the delete button is pressed', () => {
-    fetch.mockResponseOnce({status: 200});
+  it('the delete api route is called when the delete button is pressed', async () => {
+    const promise = Promise.resolve();
+
+    // Mock a positive response (200)
+    fetch.mockResponseOnce(JSON.stringify({ msg: 'positive response' }), {
+      status: 200,
+    });
+
+    act(() => {
+      render(
+        <SavedSearchCard
+          search={sampleSearch}
+          removeSavedSearch={jest.fn()}
+          source="profile"
+        />,
+        container
+      );
+    });
+    
+    // Click the delete icon
+    userEvent.click(screen.getByTestId('delete'))
+
+    // Wait for changes to occur
+    await act(() => promise);
+    
+    // The mocked fetch should be called once
+    expect(fetch).toHaveBeenCalledTimes(1);
+
+    // We do not expect to see the failure text in the above scenario
+    expect(screen.queryAllByText(/Unable to delete saved search at this time/)).toHaveLength(0);
+  });
+
+  it('when deletion fails an alert is displayed', async () => {
+    const promise = Promise.resolve();
+
+    // Mock a non 200 response
+    fetch.mockResponseOnce(JSON.stringify({ msg: 'positive response' }), {
+      status: 500,
+    });
 
     act(() => {
       render(
@@ -97,11 +134,13 @@ describe('Saved Search Card component', () => {
       );
     });
 
-    screen.debug()
+    // Click the delete icon
+    userEvent.click(screen.getByTestId('delete'))
     
-    userEvent.click(screen.queryAllByTestId('delete'))
-
-
-    // expect(screen.queryAllByText(/Coventry/)).toHaveLength(1);
-  });
+    // Wait for changes to occur
+    await act(() => promise);
+    
+    // Given the mocked response was 500, expect an error to displayed
+    expect(screen.queryAllByText(/Unable to delete saved search at this time/)).toHaveLength(1);
+  })
 });
