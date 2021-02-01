@@ -27,6 +27,7 @@ function ProfileSavedSearchCard(props) {
 
     try {
       const response = await res.json();
+      if (res.status !== 200) setAlert(true);
     } catch (err) {
       setAlert(true);
     }
