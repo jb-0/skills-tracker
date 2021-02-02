@@ -33,7 +33,7 @@ export const NavItem = styled.a`
   }
 `;
 
-export const ProfileIcon = styled.div`
+export const ProfileIcon = styled.a`
   position: absolute;
   padding: 0;
   margin: 0;
