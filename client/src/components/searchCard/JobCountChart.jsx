@@ -52,7 +52,7 @@ function JobCountChart(props) {
     }
 
     createChart();
-  }, [props.search._id, props.search.dailySearchTermCount]);
+  });
 
   return <canvas id={props.search._id}></canvas>;
 }
