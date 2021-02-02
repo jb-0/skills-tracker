@@ -54,7 +54,7 @@ function JobCountChart(props) {
     createChart();
   });
 
-  return <canvas id={props.search._id}></canvas>;
+  return <canvas id={props.search._id} data-testid={props.search._id}></canvas>;
 }
 
 export default JobCountChart;
