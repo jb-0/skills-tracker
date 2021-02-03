@@ -4,6 +4,7 @@ import homeHeroImg from '../images/xps-dpbXgTh0Lac-unsplash.jpg';
 export const BackgroundImageContainer = styled.div`
   width: 100%;
   height: ${(props) => (props.device === 'mobile' ? '120vh' : '90vh')};
+  min-height: 500px;
   background-image: url(${homeHeroImg});
   background-position: center top;
   background-repeat: no-repeat;
