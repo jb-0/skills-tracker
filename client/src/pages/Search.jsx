@@ -7,7 +7,7 @@ function HomePage() {
   const size = useContext(ViewContext);
 
   return (
-    <BackgroundImageContainer>
+    <BackgroundImageContainer device={size.device.toLowerCase()}>
       <SearchInstructions>
         <h1>Search for your skillset</h1>
         <p>
