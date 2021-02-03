@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import homeHeroImg from '../images/home-hero.png';
+import homeHeroImg from '../images/xps-dpbXgTh0Lac-unsplash.jpg';
 
 export const BackgroundImageContainer = styled.div`
   width: 100%;
