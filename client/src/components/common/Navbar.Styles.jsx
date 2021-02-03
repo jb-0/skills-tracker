@@ -21,15 +21,10 @@ export const NavItem = styled.a`
   text-align: center;
   padding: 12px 20px;
   text-decoration: none;
+  transition: color 0.3s linear;
 
   &:hover {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-
-    ${(props) =>
-      props.device === 'desktop'
-        ? 'border-bottom: solid var(--secondary-color)'
-        : 'border-left: solid var(--secondary-color)'};
+    color: var(--tertiary-color);
   }
 `;
 
@@ -41,8 +36,12 @@ export const ProfileIcon = styled.a`
   right: 20px;
 
   &:hover {
-    border-bottom: solid var(--secondary-color);
     cursor: pointer;
+  }
+
+  &:hover .MuiSvgIcon-root {
+    fill: var(--tertiary-color);
+    transition: fill 0.3s linear;
   }
 `;
 
