@@ -4,6 +4,7 @@
   * without losing search information.
   */
 import React, { createContext, useState  } from 'react';
+import permittedTerms from '../services/getPermittedTerms';
 
 export const SearchContext = createContext();
 
@@ -17,6 +18,7 @@ export const SearchProvider = (props) => {
     submittedSearchTerms: [],
     location: 'London',
     submittedLocation: '',
+    permittedTerms,
     handleDropDownSelectUpdates,
     handleSearchButtonClick
   });
