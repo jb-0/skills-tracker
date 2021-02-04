@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SearchBox from './SearchBox';
 import SearchSuggestion from './SearchSuggestion';
 import SearchTerms from './SearchTerms';
@@ -8,10 +8,23 @@ import SearchSaveButton from './SearchSaveButton';
 import Button from '../common/Button';
 import { SearchContext } from '../../context/SearchContext';
 import { SearchForm, SearchInputs } from './Search.Styles';
+import Loader from '../common/Loader';
 
 function SearchContainer() {
   const [search]  = useContext(SearchContext);
+  const [fetchingData, setFetchingData] = useState(true);
+  
 
+  // useEffect(() => {
+
+   
+  // }, [(search.permittedTerms.locations !== undefined)]);
+
+  
+  // If we are currently fetching the user's data then display a loader
+  //  if (fetchingData) {
+  //   return <Loader />;
+  // }
   // Return the various elements that make up the search view and pass the necessary props
   return (
     <SearchForm>
@@ -21,7 +34,7 @@ function SearchContainer() {
       <SearchInputs>
         <DropdownSelect
           name="location"
-          selectOptions={search.permittedTerms.locations}
+          selectOptions={['London']}
           value={search.location}
           onChange={search.handleDropDownSelectUpdates}
         />
