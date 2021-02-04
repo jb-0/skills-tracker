@@ -3,8 +3,8 @@
   * make up a search. This also means a user can leave the search screen to view their profile
   * without losing search information.
   */
-import React, { createContext, useState  } from 'react';
-import permittedTerms from '../services/getPermittedTerms';
+import React, { createContext, useEffect, useState  } from 'react';
+import getPermittedTerms from '../services/getPermittedTerms';
 
 export const SearchContext = createContext();
 
@@ -18,10 +18,22 @@ export const SearchProvider = (props) => {
     submittedSearchTerms: [],
     location: 'London',
     submittedLocation: '',
-    permittedTerms,
+    permittedTerms: {locations: [], skills: []},
     handleDropDownSelectUpdates,
     handleSearchButtonClick
   });
+
+  useEffect(() => {
+    async function setPermittedTerms() {
+      const permittedTerms = await getPermittedTerms();
+
+      setSearch((previousValues) => {
+        return { ...previousValues, permittedTerms };
+      });
+    }
+    
+    setPermittedTerms()
+  }, []);
 
   function handleDropDownSelectUpdates(event) {
     const target = event.target.name;

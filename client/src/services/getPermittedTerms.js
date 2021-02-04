@@ -12,23 +12,25 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// The permitted terms
-let permittedTerms = {};
 
 // Go through DB and get permitted terms, add them into an object
 async function getPermittedTerms() {
+  // The permitted terms
+  let permittedTerms = {};
+
   try {
     const query = await db.collection('permittedTerms').get();
 
     query.forEach(async (doc) => {
-      const data = await doc.data();
+      const data = doc.data();
       permittedTerms = Object.assign(permittedTerms, data);
     });
   } catch (error) {
     console.log(error);
   }
+
+  return permittedTerms;
 }
 
-getPermittedTerms();
 
-export default permittedTerms;
+export default getPermittedTerms;
