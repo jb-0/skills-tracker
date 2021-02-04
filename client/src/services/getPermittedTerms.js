@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 require('firebase/firestore');
 
-// Public facing firebase config 
+// Public facing firebase config
 const firebaseConfig = {
   apiKey: 'AIzaSyBjKKngqvHciPZI-hIWKZb6FOQixIeMA2o',
   authDomain: 'skills-tracker-1e309.firebaseapp.com',
@@ -16,11 +16,19 @@ const db = firebase.firestore();
 let permittedTerms = {};
 
 // Go through DB and get permitted terms, add them into an object
-db.collection("permittedTerms").get().then((querySnapshot) => {
-  querySnapshot.forEach(async (doc) => {
-      const data = doc.data();
+async function getPermittedTerms() {
+  try {
+    const query = await db.collection('permittedTerms').get();
+
+    query.forEach(async (doc) => {
+      const data = await doc.data();
       permittedTerms = Object.assign(permittedTerms, data);
-  })
-});
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+getPermittedTerms();
 
 export default permittedTerms;
