@@ -28,7 +28,7 @@ jest.mock('firebase/app', () => ({
                 },
                 {
                   data: () => {
-                    return { skills: ['Node'] };
+                    return { skills: ['Node', 'JavaScript', 'Java'] };
                   },
                 },
               ];
