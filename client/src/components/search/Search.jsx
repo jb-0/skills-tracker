@@ -9,10 +9,6 @@ import Button from '../common/Button';
 import { SearchContext } from '../../context/SearchContext';
 import { SearchForm, SearchInputs } from './Search.Styles';
 
-// TEMP TERMS DATA TILL MOVED INTO DB
-const permittedLocations = ['Bristol', 'Birmingham', 'Coventry', 'Essex', 'London', 'Kent', 
-  'Liverpool', 'Manchester', 'Newcastle upon tyne'];
-
 function SearchContainer() {
   const [search]  = useContext(SearchContext);
 
@@ -25,7 +21,7 @@ function SearchContainer() {
       <SearchInputs>
         <DropdownSelect
           name="location"
-          selectOptions={permittedLocations}
+          selectOptions={search.permittedTerms.locations}
           value={search.location}
           onChange={search.handleDropDownSelectUpdates}
         />
