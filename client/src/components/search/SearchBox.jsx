@@ -3,34 +3,9 @@ import './SearchSuggestion';
 import { SearchContext } from '../../context/SearchContext';
 import { SearchInput } from './SearchBox.Styles'
 
-const permittedTerms = [
-  'Angular',
-  'Babel',
-  'CSS',
-  'C++',
-  'Django',
-  'DOM',
-  'Express',
-  'Go',
-  'HTML',
-  'Java',
-  'JavaScript',
-  'Jest',
-  'Kotlin',
-  'MongoDB',
-  'Node',
-  'Objective-C',
-  'Python',
-  'React',
-  'React testing library',
-  'Ruby on Rails',
-  'SQL'
-];
-
 function Search(props) {
   const [search, setSearch]  = useContext(SearchContext);
   const searchBoxRef = useRef();
-
   // Handle changes to the text box and provide suggested terms
   function handleTextBoxUpdates(event) {
     const target = event.target.name;
@@ -38,7 +13,7 @@ function Search(props) {
 
     let suggested;
     if (value.length > 0) {
-      suggested = permittedTerms.filter(
+      suggested = search.permittedTerms.skills.filter(
         (word) =>
           word.substring(0, value.length).toLowerCase() === value.toLowerCase()
       );
