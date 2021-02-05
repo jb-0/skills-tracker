@@ -37,11 +37,13 @@ describe('SearchResults component', () => {
       JSON.stringify({ noOfResults: 254, msg: 'results found' })
     );
 
-    act(() => {
+    await act(async () => {
+      const promise = Promise.resolve()
       render(
         <UserProvider><SearchProvider><Search/></SearchProvider></UserProvider>,
         container
       );
+      await act(() => promise);
     });
 
     // Type desired search term
@@ -66,11 +68,13 @@ describe('SearchResults component', () => {
       headers: { 'content-type': 'application/json' },
     });
 
-    act(() => {
+    await act(async () => {
+      const promise = Promise.resolve()
       render(
         <UserProvider><SearchProvider><Search/></SearchProvider></UserProvider>,
         container
       );
+      await act(() => promise);
     });
 
     // Type desired search term
