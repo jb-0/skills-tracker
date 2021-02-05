@@ -13,12 +13,13 @@ import { unmountComponentAtNode } from 'react-dom';
 describe('Search component', () => {
   let container = null;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     // setup a DOM element as a render target
     container = document.createElement('div');
     document.body.appendChild(container);
 
-    act(() => {
+    await act(async () => {
+      const promise = Promise.resolve()
       render(
         <UserProvider>
           <SearchProvider>
@@ -27,6 +28,7 @@ describe('Search component', () => {
         </UserProvider>,
         container
       );
+      await act(() => promise);
     });
   });
 
@@ -41,17 +43,22 @@ describe('Search component', () => {
     container = null;
   });
 
-  it('combined search components render correctly with default state', () => {
+  it('combined search components render correctly with default state', async () => {
+    const {act} = renderer;
+    const promise = Promise.resolve()
+
     const tree = renderer
-      .create(
-        <UserProvider>
-          <SearchProvider>
-            <Search />
-          </SearchProvider>
-        </UserProvider>
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
+    .create(
+      <UserProvider>
+        <SearchProvider>
+          <Search />
+        </SearchProvider>
+      </UserProvider>
+    );
+
+    await act(() => promise);
+
+    expect(tree.toJSON()).toMatchSnapshot()
   });
 
   it('clicking search with coventry as the selected location returns results in coventry', async () => {
