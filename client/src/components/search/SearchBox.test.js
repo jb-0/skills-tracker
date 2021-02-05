@@ -11,18 +11,20 @@ import { SearchProvider } from '../../context/SearchContext';
 
 describe('SearchBox component', () => {
   let container = null;
-  beforeEach(() => {
+  beforeEach(async () => {
     // setup a DOM element as a render target
     container = document.createElement('div');
     document.body.appendChild(container);
 
-    act(() => {
+    await act(async () => {
+      const promise = Promise.resolve()
       render(
         <SearchProvider>
           <SearchBox />
         </SearchProvider>,
         container
-      );
+        );
+        await act(() => promise);
     });
   });
 
@@ -43,14 +45,19 @@ describe('SearchBox component', () => {
     expect(screen.getByDisplayValue('Jav')).toBeInTheDocument();
   });
 
-  it('renders correctly when passed arrays containing suggested terms and search terms', () => {
+  it('renders correctly when passed arrays containing suggested terms and search terms', async () => {
+    const {act} = renderer;
+    const promise = Promise.resolve()
+
     const tree = renderer
-      .create(
-        <SearchProvider>
+    .create(
+      <SearchProvider>
           <SearchBox />
         </SearchProvider>
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
+    );
+
+    await act(() => promise);
+
+    expect(tree.toJSON()).toMatchSnapshot()
   });
 });

@@ -48,11 +48,13 @@ describe('Routes testing', () => {
   });
 
   it('a loader is displayed while authentication status is being checked', async () => {
+    const promise = Promise.resolve()
+
     // Define user context mark authenticated as true, this would mock state of auth'd user
     const userContextValue = {
       checkingAuthentication: true,
       authenticated: false,
-      isAuthenticated: jest.fn(),
+      isAuthenticated: jest.fn(() => promise),
     };
 
     // Render the app, as it is in a checking auth state only a loader should be returned
@@ -60,6 +62,9 @@ describe('Routes testing', () => {
 
     // At this point a loader should be displayed
     expect(screen.queryAllByTestId('loader')).toHaveLength(1);
+
+    // Await completion
+    await act(() => promise);
   });
 
   it('loader is not present once authentication check is complete', async () => {
