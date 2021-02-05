@@ -13,12 +13,16 @@ import userEvent from '@testing-library/user-event';
 
 describe('SearchSuggestion component', () => {
   let container = null;
-  beforeEach(() => {
+  
+  beforeEach(async () => {
     // setup a DOM element as a render target
     container = document.createElement("div");
     document.body.appendChild(container);
-    act(() => {
+
+    await act(async () => {
+      const promise = Promise.resolve()
       render(<UserProvider><SearchProvider><Search/></SearchProvider></UserProvider>, container);
+      await act(() => promise);
     });
   });
 
