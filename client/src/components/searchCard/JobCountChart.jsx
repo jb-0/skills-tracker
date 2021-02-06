@@ -43,6 +43,7 @@ function JobCountChart(props) {
               {
                 ticks: {
                   precision: 0,
+                  max: 6,
                 },
               },
             ],
