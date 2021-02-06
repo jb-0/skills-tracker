@@ -46,8 +46,8 @@ describe('Search Services', function () {
         const testCases = ['llondon', '[=?{]\'/!{"`'];
         const expectedQuery = 'keywords=react%20sql&locationName=london&distanceFromLocation=10';
 
-        testCases.forEach((testCase) => {
-          const preparedQuery = prepareQuery({
+        testCases.forEach(async (testCase) => {
+          const preparedQuery = await prepareQuery({
             distanceFromLocation: 10,
             keywords: 'react sql',
             locationName: testCase,
@@ -60,11 +60,11 @@ describe('Search Services', function () {
       it('permitted locations are not replaced with london', function () {
         const testCases = ['sheffield', 'devon'];
 
-        testCases.forEach((testCase) => {
+        testCases.forEach(async (testCase) => {
           const expectedQuery = `keywords=react%20sql&locationName=${
             testCase}&distanceFromLocation=10`;
 
-          const preparedQuery = prepareQuery({
+          const preparedQuery = await prepareQuery({
             distanceFromLocation: 10,
             keywords: 'react sql',
             locationName: testCase,
@@ -78,8 +78,8 @@ describe('Search Services', function () {
         const testCases = ['react farming sql', 'react sql flying [=?{]\'/!{"` as[=?{]\'/!{"`a'];
         const expectedQuery = 'keywords=react%20sql&locationName=london&distanceFromLocation=10';
 
-        testCases.forEach((testCase) => {
-          const preparedQuery = prepareQuery({
+        testCases.forEach(async (testCase) => {
+          const preparedQuery = await prepareQuery({
             distanceFromLocation: 10,
             keywords: testCase,
             locationName: 'london',
@@ -102,8 +102,8 @@ describe('Search Services', function () {
             { testCase: '1242353463456890102312.9866786765', outcome: 1242353463456890102312 },
           ];
 
-          tests.forEach((test) => {
-            const preparedQuery = prepareQuery({
+          tests.forEach(async (test) => {
+            const preparedQuery = await prepareQuery({
               distanceFromLocation: test.testCase,
               keywords: 'react sql',
               locationName: 'london',

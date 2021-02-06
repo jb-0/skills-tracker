@@ -4,8 +4,7 @@ const { Search } = require('../models/searchModel.js');
 const { User } = require('../models/userModel.js');
 const { ObjectId } = require('mongoose').Types;
 
-const { permittedKeywords } = require('./data/permittedKeywords');
-const { permittedLocations } = require('./data/permittedLocations');
+const { getPermittedTerms } = require('./getPermittedTerms');
 
 /**
  * Review the number provided and default (to 10) or round it as required
@@ -29,13 +28,18 @@ const cleanseDistance = (distance) => {
  * @param {String} keywords Search terms provided by the user.
  * @return {String} Returns a cleansed version of the search terms.
  */
-const cleanseKeywords = (keywords) => {
+const cleanseKeywords = (keywords, permittedKeywords) => {
+  const permittedKeywordsLowercase = permittedKeywords.map((word) => word.toLowerCase());
   const keywordsArray = keywords.split(' ');
+
+  // The user selected keywords are sorted, by doing this we can match up duplicate user searches
+  // meaning the search will only appear once in the database
   keywordsArray.sort();
+
   let keywordsToReturn = '';
 
   keywordsArray.forEach((keyword) => {
-    if (permittedKeywords.includes(keyword.toLowerCase())) {
+    if (permittedKeywordsLowercase.includes(keyword.toLowerCase())) {
       keywordsToReturn += `${keyword} `;
     }
   });
@@ -50,8 +54,10 @@ const cleanseKeywords = (keywords) => {
  * @param {String} location A location string as supplied by the user
  * @return {String} Returns a default location or the supplied location if it is permitted
  */
-const cleanseLocation = (location) => {
-  if (!permittedLocations.includes(location.toLowerCase())) {
+const cleanseLocation = (location, permittedLocations) => {
+  const permittedLocationsLowercase = permittedLocations.map((word) => word.toLowerCase());
+
+  if (!permittedLocationsLowercase.includes(location.toLowerCase())) {
     return 'london';
   }
 
@@ -63,14 +69,15 @@ const cleanseLocation = (location) => {
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
  * @return {Object} Returns a Encoded and sanitised query string, and also an object version.
  */
-const prepareQuery = (query) => {
+const prepareQuery = async (query) => {
   const cleanQuery = query;
+  const { locations, skills } = await getPermittedTerms();
 
   cleanQuery.distanceFromLocation = cleanseDistance(cleanQuery.distanceFromLocation);
 
-  cleanQuery.keywords = cleanseKeywords(cleanQuery.keywords);
+  cleanQuery.keywords = cleanseKeywords(cleanQuery.keywords, skills);
 
-  cleanQuery.locationName = cleanseLocation(cleanQuery.locationName);
+  cleanQuery.locationName = cleanseLocation(cleanQuery.locationName, locations);
 
   const queryToEncode = `keywords=${cleanQuery.keywords}&locationName=${
     cleanQuery.locationName}&distanceFromLocation=${cleanQuery.distanceFromLocation}`;
@@ -86,11 +93,13 @@ const prepareQuery = (query) => {
 const searchReed = async (query) => {
   // Request data from reed, per their API documentation Basic Auth is used
   // and the issued key is provided as the username, password is left blank.
+  const { encodedQuery } = await prepareQuery(query);
+
   try {
     const response = await axios({
       method: 'get',
       baseURL: 'https://www.reed.co.uk',
-      url: `/api/1.0/search?${prepareQuery(query).encodedQuery}`,
+      url: `/api/1.0/search?${encodedQuery}`,
       headers: {
         Authorization: `Basic ${process.env.REED_B64}`,
       },
@@ -128,7 +137,7 @@ const pushSearchToUser = async (userId, searchId) => {
  * @return {Object} Returns a response code and message.
  */
 const saveSearch = async (req) => {
-  const { cleanQueryObject } = prepareQuery(req.body);
+  const { cleanQueryObject } = await prepareQuery(req.body);
 
   // If another user has already saved this search it will be returned and the array length will
   // be greater than 0, if the user already has it saved then it will not be added again
