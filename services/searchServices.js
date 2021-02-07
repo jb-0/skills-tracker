@@ -126,7 +126,8 @@ const pushSearchToUser = async (userId, searchId) => {
     }).exec();
     return { code: 200, msg: 'search saved to user profile' };
   } catch (err) {
-    return { code: 500, msg: err.message };
+    console.log(err);
+    return { code: 500, msg: 'Server error occurred' };
   }
 };
 
@@ -160,7 +161,8 @@ const saveSearch = async (req) => {
     const response = await pushSearchToUser(req.user._id, savedSearch._id);
     return response;
   } catch (err) {
-    return { code: 500, msg: err.message };
+    console.log(err);
+    return { code: 500, msg: 'Server error occurred' };
   }
 };
 
@@ -181,7 +183,8 @@ const deleteUserSavedSearch = async (req) => {
 
     return { code: 404, msg: 'search does not exist in user saved searches' };
   } catch (err) {
-    return { code: 500, msg: err.message };
+    console.log(err);
+    return { code: 500, msg: 'Server error occurred' };
   }
 };
 
@@ -204,7 +207,8 @@ const getUserSavedSearches = async (userId) => {
 
     return { code: 200, msg: 'no saved searches for user' };
   } catch (err) {
-    return { code: 500, msg: err.message };
+    console.log(err);
+    return { code: 500, msg: 'Server error occurred' };
   }
 };
 
@@ -222,7 +226,8 @@ const getTrendingSearches = async () => {
       trendingSearches: searches,
     };
   } catch (err) {
-    return { code: 500, msg: err.message };
+    console.log(err);
+    return { code: 500, msg: 'Server error occurred' };
   }
 };
 
