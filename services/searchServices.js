@@ -1,9 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 const axios = require('axios').default;
+const { ObjectId } = require('mongoose').Types;
 const { Search } = require('../models/searchModel.js');
 const { User } = require('../models/userModel.js');
-const { ObjectId } = require('mongoose').Types;
-
 const { getPermittedTerms } = require('./getPermittedTerms');
 
 /**
