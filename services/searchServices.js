@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 const axios = require('axios').default;
 const { ObjectId } = require('mongoose').Types;
@@ -66,7 +67,7 @@ const cleanseLocation = (location, permittedLocations) => {
 /**
  * Build query string for API call
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
- * @return {Object} Returns a Encoded and sanitised query string, and also an object version.
+ * @return {Object} Returns a Encoded and sanitized query string, and also an object version.
  */
 const prepareQuery = async (query) => {
   const cleanQuery = query;
@@ -85,7 +86,7 @@ const prepareQuery = async (query) => {
 };
 
 /**
- * Search reed using the jobseeker API (https://www.reed.co.uk/developers/jobseeker)
+ * Search reed using the jobs seeker API (https://www.reed.co.uk/developers/jobseeker)
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
  * @return {Object} First page of query results from reed API
  */
@@ -121,7 +122,7 @@ const searchReed = async (query) => {
  */
 const pushSearchToUser = async (userId, searchId) => {
   try {
-    const user = await User.findByIdAndUpdate(userId, {
+    await User.findByIdAndUpdate(userId, {
       $push: { savedSearches: searchId },
     }).exec();
     return { code: 200, msg: 'search saved to user profile' };
