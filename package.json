@@ -20,7 +20,7 @@
     "express-sslify": "^1.2.0",
     "firebase": "^8.2.6",
     "jest-fetch-mock": "^3.0.3",
-    "mongoose": "^5.11.9",
+    "mongoose": "^5.11.10",
     "mongoose-findorcreate": "^3.0.0",
     "nodemon": "^2.0.6",
     "passport": "^0.4.1",
