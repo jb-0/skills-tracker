@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search component combined search components render correctly with default state 1`] = `
+<form
+  className="sc-gKsewC joogot"
+>
+  <div
+    className="sc-iBPRYJ SwaKl"
+  >
+    <select
+      className="sc-eCssSg iihBUJ"
+      data-testid="select"
+      id="location"
+      name="location"
+      onChange={[Function]}
+      value="London"
+    >
+      <option
+        value="Coventry"
+      >
+        Coventry
+      </option>
+      <option
+        value="Essex"
+      >
+        Essex
+      </option>
+      <option
+        value="London"
+      >
+        London
+      </option>
+    </select>
+    <div>
+      <input
+        autoComplete="off"
+        className="sc-gsTCUz gmbZjy"
+        id="searchInputText"
+        name="searchInputText"
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Start typing a skill.."
+        type="text"
+        value=""
+      />
+    </div>
+    <button
+      className="sc-jSgupP gjKCMd"
+      onClick={[Function]}
+      type="button"
+    >
+      Search
+    </button>
+  </div>
+  <div />
+  <div />
+</form>
+`;

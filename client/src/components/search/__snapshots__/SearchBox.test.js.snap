@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBox component renders correctly when passed arrays containing suggested terms and search terms 1`] = `
+<input
+  autoComplete="off"
+  className="sc-gsTCUz gmbZjy"
+  id="searchInputText"
+  name="searchInputText"
+  onChange={[Function]}
+  onFocus={[Function]}
+  placeholder="Start typing a skill.."
+  type="text"
+  value=""
+/>
+`;
