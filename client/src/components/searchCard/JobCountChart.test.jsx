@@ -4,7 +4,7 @@ import { unmountComponentAtNode } from 'react-dom';
 import { render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 
-import JobCountChart from './JobCountChart';
+import JobCountChart from '../SearchCard/JobCountChart';
 
 describe('JobCountChart component', () => {
   // Create test data

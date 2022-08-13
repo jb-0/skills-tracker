@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import ProfileSavedSearchCard from '../searchCard/SavedSearchCard';
-import Loader from '../common/Loader'
+// import ProfileSavedSearchCard from '../searchCard/SavedSearchCard';
+import Loader from '../common/Loader';
 import { v4 as uuidv4 } from 'uuid';
-import { SavedSearchCardsGrid, SavedSearchesContainer, 
-  NoSavedSearchesMessage} from './ProfileContainer.Styles'
+import { SavedSearchCardsGrid, SavedSearchesContainer, NoSavedSearchesMessage } from './ProfileContainer.Styles';
 
 function ProfileContainer() {
   const [savedSearches, setSavedSearches] = useState();
@@ -36,9 +35,9 @@ function ProfileContainer() {
 
   // Handle removal of saved searches, while the card calls API and removes from backend this func
   // is required to remove it from the FE
-  function removeSavedSearch(searchId) {  
-    setSavedSearches(previousValues => {
-      return previousValues.filter(search => search._id !== searchId)
+  function removeSavedSearch(searchId) {
+    setSavedSearches((previousValues) => {
+      return previousValues.filter((search) => search._id !== searchId);
     });
   }
 
@@ -52,8 +51,8 @@ function ProfileContainer() {
         <NoSavedSearchesMessage>
           <h1>:(</h1>
           <p>
-            You have no saved searches, go to the Search page to search for a
-            skillset and click save to add it to your profile.
+            You have no saved searches, go to the Search page to search for a skillset and click save to add it to your
+            profile.
           </p>
         </NoSavedSearchesMessage>
       )}
@@ -61,12 +60,14 @@ function ProfileContainer() {
         {savedSearches
           ? savedSearches.map((search) => {
               return (
-                <ProfileSavedSearchCard
+                <>
+                  {/* <ProfileSavedSearchCard
                   search={search}
                   removeSavedSearch={removeSavedSearch}
                   key={uuidv4()}
                   source="profile"
-                />
+                /> */}
+                </>
               );
             })
           : null}

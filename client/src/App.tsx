@@ -4,19 +4,38 @@ import { SearchProvider } from './context/SearchContext';
 import { UserProvider } from './context/UserContext';
 import Routes from './routes/Routes';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: "'Montserrat', sans-serif;",
+      textTransform: 'none',
+    },
+  },
+});
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <div className="app">
-      <UserProvider>
-        <ViewProvider>
-          <SearchProvider>
-            <Router>
-              <Routes />
-            </Router>
-          </SearchProvider>
-        </ViewProvider>
-      </UserProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <UserProvider>
+            <ViewProvider>
+              <SearchProvider>
+                <CssBaseline />
+                <Router>
+                  <Routes />
+                </Router>
+              </SearchProvider>
+            </ViewProvider>
+          </UserProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </div>
   );
 }

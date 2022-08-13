@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import * as Chart from 'chart.js';
+import Chart from 'chart.js';
 
 function JobCountChart(props) {
   useEffect(() => {
@@ -22,6 +22,7 @@ function JobCountChart(props) {
         },
 
         options: {
+          maintainAspectRatio: false,
           elements: {
             point: {
               radius: 0,

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import AppBar from '../components/common/AppBar';
+import AppBar from '../components/AppBar';
 import Loader from '../components/common/Loader';
 import Landing from '../pages/Landing';
 import Search from '../pages/Search';
