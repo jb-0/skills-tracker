@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Chart from 'chart.js';
 
-function JobCountChart(props) {
+export function JobCountChart(props) {
   useEffect(() => {
     async function createChart() {
       const ctx = document.getElementById(props.search._id).getContext('2d');
@@ -59,5 +59,3 @@ function JobCountChart(props) {
 
   return <canvas id={props.search._id} data-testid={props.search._id}></canvas>;
 }
-
-export default JobCountChart;

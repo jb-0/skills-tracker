@@ -1,5 +1,5 @@
 import React from 'react';
-import JobCountChart from './JobCountChart';
+import { JobCountChart } from './JobCountChart';
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import { TrendingSearchResult } from '../../api';
 
