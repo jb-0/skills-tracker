@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-  Autocomplete,
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Autocomplete, Box, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { SearchContext } from '../../context/SearchContext';
 import bgImage from '../../images/search.png';
 import bgImageSm from '../../images/search-sm.png';
