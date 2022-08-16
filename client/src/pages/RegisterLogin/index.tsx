@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Box, Button } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 

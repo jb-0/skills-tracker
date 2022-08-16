@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 import iphoneImg from '../../images/phone.png';
