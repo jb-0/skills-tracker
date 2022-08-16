@@ -7,7 +7,7 @@ interface ISearchCardProps {
   searchResult: TrendingSearchResult;
 }
 
-const SearchCard: React.FunctionComponent<ISearchCardProps> = ({ searchResult }: ISearchCardProps) => {
+const CardSearch: React.FunctionComponent<ISearchCardProps> = ({ searchResult }: ISearchCardProps) => {
   if (!searchResult) return null;
 
   const locationCapitalised =
@@ -26,4 +26,4 @@ const SearchCard: React.FunctionComponent<ISearchCardProps> = ({ searchResult }:
   );
 };
 
-export default SearchCard;
+export default CardSearch;

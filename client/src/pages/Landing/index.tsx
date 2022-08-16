@@ -4,7 +4,7 @@ import { blueGrey } from '@mui/material/colors';
 import iphoneImg from '../../images/phone.png';
 import { useQuery } from '@tanstack/react-query';
 import { getTrending } from '../../api';
-import SearchCard from '../../components/SearchCard';
+import SearchCard from '../../components/CardSearch';
 
 const Landing: React.FunctionComponent = () => {
   const imageDropShadow = 'drop-shadow(0 0 10px #212529)';
