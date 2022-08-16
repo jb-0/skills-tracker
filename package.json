@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --recursive --exit",
     "start": "node server.js",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client && yarn && yarn build"
   },
   "author": "",
   "license": "ISC",

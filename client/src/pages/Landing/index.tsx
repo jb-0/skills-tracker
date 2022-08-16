@@ -3,7 +3,7 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 import iphoneImg from '../../images/phone.png';
 import { useQuery } from '@tanstack/react-query';
-import { getTrending, TrendingResponse } from '../../api';
+import { getTrending } from '../../api';
 import SearchCard from '../../components/SearchCard';
 
 const Landing: React.FunctionComponent = () => {
