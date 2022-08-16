@@ -1,9 +1,9 @@
 /**
-  * This context is used to pass state to the numerous components and events (such as save) that
-  * make up a search. This also means a user can leave the search screen to view their profile
-  * without losing search information.
-  */
-import React, { createContext, useEffect, useState  } from 'react';
+ * This context is used to pass state to the numerous components and events (such as save) that
+ * make up a search. This also means a user can leave the search screen to view their profile
+ * without losing search information.
+ */
+import React, { createContext, useEffect, useState } from 'react';
 import getPermittedTerms from '../services/getPermittedTerms';
 
 export const SearchContext = createContext();
@@ -15,12 +15,10 @@ export const SearchProvider = (props) => {
     searchInputText: '',
     searchTerms: [],
     suggestedTerms: [],
-    submittedSearchTerms: [],
     location: 'London',
-    submittedLocation: '',
-    permittedTerms: {locations: [], skills: []},
+    permittedTerms: { locations: [], skills: [] },
     handleDropDownSelectUpdates,
-    handleSearchButtonClick
+    updateSkills,
   });
 
   useEffect(() => {
@@ -31,8 +29,8 @@ export const SearchProvider = (props) => {
         return { ...previousValues, permittedTerms };
       });
     }
-    
-    setPermittedTerms()
+
+    setPermittedTerms();
   }, []);
 
   function handleDropDownSelectUpdates(event) {
@@ -44,16 +42,11 @@ export const SearchProvider = (props) => {
     });
   }
 
-  // When a user hits search ensure the location and searchTerms are current
-  function handleSearchButtonClick() {
+  function updateSkills(searchTerms) {
     setSearch((previousValues) => {
-      return {
-        ...previousValues,
-        submittedSearchTerms: [...previousValues.searchTerms],
-        submittedLocation: previousValues.location,
-      };
+      return { ...previousValues, searchTerms };
     });
   }
-  
-  return <SearchContext.Provider value={ [search, setSearch] }>{props.children}</SearchContext.Provider>;
+
+  return <SearchContext.Provider value={[search, setSearch]}>{props.children}</SearchContext.Provider>;
 };

@@ -9,6 +9,14 @@ import { CssBaseline } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const theme = createTheme({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `html, body, #root, .app {
+        min-height: 100%;
+        height: 100%;
+      }`,
+    },
+  },
   typography: {
     allVariants: {
       fontFamily: "'Montserrat', sans-serif;",

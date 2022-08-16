@@ -29,3 +29,27 @@ export const getTrending = {
     return res.json();
   },
 };
+
+export interface SearchResponse {
+  msg?: string;
+  noOfResults?: string;
+}
+
+export const getSearch = {
+  fn: async (searchTermString: string, location: string): Promise<SearchResponse> => {
+    let apiQuery = `/api/job/search?keywords=${searchTermString}`;
+    apiQuery += `&locationName=${location}`;
+    apiQuery += `&distanceFromLocation=10`;
+
+    const res = await fetch(apiQuery, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        frontend: 'react-frontend',
+      },
+    });
+
+    return res.json();
+  },
+};

@@ -1,7 +1,7 @@
+import * as React from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 import iphoneImg from '../../images/phone.png';
-import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getTrending, TrendingResponse } from '../../api';
 import SearchCard from '../../components/SearchCard';
@@ -11,7 +11,7 @@ const Landing: React.FunctionComponent = () => {
   const containerPadding = 4;
   const containerTopPadding = 6;
 
-  const { data: trendingData = {} } = useQuery<TrendingResponse>(getTrending.key, getTrending.fn);
+  const { data: trendingData = {} } = useQuery(getTrending.key, getTrending.fn);
   const showTrending = trendingData?.trendingSearches && trendingData?.trendingSearches?.length > 0;
 
   return (
@@ -97,10 +97,11 @@ const Landing: React.FunctionComponent = () => {
               🔥 Trending skill searches
             </Typography>
             <Grid container spacing={2} width="100%" m="0">
-              {trendingData?.trendingSearches?.map((searchResult) => {
+              {trendingData?.trendingSearches?.map((searchResult, idx) => {
                 return (
                   <Grid
                     item
+                    key={`trending_search_item_${idx}`}
                     xs={12}
                     sm={6}
                     md={4}

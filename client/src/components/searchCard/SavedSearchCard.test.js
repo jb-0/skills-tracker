@@ -5,7 +5,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
 
-import SavedSearchCard from './SavedSearchCard';
+import SavedSearchCard from '../zsearchCard/SavedSearchCard';
 import { unmountComponentAtNode } from 'react-dom';
 
 describe('Saved Search Card component', () => {

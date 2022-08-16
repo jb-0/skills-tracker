@@ -4,14 +4,12 @@ import { unmountComponentAtNode } from 'react-dom';
 import { render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 
-import JobCountChart from '../SearchCard/JobCountChart';
+import JobCountChart from './JobCountChart';
 
 describe('JobCountChart component', () => {
   // Create test data
   const search = {
-    dailySearchTermCount: [
-      { timestamp: '2020-11-13T08:36:05.986+00:00', count: '252' },
-    ],
+    dailySearchTermCount: [{ timestamp: '2020-11-13T08:36:05.986+00:00', count: '252' }],
     _id: '5fef3fc6d774164b709a0c76',
     searchTerms: {
       keywords: 'node angular sql',
