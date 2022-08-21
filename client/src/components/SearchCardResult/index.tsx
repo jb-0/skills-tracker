@@ -1,13 +1,13 @@
 import React from 'react';
 import { JobCountChart } from './JobCountChart';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import { TrendingSearchResult } from '../../api';
+import { TrackedSearchResult } from '../../api';
 
 interface ISearchCardProps {
-  searchResult: TrendingSearchResult;
+  searchResult: TrackedSearchResult;
 }
 
-const CardSearch: React.FunctionComponent<ISearchCardProps> = ({ searchResult }: ISearchCardProps) => {
+const SearchCardResult: React.FunctionComponent<ISearchCardProps> = ({ searchResult }: ISearchCardProps) => {
   if (!searchResult) return null;
 
   const locationCapitalised =
@@ -26,4 +26,4 @@ const CardSearch: React.FunctionComponent<ISearchCardProps> = ({ searchResult }:
   );
 };
 
-export default CardSearch;
+export default SearchCardResult;

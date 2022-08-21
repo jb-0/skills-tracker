@@ -4,7 +4,7 @@ import { blueGrey } from '@mui/material/colors';
 import iphoneImg from '../../images/phone.png';
 import { useQuery } from '@tanstack/react-query';
 import { getTrending } from '../../api';
-import SearchCard from '../../components/CardSearch';
+import SearchCardResult from '../../components/SearchCardResult';
 
 const Landing: React.FunctionComponent = () => {
   const imageDropShadow = 'drop-shadow(0 0 10px #212529)';
@@ -94,7 +94,7 @@ const Landing: React.FunctionComponent = () => {
         {showTrending ? (
           <Box p={containerPadding} pt={containerTopPadding}>
             <Typography variant="h4" pb={2}>
-              🔥 Trending skill searches
+              Trending skill searches
             </Typography>
             <Grid container spacing={2} width="100%" m="0">
               {trendingData?.trendingSearches?.map((searchResult, idx) => {
@@ -107,7 +107,7 @@ const Landing: React.FunctionComponent = () => {
                     md={4}
                     sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                   >
-                    <SearchCard searchResult={searchResult} />
+                    <SearchCardResult searchResult={searchResult} />
                   </Grid>
                 );
               })}

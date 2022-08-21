@@ -1,4 +1,4 @@
-export interface TrendingSearchResult {
+export interface TrackedSearchResult {
   dailySearchTermCount: [{ timestamp: string; count: string }];
   _id: string;
   searchTerms: {
@@ -11,7 +11,7 @@ export interface TrendingSearchResult {
 
 export interface TrendingResponse {
   msg?: string;
-  trendingSearches?: TrendingSearchResult[];
+  trendingSearches?: TrackedSearchResult[];
 }
 
 export const getTrending = {
@@ -42,6 +42,27 @@ export const getSearch = {
     apiQuery += `&distanceFromLocation=10`;
 
     const res = await fetch(apiQuery, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        frontend: 'react-frontend',
+      },
+    });
+
+    return res.json();
+  },
+};
+
+export interface SavedResponse {
+  msg?: string;
+  savedSearches?: TrackedSearchResult[];
+}
+
+export const getSaved = {
+  key: ['saved'],
+  fn: async (): Promise<SavedResponse> => {
+    const res = await fetch('/api/job/search/saved', {
       method: 'GET',
       headers: {
         Accept: 'application/json',
