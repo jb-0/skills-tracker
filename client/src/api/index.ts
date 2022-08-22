@@ -78,7 +78,7 @@ export const getSaved = {
 export const deleteSaved = {
   fn: async (id: string): Promise<unknown> => {
     const res = await fetch(`/api/job/search/delete/${id}`, {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
