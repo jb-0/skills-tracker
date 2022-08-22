@@ -120,9 +120,19 @@ const ResponsiveAppBar = () => {
                 {settings.map((setting) => (
                   <MenuItem
                     key={setting}
-                    onClick={handleCloseUserMenu}
                     component={Button}
-                    href={`/${setting.toLowerCase()}`}
+                    {...(setting.toLowerCase() === 'logout'
+                      ? {
+                          onClick: () => {
+                            fetch('/api/user/logout');
+                            handleCloseUserMenu();
+                          },
+                          href: '/',
+                        }
+                      : {
+                          href: `/${setting.toLowerCase()}`,
+                          onClick: handleCloseUserMenu,
+                        })}
                   >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
