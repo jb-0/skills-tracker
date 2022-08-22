@@ -16,7 +16,9 @@ const SearchCardResult: React.FunctionComponent<ISearchCardProps> = ({ searchRes
   return (
     <Card sx={{ width: '500px', maxWidth: '100%', height: '250px' }}>
       <CardContent>
-        <Typography variant="h6">🛠️ {searchResult.searchTerms.keywords.replace(' ', ' • ')}</Typography>
+        <Typography variant="h6" sx={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+          {`💎 ${searchResult.searchTerms.keywords.replace(' ', ' • ')}`}
+        </Typography>
         <Typography color="text.secondary">📍 {locationCapitalised}</Typography>
         <Box width="100%" height="100%">
           <JobCountChart search={searchResult} />
