@@ -17,7 +17,7 @@ const Profile: React.FunctionComponent = () => {
   const deleteMutation = useMutation(deleteSaved.fn, { onSettled: () => invalidateQueries(getSaved.key) });
 
   return (
-    <Box p={containerPadding} pt={containerTopPadding} maxWidth="md" mx="auto">
+    <Box p={containerPadding} pt={containerTopPadding} maxWidth="lg" mx="auto">
       <Typography variant="h4" pb={2}>
         {showWarning ? 'No saved searches' : showSavedSearch ? 'Saved searches' : ''}
       </Typography>

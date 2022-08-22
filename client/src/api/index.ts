@@ -89,3 +89,25 @@ export const deleteSaved = {
     return res.json();
   },
 };
+
+export interface SaveSearch {
+  keywords: string;
+  locationName: string;
+  distanceFromLocation: number;
+}
+
+export const saveSearch = {
+  fn: async (body: SaveSearch): Promise<unknown> => {
+    const res = await fetch('/api/job/search/save', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        frontend: 'react-frontend',
+      },
+      body: JSON.stringify(body),
+    });
+
+    return res.json();
+  },
+};

@@ -1,14 +1,29 @@
 import React from 'react';
-import { Autocomplete, Box, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import {
+  Autocomplete,
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { SearchContext } from '../../context/SearchContext';
 import bgImage from '../../images/search.png';
 import bgImageSm from '../../images/search-sm.png';
-import { getSearch } from '../../api';
-import { useQuery } from '@tanstack/react-query';
+import { getSaved, getSearch, saveSearch } from '../../api';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import { UserContext } from '../../context/UserContext';
 
 const Search: React.FunctionComponent = () => {
+  const [userState] = React.useContext(UserContext);
   const [search] = React.useContext(SearchContext);
   const searchTerms = search.searchTerms.join(' ');
+
+  const { invalidateQueries } = useQueryClient();
+  const saveMutation = useMutation(saveSearch.fn, { onSettled: () => invalidateQueries(getSaved.key) });
   const { data: searchResults = {} } = useQuery(
     ['search', searchTerms],
     () => getSearch.fn(searchTerms, search.location),
@@ -75,23 +90,40 @@ const Search: React.FunctionComponent = () => {
 
           {/* Results */}
           {search.searchTerms.length > 0 && searchResults?.noOfResults ? (
-            <Box
-              p={1}
-              width="fit-content"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              sx={{
-                borderRadius: '10px',
-                background: '#007FFF',
-              }}
-            >
-              <Box>
-                <Typography color="common.white">No. of jobs found:</Typography>
-                <Typography variant="h3" color="common.white">
-                  {searchResults?.noOfResults}
-                </Typography>
+            <Box>
+              <Box
+                p={1}
+                width="fit-content"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                sx={{
+                  borderRadius: '10px',
+                  backgroundColor: 'primary.main',
+                }}
+              >
+                <Box>
+                  <Typography color="common.white">No. of jobs found:</Typography>
+                  <Typography variant="h3" color="common.white">
+                    {searchResults?.noOfResults}
+                  </Typography>
+                </Box>
               </Box>
+              {userState.authenticated ? (
+                <Button
+                  onClick={() => {
+                    saveMutation.mutate({
+                      keywords: searchTerms,
+                      locationName: search.location,
+                      distanceFromLocation: 10,
+                    });
+                  }}
+                  sx={{ mt: 2, width: '100%' }}
+                  variant="contained"
+                >
+                  Save
+                </Button>
+              ) : null}
             </Box>
           ) : null}
         </Box>
