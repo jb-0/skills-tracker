@@ -23,11 +23,12 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: '/auth/google/callback',
+      proxy: true,
     },
     (accessToken, refreshToken, profile, cb) => {
       User.findOrCreate({ googleId: profile.id }, (err, user) => cb(err, user));
-    },
-  ),
+    }
+  )
 );
 
 /* *************************************************************************************************
@@ -38,14 +39,18 @@ const facebookCallback = process.env.PROD
   ? 'https://the-skills-tracker.herokuapp.com/auth/facebook/callback'
   : '/auth/facebook/callback';
 
-passport.use(new FacebookStrategy({
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: facebookCallback,
-},
-((accessToken, refreshToken, profile, cb) => {
-  User.findOrCreate({ facebookId: profile.id }, (err, user) => cb(err, user));
-})));
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: facebookCallback,
+    },
+    (accessToken, refreshToken, profile, cb) => {
+      User.findOrCreate({ facebookId: profile.id }, (err, user) => cb(err, user));
+    }
+  )
+);
 
 /* *************************************************************************************************
 LOCAL STRATEGY

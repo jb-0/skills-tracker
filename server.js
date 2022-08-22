@@ -14,7 +14,7 @@ const authRoutes = require('./routes/authRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 
 const requireHTTPS = require('./middleware/requireHTTPS');
-const { connection } = mongoose;
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -22,9 +22,7 @@ async function main() {
   /* ***************************************
   DB CONNECTION
   *************************************** */
-  const DB_PATH = process.env.PROD
-    ? process.env.PROD_DB_PATH
-    : process.env.DEV_DB_PATH;
+  const DB_PATH = process.env.PROD ? process.env.PROD_DB_PATH : process.env.DEV_DB_PATH;
 
   try {
     await mongoose.connect(DB_PATH, {
@@ -50,8 +48,8 @@ async function main() {
       resave: false,
       saveUninitialized: false,
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
-      cookie: { maxAge: 7 * (24 * 60 * 60 * 1000) }
-    }),
+      cookie: { maxAge: 7 * (24 * 60 * 60 * 1000) },
+    })
   );
   app.use(passport.initialize());
   app.use(passport.session());
@@ -61,12 +59,10 @@ async function main() {
   app.use('/auth/', authRoutes);
   app.use('/api/job', searchRoutes);
 
-  if (process.env.PROD) {
-    app.use(express.static(`${__dirname}/client/build`));
-    app.get('*', (req, res) => {
-      res.sendFile(`${__dirname}/client/build/index.html`);
-    });
-  }
+  app.use(express.static(`${__dirname}/client/build`));
+  app.get('*', (req, res) => {
+    res.sendFile(`${__dirname}/client/build/index.html`);
+  });
 
   app.listen(PORT, () => {
     console.log(`Server is running on Port: ${PORT}`);

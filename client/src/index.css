@@ -1,0 +1,44 @@
+root {
+  --primary-color: #212529;
+  --secondary-color: white;
+  --tertiary-color: #ffb703;
+  --primary-pad: 20px;
+  --main-font: 'Nunito', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--main-font);
+  text-align: center;
+  color: var(--primary-color);
+  background-color: var(--primary-color);
+  margin-bottom: 60px;
+}
+
+p,
+input,
+select,
+textarea,
+button {
+  font-family: var(--main-font);
+  color: var(--primary-color);
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+a {
+  text-decoration: none;
+}
+
+.large-p,
+.large-a {
+  font-size: 22px;
+}
+
+.secondary-font-color {
+  color: var(--secondary-color);
+}
