@@ -1,16 +1,20 @@
 import React from 'react';
-import { Box, Typography, Grid, Alert, AlertTitle } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
+import { Box, Typography, Grid } from '@mui/material';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import SearchCardResult from '../../components/SearchCardResult';
-import { getSaved } from '../../api';
+import { deleteSaved, getSaved } from '../../api';
 
 const Profile: React.FunctionComponent = () => {
   const containerPadding = 4;
   const containerTopPadding = 6;
 
+  const { invalidateQueries } = useQueryClient();
+
   const { data: savedSearchData = {}, isLoading: savedSearchIsLoading } = useQuery(getSaved.key, getSaved.fn);
   const showSavedSearch = savedSearchData?.savedSearches && savedSearchData?.savedSearches?.length > 0;
   const showWarning = !savedSearchIsLoading && !showSavedSearch;
+
+  const deleteMutation = useMutation(deleteSaved.fn, { onSettled: () => invalidateQueries(getSaved.key) });
 
   return (
     <Box p={containerPadding} pt={containerTopPadding} maxWidth="md" mx="auto">
@@ -34,7 +38,10 @@ const Profile: React.FunctionComponent = () => {
                 md={4}
                 sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
               >
-                <SearchCardResult searchResult={searchResult} />
+                <SearchCardResult
+                  searchResult={searchResult}
+                  onDeleteClick={() => deleteMutation.mutate(searchResult._id)}
+                />
               </Grid>
             );
           })}
