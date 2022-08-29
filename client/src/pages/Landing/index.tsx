@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
-import iphoneImg from '../../images/phone.png';
+import iphoneImg from '../../images/TwoThirdsOfAPhone.png';
 import { useQuery } from '@tanstack/react-query';
 import { getTrending } from '../../api';
 import SearchCardResult from '../../components/SearchCardResult';
