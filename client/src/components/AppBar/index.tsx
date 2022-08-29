@@ -1,21 +1,30 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+  Icon,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import DiamondIcon from '@mui/icons-material/Diamond';
+import LogoImg from '../../images/logo.svg';
 
 const pages = ['Home', 'Search'];
 const settings = ['Profile', 'Logout'];
+
+const logo = (
+  <Icon sx={{ mr: 1 }}>
+    <img src={LogoImg} height={25} width={25} alt="" />
+  </Icon>
+);
 
 const ResponsiveAppBar = () => {
   const [userState] = useContext(UserContext);
@@ -43,103 +52,111 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <DiamondIcon sx={{ display: { xs: 'none', sm: 'flex' }, mr: 1 }} />
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', sm: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <DiamondIcon sx={{ display: { xs: 'flex', sm: 'none' }, mr: 1 }} />
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                href={page !== 'Home' ? `/${page.toLowerCase()}` : '/'}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+          <>
+            {logo}
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          {userState.authenticated ? (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar />
-                </IconButton>
-              </Tooltip>
+                <MenuIcon />
+              </IconButton>
               <Menu
-                sx={{ mt: '45px' }}
                 id="menu-appbar"
-                anchorEl={anchorElUser}
+                anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: 'bottom',
+                  horizontal: 'left',
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: 'top',
-                  horizontal: 'right',
+                  horizontal: 'left',
                 }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', sm: 'none' },
+                }}
               >
-                {settings.map((setting) => (
+                {pages.map((page) => (
                   <MenuItem
-                    key={setting}
+                    key={page}
                     component={Button}
-                    {...(setting.toLowerCase() === 'logout'
-                      ? {
-                          onClick: () => {
-                            fetch('/api/user/logout');
-                            handleCloseUserMenu();
-                          },
-                          href: '/',
-                        }
-                      : {
-                          href: `/${setting.toLowerCase()}`,
-                          onClick: handleCloseUserMenu,
-                        })}
+                    onClick={handleCloseNavMenu}
+                    href={page !== 'Home' ? `/${page.toLowerCase()}` : '/'}
                   >
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-          ) : null}
+
+            {!userState.authenticated ? { logo } : null}
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  href={page !== 'Home' ? `/${page.toLowerCase()}` : '/'}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Box>
+
+            {userState.authenticated ? (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem
+                      key={setting}
+                      component={Button}
+                      {...(setting.toLowerCase() === 'logout'
+                        ? {
+                            onClick: () => {
+                              fetch('/api/user/logout');
+                              handleCloseUserMenu();
+                            },
+                            href: '/',
+                          }
+                        : {
+                            href: `/${setting.toLowerCase()}`,
+                            onClick: handleCloseUserMenu,
+                          })}
+                    >
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            ) : null}
+          </>
         </Toolbar>
       </Container>
     </AppBar>

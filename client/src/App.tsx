@@ -19,7 +19,7 @@ const theme = createTheme({
   },
   typography: {
     allVariants: {
-      fontFamily: "'Montserrat', sans-serif;",
+      fontFamily: "'Roboto', sans-serif;",
       textTransform: 'none',
     },
   },
