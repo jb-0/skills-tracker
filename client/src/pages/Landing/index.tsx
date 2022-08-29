@@ -52,6 +52,7 @@ const Landing: React.FunctionComponent = () => {
             display="flex"
             flexWrap={{ xs: 'wrap', sm: 'nowrap' }}
             flexDirection={{ xs: 'column-reverse', sm: 'row' }}
+            justifyContent={{ xs: 'flex-end', sm: 'center' }}
           >
             <Box
               display="flex"
