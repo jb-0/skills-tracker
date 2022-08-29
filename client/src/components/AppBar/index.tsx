@@ -46,7 +46,7 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Icon sx={{ mr: 1 }}>
+          <Icon sx={{ mr: 1, display: { xs: 'none', sm: 'inline-block' } }}>
             <img src={LogoImg} height={25} width={25} alt="" />
           </Icon>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
@@ -92,7 +92,7 @@ const ResponsiveAppBar = () => {
           </Box>
 
           {!userState.authenticated ? (
-            <Icon sx={{ mr: 1 }}>
+            <Icon sx={{ mr: 1, display: { xs: 'inline-block', sm: 'none' } }}>
               <img src={LogoImg} height={25} width={25} alt="" />
             </Icon>
           ) : null}
