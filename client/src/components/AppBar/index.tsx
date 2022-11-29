@@ -115,7 +115,7 @@ const ResponsiveAppBar = () => {
           </Box>
 
           {!userState.authenticated ? (
-            <Button variant="outlined" sx={{ ml: 4 }}>
+            <Button variant="outlined" sx={{ ml: 4 }} href="/login">
               Sign me up!
             </Button>
           ) : (
