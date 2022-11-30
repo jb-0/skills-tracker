@@ -58,10 +58,15 @@ const Landing: React.FunctionComponent = () => {
         {/* Features */}
         <Box
           display="flex"
+          flexDirection={{ xs: "column", md: "row" }}
+          alignItems={{ xs: "flex-start", md: "center" }}
+          rowGap={4}
           justifyContent="space-between"
+          width={{ xs: "fit-content", md: "100%" }}
           maxWidth="md"
           mx="auto"
           p={containerPadding}
+          pt={containerTopPadding}
         >
           <FeatureChip
             text="Search by location and skill"
@@ -79,14 +84,10 @@ const Landing: React.FunctionComponent = () => {
           />
         </Box>
 
-        <Typography>
-          Creating an account allows you to save searches as well as track new
-          searches that are not currently in our database.
-        </Typography>
         {/* Third section */}
         {showTrending ? (
           <Box p={containerPadding} pt={containerTopPadding}>
-            <Typography variant="h4" pb={2}>
+            <Typography variant="h4" fontWeight="700" pb={2}>
               Trending skill searches
             </Typography>
             <Grid container spacing={2} width="100%" m="0">
