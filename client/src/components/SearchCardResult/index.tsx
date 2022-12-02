@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { TrackedSearchResult } from "../../api";
 import { Delete } from "@mui/icons-material";
+import { grey } from "@mui/material/colors";
 
 interface ISearchCardProps {
   searchResult: TrackedSearchResult;
@@ -33,11 +34,14 @@ const SearchCardResult: React.FunctionComponent<ISearchCardProps> = ({
         width: "500px",
         maxWidth: "100%",
         height: isEditable ? "300px" : "280px",
+        border: "1px solid",
+        borderColor: grey["200"],
       }}
+      elevation={0}
     >
       <CardContent sx={{ height: "250px" }}>
         <Typography
-          variant="h6"
+          variant="subtitle1"
           sx={{
             textOverflow: "ellipsis",
             overflow: "hidden",
@@ -46,7 +50,10 @@ const SearchCardResult: React.FunctionComponent<ISearchCardProps> = ({
         >
           {`💎  ${searchResult.searchTerms.keywords.replace(" ", " • ")}`}
         </Typography>
-        <Typography color="text.secondary">{`📍  ${locationCapitalised}`}</Typography>
+        <Typography
+          variant="subtitle2"
+          color="text.secondary"
+        >{`📍  ${locationCapitalised}`}</Typography>
         <Box width="100%" height="190px">
           <JobCountChart search={searchResult} />
         </Box>
