@@ -10,6 +10,7 @@ import {
   TimelineOutlined,
 } from "@mui/icons-material";
 import FeatureChip from "../../components/FeatureChip";
+import SearchForm from "../../components/SearchForm";
 
 const Landing: React.FunctionComponent = () => {
   const containerPadding = 4;
@@ -21,8 +22,7 @@ const Landing: React.FunctionComponent = () => {
     trendingData?.trendingSearches?.length > 0;
 
   return (
-    <>
-      {/* First section */}
+    <React.Fragment>
       <Box component="article" pt={containerTopPadding}>
         <Box maxWidth="md" mx="auto" display={{ sm: "flex" }}>
           <Box
@@ -55,7 +55,6 @@ const Landing: React.FunctionComponent = () => {
           </Box>
         </Box>
 
-        {/* Features */}
         <Box
           display="flex"
           flexDirection={{ xs: "column", md: "row" }}
@@ -84,7 +83,30 @@ const Landing: React.FunctionComponent = () => {
           />
         </Box>
 
-        {/* Third section */}
+        <Box
+          component="article"
+          maxWidth="md"
+          mx="auto"
+          p={containerPadding}
+          pt={containerTopPadding}
+        >
+          <Typography variant="h4" fontWeight="700" pb={2}>
+            Try it out for free!
+          </Typography>
+          <Typography>
+            Simply select a location and one or more skills to see a count of
+            jobs currently listed on{" "}
+            <a
+              href="https://www.reed.co.uk"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Reed.co.uk
+            </a>
+          </Typography>
+          <SearchForm />
+        </Box>
+
         {showTrending ? (
           <Box p={containerPadding} pt={containerTopPadding}>
             <Typography variant="h4" fontWeight="700" pb={2}>
@@ -113,7 +135,7 @@ const Landing: React.FunctionComponent = () => {
           </Box>
         ) : null}
       </Box>
-    </>
+    </React.Fragment>
   );
 };
 
