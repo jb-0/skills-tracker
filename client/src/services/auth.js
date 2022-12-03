@@ -1,11 +1,11 @@
 async function isAuthenticated() {
   // API will return true or false depending on whether user is logged in
-  const res = await fetch('/api/user/isloggedin', {
-    method: 'GET',
+  const res = await fetch("/api/user/isloggedin", {
+    method: "GET",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      frontend: 'react-frontend',
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      frontend: "react-frontend",
     },
   });
 
@@ -17,6 +17,6 @@ async function isAuthenticated() {
   } else {
     return false;
   }
-};
+}
 
 export default isAuthenticated;

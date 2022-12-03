@@ -15,11 +15,14 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const pages = ["Home"];
-const settings = ["Profile", "Logout"];
+const pages: string[] = [];
+const settings = ["Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
   const [userState] = useContext(UserContext);
+
+  // only show certain page links for unauthenticated users
+  if (!userState.authenticated && !pages.includes("Home")) pages.push("Home");
   if (!userState.authenticated && !pages.includes("Login")) pages.push("Login");
 
   const [menuAnchor, setMenuAnchor] = React.useState<null | HTMLElement>(null);
@@ -48,16 +51,18 @@ const ResponsiveAppBar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+            {pages?.length > 0 ? (
+              <IconButton
+                size="large"
+                aria-label="Navigation options"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+            ) : null}
             <Menu
               id="menu-appbar"
               anchorEl={menuAnchor}
@@ -120,7 +125,7 @@ const ResponsiveAppBar = () => {
             </Button>
           ) : (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              <Tooltip title="Authtenticated navigation options">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar />
                 </IconButton>

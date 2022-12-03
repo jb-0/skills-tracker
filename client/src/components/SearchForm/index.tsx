@@ -43,7 +43,15 @@ const SearchForm: React.FC = () => {
 
   return (
     <>
-      <Box component="form" width="100%" pt={2} mb={2} display="flex" gap={2}>
+      <Box
+        component="form"
+        width="100%"
+        pt={2}
+        mb={2}
+        display="flex"
+        gap={2}
+        flexDirection={{ xs: "column", sm: "row" }}
+      >
         <LocationSelector
           locationOptions={permittedTerms?.locations || []}
           value={location}
@@ -59,8 +67,8 @@ const SearchForm: React.FC = () => {
 
       {displaySomeResultsMessage ? (
         <Typography>
-          There are currently {searchResult?.noOfResults} jobs in {location}{" "}
-          matching your chosen skillset of {skills.join(", ")}
+          There are currently <b>{searchResult?.noOfResults}</b> jobs in{" "}
+          {location} matching your chosen skillset of {skills.join(", ")}
         </Typography>
       ) : null}
 
