@@ -5,9 +5,10 @@ interface Props {
   skillOptions: string[];
   value: string[];
   onChange: (skills: string[]) => void;
+  disabled?: boolean;
 }
 
-const SkillMultiSelector: React.FC<Props> = ({ skillOptions, value, onChange }: Props) => {
+const SkillMultiSelector: React.FC<Props> = ({ skillOptions, value, onChange, disabled }: Props) => {
   return (
     <Autocomplete
       multiple
@@ -18,6 +19,7 @@ const SkillMultiSelector: React.FC<Props> = ({ skillOptions, value, onChange }: 
       onChange={(_event: React.SyntheticEvent, value: string[]) => onChange(value)}
       renderInput={(params) => <TextField variant="outlined" {...params} label="Skills" />}
       sx={{ width: '100%' }}
+      disabled={disabled}
     />
   );
 };

@@ -94,11 +94,11 @@ export const deleteSaved = {
 export interface SaveSearch {
   keywords: string;
   locationName: string;
-  distanceFromLocation: number;
+  distanceFromLocation?: number;
 }
 
 export const saveSearch = {
-  fn: async (body: SaveSearch): Promise<unknown> => {
+  fn: async ({ keywords, locationName, distanceFromLocation = 10 }: SaveSearch): Promise<unknown> => {
     const res = await fetch('/api/job/search/save', {
       method: 'POST',
       headers: {
@@ -106,7 +106,7 @@ export const saveSearch = {
         'Content-Type': 'application/json',
         frontend: 'react-frontend',
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({ keywords, locationName, distanceFromLocation }),
     });
 
     return res.json();

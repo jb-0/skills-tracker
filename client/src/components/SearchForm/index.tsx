@@ -1,33 +1,42 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/system';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import getPermittedTerms from '../../services/getPermittedTerms';
 import LocationSelector from '../LocationSelector';
 import SkillMultiSelector from '../SkillMultiSelector';
-import { getSearch } from '../../api';
-import { Typography } from '@mui/material';
+import { getSearch, saveSearch } from '../../api';
+import { Button, Typography } from '@mui/material';
+
+interface Props {
+  showSaveButton?: true;
+}
 
 type FormData = {
   location: string;
   skills: string[];
 };
 
-const SearchForm: React.FC = () => {
+const SearchForm: React.FC<Props> = ({ showSaveButton }: Props) => {
   const [{ skills, location }, setFormData] = useState<FormData>({
-    location: 'London',
+    location: '',
     skills: [],
   });
 
-  const { data: permittedTerms } = useQuery({
+  const { data: permittedTerms, isLoading: permittedTermsIsLoading } = useQuery({
     queryKey: ['get-permitted-terms'],
     queryFn: getPermittedTerms,
   });
 
-  const { data: searchResult } = useQuery({
+  const { data: searchResult, isLoading: searchResultIsLoading } = useQuery({
     queryKey: getSearch.key(skills, location),
     queryFn: () => getSearch.fn(skills.join(' '), location),
-    enabled: skills.length > 0,
+    enabled: skills.length > 0 && !!location,
   });
+
+  const createSearch = useMutation(saveSearch.fn);
+  const onClickSave = () => {
+    createSearch.mutate({ keywords: skills.join(' '), locationName: location });
+  };
 
   const updateFormValue = (key: keyof FormData, value: string | string[]) => {
     setFormData((prev) => ({
@@ -39,6 +48,8 @@ const SearchForm: React.FC = () => {
   const displayNoResultsMessage = !!searchResult && searchResult?.noOfResults === 0;
   const displaySomeResultsMessage = !!searchResult && searchResult?.noOfResults > 0;
 
+  const disabled = createSearch.isLoading || permittedTermsIsLoading || (skills.length > 0 && searchResultIsLoading);
+
   return (
     <>
       <Box
@@ -49,25 +60,36 @@ const SearchForm: React.FC = () => {
         display="flex"
         gap={2}
         flexDirection={{ xs: 'column', sm: 'row' }}
+        p={showSaveButton ? 4 : undefined}
       >
         <LocationSelector
           locationOptions={permittedTerms?.locations || []}
           value={location}
           onChange={(location: string) => updateFormValue('location', location)}
+          disabled={disabled}
         />
 
         <SkillMultiSelector
           skillOptions={permittedTerms?.skills || []}
           value={skills}
           onChange={(skills) => updateFormValue('skills', skills)}
+          disabled={disabled}
         />
       </Box>
 
       {displaySomeResultsMessage ? (
-        <Typography>
-          There are currently <b>{searchResult?.noOfResults}</b> jobs in {location} matching your chosen skillset of{' '}
-          {skills.join(', ')}
-        </Typography>
+        <>
+          <Typography>
+            There are currently <b>{searchResult?.noOfResults}</b> jobs in {location} matching your chosen skillset of{' '}
+            {skills.join(', ')}
+          </Typography>
+
+          {showSaveButton ? (
+            <Button onClick={onClickSave} sx={{ mt: 2 }} disabled={disabled}>
+              Save search
+            </Button>
+          ) : null}
+        </>
       ) : null}
 
       {displayNoResultsMessage ? (

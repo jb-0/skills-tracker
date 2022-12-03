@@ -5,9 +5,10 @@ interface Props {
   locationOptions: string[];
   onChange: (location: string) => void;
   value: string;
+  disabled?: boolean;
 }
 
-const LocationSelector: React.FC<Props> = ({ locationOptions, onChange, value }: Props) => {
+const LocationSelector: React.FC<Props> = ({ locationOptions, onChange, value, disabled }: Props) => {
   return (
     <FormControl variant="outlined" sx={{ minWidth: '200px' }}>
       <InputLabel variant="outlined" id="location-label">
@@ -21,6 +22,7 @@ const LocationSelector: React.FC<Props> = ({ locationOptions, onChange, value }:
           onChange(event?.target?.value);
         }}
         sx={{ textAlign: 'left' }}
+        disabled={disabled}
       >
         {locationOptions.map((location: string) => {
           return (

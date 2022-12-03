@@ -1,54 +1,30 @@
-import React from 'react';
-import { Box, Typography, Grid } from '@mui/material';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import SearchCardResult from '../../components/SearchCardResult';
-import { deleteSaved, getSaved } from '../../api';
+import React, { useState } from 'react';
+import { Box, Tabs, Tab } from '@mui/material';
+import SavedSearches from '../../components/SavedSearches';
+import SearchForm from '../../components/SearchForm';
+
+function a11yProps(index: number) {
+  return {
+    id: `dashboard-tab-${index}`,
+    'aria-controls': `dashboard-tabpanel-${index}`,
+  };
+}
 
 const Profile: React.FunctionComponent = () => {
+  const [tab, setTab] = useState(0);
   const containerPadding = 4;
-  const containerTopPadding = 6;
-
-  const { invalidateQueries } = useQueryClient();
-
-  const { data: savedSearchData = {}, isLoading: savedSearchIsLoading } = useQuery(getSaved.key, getSaved.fn);
-  const showSavedSearch = savedSearchData?.savedSearches && savedSearchData?.savedSearches?.length > 0;
-  const showWarning = !savedSearchIsLoading && !showSavedSearch;
-
-  const deleteMutation = useMutation(deleteSaved.fn, { onSettled: () => invalidateQueries(getSaved.key) });
 
   return (
-    <Box p={containerPadding} pt={containerTopPadding} maxWidth="lg" mx="auto">
-      <Typography variant="h4" pb={2}>
-        {showWarning ? 'No saved searches' : showSavedSearch ? 'Saved searches' : ''}
-      </Typography>
-      {showWarning ? (
-        <Typography>
-          You have not yet saved any searches. To save a search go to the search page, search for skills you are
-          interested in and hit save.
-        </Typography>
-      ) : showSavedSearch ? (
-        <Grid container spacing={2} width="100%" m="0">
-          {savedSearchData?.savedSearches?.map((searchResult, idx) => {
-            return (
-              <Grid
-                item
-                key={`saved_search_item_${idx}`}
-                xs={12}
-                sm={6}
-                md={4}
-                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-              >
-                <SearchCardResult
-                  searchResult={searchResult}
-                  onDeleteClick={() => deleteMutation.mutate(searchResult._id)}
-                />
-              </Grid>
-            );
-          })}
-        </Grid>
-      ) : (
-        <></>
-      )}
+    <Box p={containerPadding} maxWidth="lg" mx="auto">
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', width: 'fit-content' }}>
+        <Tabs value={tab} onChange={(_, value) => setTab(value)} aria-label="Dashboard tabs">
+          <Tab label="Search" {...a11yProps(0)} />
+          <Tab label="Saved searches" {...a11yProps(1)} />
+        </Tabs>
+      </Box>
+
+      {tab === 0 ? <SearchForm showSaveButton={true} /> : null}
+      {tab === 1 ? <SavedSearches /> : null}
     </Box>
   );
 };
