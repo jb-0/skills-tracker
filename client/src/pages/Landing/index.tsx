@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
-import iphoneImg from "../../images/AppOnPhone.png";
+import iphoneImg from "../../images/TwoThirdsOfAPhone.png";
 import { useQuery } from "@tanstack/react-query";
 import { getTrending } from "../../api";
 import SearchCardResult from "../../components/SearchCardResult";
