@@ -21,8 +21,6 @@ userRoutes.get('/logout', (req, res) => {
 });
 
 userRoutes.get('/isloggedin', (req, res) => {
-  res.json(true);
-  return;
   if (req.isAuthenticated()) {
     res.json(true);
   } else {
