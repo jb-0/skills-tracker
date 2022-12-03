@@ -1,11 +1,11 @@
-import firebase from "firebase/app";
-require("firebase/firestore");
+import firebase from 'firebase/app';
+require('firebase/firestore');
 
 // Public facing firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyBjKKngqvHciPZI-hIWKZb6FOQixIeMA2o",
-  authDomain: "skills-tracker-1e309.firebaseapp.com",
-  projectId: "skills-tracker-1e309",
+  apiKey: 'AIzaSyBjKKngqvHciPZI-hIWKZb6FOQixIeMA2o',
+  authDomain: 'skills-tracker-1e309.firebaseapp.com',
+  projectId: 'skills-tracker-1e309',
 };
 
 // Init firebase and assign firestore db
@@ -20,7 +20,7 @@ async function getPermittedTerms(): Promise<PermittedTerms> {
   let permittedTerms: PermittedTerms = { locations: [], skills: [] };
 
   try {
-    const query = await db.collection("permittedTerms").get();
+    const query = await db.collection('permittedTerms').get();
 
     query.forEach(async (doc) => {
       const data = doc.data();

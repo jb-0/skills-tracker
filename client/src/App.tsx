@@ -1,12 +1,12 @@
-import React from "react";
-import { ViewProvider } from "./context/ViewContext";
-import { SearchProvider } from "./context/SearchContext";
-import { UserProvider } from "./context/UserContext";
-import Routes from "./routes/Routes";
-import { BrowserRouter as Router } from "react-router-dom";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { CssBaseline } from "@mui/material";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from 'react';
+import { ViewProvider } from './context/ViewContext';
+import { SearchProvider } from './context/SearchContext';
+import { UserProvider } from './context/UserContext';
+import Routes from './routes/Routes';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const theme = createTheme({
   components: {
@@ -28,7 +28,7 @@ const theme = createTheme({
   typography: {
     allVariants: {
       fontFamily: "'Red Hat Display', sans-serif;",
-      textTransform: "none",
+      textTransform: 'none',
     },
   },
 });

@@ -25,7 +25,5 @@ yarn-error.log*
 
 *.sh
 .DS_STORE
-.eslintrc
 *.env
-.prettierrc
 .eslintcache

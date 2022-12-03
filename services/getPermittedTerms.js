@@ -32,5 +32,5 @@ async function getPermittedTerms() {
 }
 
 module.exports = {
-  getPermittedTerms
+  getPermittedTerms,
 };

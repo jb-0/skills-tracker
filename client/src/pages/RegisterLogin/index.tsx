@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Button, Typography } from "@mui/material";
+import React from 'react';
+import { Box, Button, Typography } from '@mui/material';
 
 const RegisterLogin: React.FunctionComponent = () => {
   const containerPadding = 4;
@@ -8,9 +8,9 @@ const RegisterLogin: React.FunctionComponent = () => {
   return (
     <Box
       display="flex"
-      flexDirection={{ xs: "column", sm: "row" }}
-      justifyContent={{ xs: "flex-start", sm: "space-around" }}
-      alignItems={{ xs: "center", sm: "flex-start" }}
+      flexDirection={{ xs: 'column', sm: 'row' }}
+      justifyContent={{ xs: 'flex-start', sm: 'space-around' }}
+      alignItems={{ xs: 'center', sm: 'flex-start' }}
       width="100%"
       height="100%"
       p={containerPadding}
@@ -21,12 +21,7 @@ const RegisterLogin: React.FunctionComponent = () => {
         <Typography variant="h5" pb={2}>
           Sign in
         </Typography>
-        <Button
-          variant="contained"
-          size="large"
-          href="/auth/facebook"
-          sx={{ mb: 2 }}
-        >
+        <Button variant="contained" size="large" href="/auth/facebook" sx={{ mb: 2 }}>
           Log in with Facebook
         </Button>
         <Button variant="contained" size="large" href="/auth/google">
@@ -36,14 +31,9 @@ const RegisterLogin: React.FunctionComponent = () => {
 
       <Box display="flex" flexDirection="column" width="fit-content">
         <Typography variant="h5" pb={2}>
-          Register{" "}
+          Register{' '}
         </Typography>
-        <Button
-          variant="contained"
-          size="large"
-          href="/auth/facebook"
-          sx={{ mb: 2 }}
-        >
+        <Button variant="contained" size="large" href="/auth/facebook" sx={{ mb: 2 }}>
           Sign up with Facebook
         </Button>
         <Button variant="contained" size="large" href="/auth/google">

@@ -18,9 +18,5 @@ export const UserProvider = (props) => {
     isAuthenticated,
   });
 
-  return (
-    <UserContext.Provider value={[userState, setUserState]}>
-      {props.children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={[userState, setUserState]}>{props.children}</UserContext.Provider>;
 };

@@ -19,13 +19,13 @@ describe('Routes testing', () => {
     act(() => {
       doc = render(
         <UserContext.Provider value={[userContextValue, jest.fn()]}>
-        <SearchProvider>
-          <Router history={history}>
-            <Routes />
-          </Router>
+          <SearchProvider>
+            <Router history={history}>
+              <Routes />
+            </Router>
           </SearchProvider>
         </UserContext.Provider>,
-        container
+        container,
       );
     });
 
@@ -48,7 +48,7 @@ describe('Routes testing', () => {
   });
 
   it('a loader is displayed while authentication status is being checked', async () => {
-    const promise = Promise.resolve()
+    const promise = Promise.resolve();
 
     // Define user context mark authenticated as true, this would mock state of auth'd user
     const userContextValue = {
@@ -69,7 +69,7 @@ describe('Routes testing', () => {
 
   it('loader is not present once authentication check is complete', async () => {
     // Define a promise as downstream components (trending will change)
-    const promise = Promise.resolve()
+    const promise = Promise.resolve();
 
     // Define user context mark authenticated as true, this would mock state of auth'd user
     const userContextValue = {
@@ -78,16 +78,14 @@ describe('Routes testing', () => {
       isAuthenticated: jest.fn(() => promise),
     };
 
-    // Render the app, as checking auth is set to false no loader should appear and the home page 
+    // Render the app, as checking auth is set to false no loader should appear and the home page
     // should be rendered and this is confirmed by checking the header text appears
     const doc = renderWithContext(userContextValue);
     expect(doc.container.querySelectorAll('.loader')).toHaveLength(0);
-    expect(
-      screen.getByText('Track in demand skills in your area')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Track in demand skills in your area')).toBeInTheDocument();
 
     // Await completion
-    await act(() => promise)
+    await act(() => promise);
   });
 
   it('unauthenticated users cannot access the profiles route', async () => {
@@ -172,7 +170,7 @@ describe('Routes testing', () => {
 
     history.push('/search');
 
-    // Render the app with context including the history that would route to the search page and 
+    // Render the app with context including the history that would route to the search page and
     // validate expected text appears
     const doc = renderWithContext(userContextValue, history);
     expect(screen.getByText('Search for your skillset')).toBeInTheDocument();
@@ -194,10 +192,10 @@ describe('Routes testing', () => {
 
     history.push('/login');
 
-    // Render the app with context including the history that would route to the login page and 
+    // Render the app with context including the history that would route to the login page and
     // validate that the two (google & fb) login buttons appear
     const doc = renderWithContext(userContextValue, history);
-    expect(screen.getAllByRole('button')).toHaveLength(2)
+    expect(screen.getAllByRole('button')).toHaveLength(2);
 
     // Await completion
     await act(() => promise);
@@ -216,7 +214,7 @@ describe('Routes testing', () => {
 
     history.push('/');
 
-    // Render the app with context including the history that would route to the home page and 
+    // Render the app with context including the history that would route to the home page and
     // validate expected text appears
     const doc = renderWithContext(userContextValue, history);
     expect(screen.getByText('Track in demand skills in your area')).toBeInTheDocument();

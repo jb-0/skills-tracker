@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
-import AppBar from "../components/AppBar";
-import Landing from "../pages/Landing";
-import RegisterLogin from "../pages/RegisterLogin";
-import Profile from "../pages/Profile";
-import { UserContext } from "../context/UserContext";
-import { Routes as RouterRoutes, Route, Navigate } from "react-router";
-import Loader from "../components/Loader";
+import React, { useContext, useEffect } from 'react';
+import AppBar from '../components/AppBar';
+import Landing from '../pages/Landing';
+import RegisterLogin from '../pages/RegisterLogin';
+import Profile from '../pages/Profile';
+import { UserContext } from '../context/UserContext';
+import { Routes as RouterRoutes, Route, Navigate } from 'react-router';
+import Loader from '../components/Loader';
 
 function Routes() {
   const [userState, setUserState] = useContext(UserContext);

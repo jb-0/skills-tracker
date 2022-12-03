@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
+import React, { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
 import {
   AppBar,
   Box,
@@ -12,23 +12,22 @@ import {
   Button,
   Tooltip,
   MenuItem,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const pages: string[] = [];
-const settings = ["Dashboard", "Logout"];
+const settings = ['Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
   const [userState] = useContext(UserContext);
 
   // only show certain page links for unauthenticated users
-  if (!userState.authenticated && !pages.includes("Home")) pages.push("Home");
-  if (!userState.authenticated && !pages.includes("Login")) pages.push("Login");
+  if (!userState.authenticated && !pages.includes('Home')) pages.push('Home');
+  if (!userState.authenticated && !pages.includes('Login')) pages.push('Login');
 
   const [menuAnchor, setMenuAnchor] = React.useState<null | HTMLElement>(null);
 
-  const [authenticatedMenuAnchor, setAuthenticatedMenuAnchor] =
-    React.useState<null | HTMLElement>(null);
+  const [authenticatedMenuAnchor, setAuthenticatedMenuAnchor] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setMenuAnchor(event.currentTarget);
@@ -50,7 +49,7 @@ const ResponsiveAppBar = () => {
     <AppBar position="static" color="transparent" elevation={0}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
             {pages?.length > 0 ? (
               <IconButton
                 size="large"
@@ -67,18 +66,18 @@ const ResponsiveAppBar = () => {
               id="menu-appbar"
               anchorEl={menuAnchor}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+                vertical: 'bottom',
+                horizontal: 'left',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
+                vertical: 'top',
+                horizontal: 'left',
               }}
               open={Boolean(menuAnchor)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", sm: "none" },
+                display: { xs: 'block', sm: 'none' },
               }}
             >
               {pages.map((page) => (
@@ -86,7 +85,7 @@ const ResponsiveAppBar = () => {
                   key={page}
                   component={Button}
                   onClick={handleCloseNavMenu}
-                  href={page !== "Home" ? `/${page.toLowerCase()}` : "/"}
+                  href={page !== 'Home' ? `/${page.toLowerCase()}` : '/'}
                 >
                   <Typography textAlign="center" color="grey.700">
                     {page}
@@ -96,22 +95,17 @@ const ResponsiveAppBar = () => {
             </Menu>
           </Box>
 
-          <Box
-            sx={{ display: { xs: "none", sm: "flex" } }}
-            flexGrow={1}
-            gap={4}
-            justifyContent="flex-end"
-          >
+          <Box sx={{ display: { xs: 'none', sm: 'flex' } }} flexGrow={1} gap={4} justifyContent="flex-end">
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                href={page !== "Home" ? `/${page.toLowerCase()}` : "/"}
+                href={page !== 'Home' ? `/${page.toLowerCase()}` : '/'}
                 sx={{
                   my: 2,
-                  color: "grey.700",
-                  fontWeight: "600",
-                  display: "block",
+                  color: 'grey.700',
+                  fontWeight: '600',
+                  display: 'block',
                 }}
               >
                 {page}
@@ -131,17 +125,17 @@ const ResponsiveAppBar = () => {
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: "45px" }}
+                sx={{ mt: '45px' }}
                 id="menu-appbar"
                 anchorEl={authenticatedMenuAnchor}
                 anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
                 open={Boolean(authenticatedMenuAnchor)}
                 onClose={handleCloseUserMenu}
@@ -150,13 +144,13 @@ const ResponsiveAppBar = () => {
                   <MenuItem
                     key={setting}
                     component={Button}
-                    {...(setting.toLowerCase() === "logout"
+                    {...(setting.toLowerCase() === 'logout'
                       ? {
                           onClick: () => {
-                            fetch("/api/user/logout");
+                            fetch('/api/user/logout');
                             handleCloseUserMenu();
                           },
-                          href: "/",
+                          href: '/',
                         }
                       : {
                           href: `/${setting.toLowerCase()}`,

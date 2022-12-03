@@ -49,7 +49,7 @@ async function main() {
       saveUninitialized: false,
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
       cookie: { maxAge: 7 * (24 * 60 * 60 * 1000) },
-    })
+    }),
   );
   app.use(passport.initialize());
   app.use(passport.session());

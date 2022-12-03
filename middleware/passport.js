@@ -27,8 +27,8 @@ passport.use(
     },
     (accessToken, refreshToken, profile, cb) => {
       User.findOrCreate({ googleId: profile.id }, (err, user) => cb(err, user));
-    }
-  )
+    },
+  ),
 );
 
 /* *************************************************************************************************
@@ -48,8 +48,8 @@ passport.use(
     },
     (accessToken, refreshToken, profile, cb) => {
       User.findOrCreate({ facebookId: profile.id }, (err, user) => cb(err, user));
-    }
-  )
+    },
+  ),
 );
 
 /* *************************************************************************************************

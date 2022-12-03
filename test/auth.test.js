@@ -29,10 +29,7 @@ describe('Auth routes', function () {
       });
 
       assert.strictEqual(res.status, 401);
-      assert.strictEqual(
-        res.text,
-        'MissingPasswordError: No password was given'
-      );
+      assert.strictEqual(res.text, 'MissingPasswordError: No password was given');
     });
 
     it('it is not possible to locally register a user without an email', async function () {
@@ -42,10 +39,7 @@ describe('Auth routes', function () {
       });
 
       assert.strictEqual(res.status, 401);
-      assert.strictEqual(
-        res.text,
-        'MissingUsernameError: No username was given'
-      );
+      assert.strictEqual(res.text, 'MissingUsernameError: No username was given');
     });
 
     it('a user can be registered locally when email and password are supplied', async function () {
@@ -64,10 +58,7 @@ describe('Auth routes', function () {
       });
 
       assert.strictEqual(res.status, 401);
-      assert.strictEqual(
-        res.text,
-        'UserExistsError: A user with the given username is already registered'
-      );
+      assert.strictEqual(res.text, 'UserExistsError: A user with the given username is already registered');
     });
   });
 

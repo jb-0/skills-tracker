@@ -26,8 +26,7 @@ describe('User routes', function () {
 
   describe('GET /api/user/loggedin', function () {
     it('authenticated user can is redirected to frontend profile page', async function () {
-      const res = await request(app).get('/api/user/loggedin')
-        .set('Cookie', cookie);
+      const res = await request(app).get('/api/user/loggedin').set('Cookie', cookie);
 
       assert.strictEqual(res.status, 302);
       assert.strictEqual(res.header.location, 'http://localhost:3000/profile');
@@ -43,18 +42,16 @@ describe('User routes', function () {
 
   describe('GET /api/user/logout', function () {
     it('authenticated user can log out', async function () {
-      const res = await request(app).get('/api/user/logout')
-        .set('Cookie', cookie);
+      const res = await request(app).get('/api/user/logout').set('Cookie', cookie);
 
       assert.strictEqual(res.status, 302);
     });
 
     it('once logged out cookie cannot be used', async function () {
-      const res = await request(app).get('/api/user/isloggedin')
-        .set('Cookie', cookie);
+      const res = await request(app).get('/api/user/isloggedin').set('Cookie', cookie);
 
       // Boolean delivered as string, this check converts to boolean
-      const isloggedin = (res.text === 'true');
+      const isloggedin = res.text === 'true';
 
       assert.isFalse(isloggedin);
     });

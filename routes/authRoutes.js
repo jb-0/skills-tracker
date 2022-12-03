@@ -7,17 +7,14 @@ const { User } = require('../models/userModel.js');
 /* *************************************************************************************************
 GOOGLE ROUTES
 ************************************************************************************************* */
-authRoutes.get(
-  '/google',
-  passport.authenticate('google', { scope: ['profile'] })
-);
+authRoutes.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 
 authRoutes.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/api/user/failure' }),
   (req, res) => {
     res.redirect('/api/user/loggedin');
-  }
+  },
 );
 
 /* *************************************************************************************************
@@ -30,7 +27,7 @@ authRoutes.get(
   passport.authenticate('facebook', { failureRedirect: '/api/user/loginfailure' }),
   (req, res) => {
     res.redirect('/api/user/loggedin');
-  }
+  },
 );
 
 /* *************************************************************************************************
@@ -39,17 +36,13 @@ These are used in dev/test only and are disabled in production
 ************************************************************************************************* */
 if (!process.env.PROD) {
   authRoutes.post('/register', (req, res) => {
-    User.register(
-      new User({ email: req.body.email }),
-      req.body.password,
-      (err, user) => {
-        if (err) {
-          res.status(401).send(`${err}`);
-        } else {
-          res.redirect(307, '/auth/login');
-        }
+    User.register(new User({ email: req.body.email }), req.body.password, (err, user) => {
+      if (err) {
+        res.status(401).send(`${err}`);
+      } else {
+        res.redirect(307, '/auth/login');
       }
-    );
+    });
   });
 
   authRoutes.post(
@@ -57,7 +50,7 @@ if (!process.env.PROD) {
     passport.authenticate('local', { failureRedirect: '/api/user/loginfailure' }),
     (req, res) => {
       res.redirect('/api/user/loggedin');
-    }
+    },
   );
 }
 

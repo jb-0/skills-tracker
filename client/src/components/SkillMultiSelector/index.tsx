@@ -1,5 +1,5 @@
-import React from "react";
-import { Autocomplete, TextField } from "@mui/material";
+import React from 'react';
+import { Autocomplete, TextField } from '@mui/material';
 
 interface Props {
   skillOptions: string[];
@@ -7,11 +7,7 @@ interface Props {
   onChange: (skills: string[]) => void;
 }
 
-const SkillMultiSelector: React.FC<Props> = ({
-  skillOptions,
-  value,
-  onChange,
-}: Props) => {
+const SkillMultiSelector: React.FC<Props> = ({ skillOptions, value, onChange }: Props) => {
   return (
     <Autocomplete
       multiple
@@ -19,13 +15,9 @@ const SkillMultiSelector: React.FC<Props> = ({
       options={skillOptions}
       defaultValue={[]}
       value={value}
-      onChange={(_event: React.SyntheticEvent, value: string[]) =>
-        onChange(value)
-      }
-      renderInput={(params) => (
-        <TextField variant="outlined" {...params} label="Skills" />
-      )}
-      sx={{ width: "100%" }}
+      onChange={(_event: React.SyntheticEvent, value: string[]) => onChange(value)}
+      renderInput={(params) => <TextField variant="outlined" {...params} label="Skills" />}
+      sx={{ width: '100%' }}
     />
   );
 };

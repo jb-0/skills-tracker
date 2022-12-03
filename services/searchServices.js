@@ -79,8 +79,7 @@ const prepareQuery = async (query) => {
 
   cleanQuery.locationName = cleanseLocation(cleanQuery.locationName, locations);
 
-  const queryToEncode = `keywords=${cleanQuery.keywords}&locationName=${
-    cleanQuery.locationName}&distanceFromLocation=${cleanQuery.distanceFromLocation}`;
+  const queryToEncode = `keywords=${cleanQuery.keywords}&locationName=${cleanQuery.locationName}&distanceFromLocation=${cleanQuery.distanceFromLocation}`;
 
   return { encodedQuery: encodeURI(queryToEncode), cleanQueryObject: cleanQuery };
 };
@@ -239,5 +238,5 @@ module.exports = {
   pushSearchToUser,
   deleteUserSavedSearch,
   getUserSavedSearches,
-  getTrendingSearches
+  getTrendingSearches,
 };

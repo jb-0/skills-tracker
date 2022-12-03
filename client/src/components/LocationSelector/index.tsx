@@ -1,11 +1,5 @@
-import React from "react";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
+import React from 'react';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 interface Props {
   locationOptions: string[];
@@ -13,13 +7,9 @@ interface Props {
   value: string;
 }
 
-const LocationSelector: React.FC<Props> = ({
-  locationOptions,
-  onChange,
-  value,
-}: Props) => {
+const LocationSelector: React.FC<Props> = ({ locationOptions, onChange, value }: Props) => {
   return (
-    <FormControl variant="outlined" sx={{ minWidth: "200px" }}>
+    <FormControl variant="outlined" sx={{ minWidth: '200px' }}>
       <InputLabel variant="outlined" id="location-label">
         Location
       </InputLabel>
@@ -30,7 +20,7 @@ const LocationSelector: React.FC<Props> = ({
         onChange={(event: SelectChangeEvent<string>) => {
           onChange(event?.target?.value);
         }}
-        sx={{ textAlign: "left" }}
+        sx={{ textAlign: 'left' }}
       >
         {locationOptions.map((location: string) => {
           return (

@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: false },
   googleId: { type: String, required: false },
   facebookId: { type: String, required: false },
-  savedSearches: [{ type: Schema.Types.ObjectId, ref: 'Search' }]
+  savedSearches: [{ type: Schema.Types.ObjectId, ref: 'Search' }],
 });
 
 userSchema.plugin(findOrCreate);
