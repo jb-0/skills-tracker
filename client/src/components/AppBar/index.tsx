@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../context/UserContext';
+import React, { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 import {
   AppBar,
   Box,
@@ -12,70 +12,73 @@ import {
   Button,
   Tooltip,
   MenuItem,
-  Icon,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import LogoImg from '../../images/logo.svg';
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 
-const pages = ['Home', 'Search'];
-const settings = ['Profile', 'Logout'];
+const pages: string[] = [];
+const settings = ["Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
   const [userState] = useContext(UserContext);
-  if (!userState.authenticated && !pages.includes('Login')) pages.push('Login');
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  // only show certain page links for unauthenticated users
+  if (!userState.authenticated && !pages.includes("Home")) pages.push("Home");
+  if (!userState.authenticated && !pages.includes("Login")) pages.push("Login");
+
+  const [menuAnchor, setMenuAnchor] = React.useState<null | HTMLElement>(null);
+
+  const [authenticatedMenuAnchor, setAuthenticatedMenuAnchor] =
+    React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
+    setMenuAnchor(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
+    setAuthenticatedMenuAnchor(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+    setMenuAnchor(null);
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    setAuthenticatedMenuAnchor(null);
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="transparent" elevation={0}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Icon sx={{ mr: 1, display: { xs: 'none', sm: 'inline-block' } }}>
-            <img src={LogoImg} height={25} width={25} alt="" />
-          </Icon>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
+            {pages?.length > 0 ? (
+              <IconButton
+                size="large"
+                aria-label="Navigation options"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+            ) : null}
             <Menu
               id="menu-appbar"
-              anchorEl={anchorElNav}
+              anchorEl={menuAnchor}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
-              open={Boolean(anchorElNav)}
+              open={Boolean(menuAnchor)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', sm: 'none' },
+                display: { xs: "block", sm: "none" },
               }}
             >
               {pages.map((page) => (
@@ -83,66 +86,77 @@ const ResponsiveAppBar = () => {
                   key={page}
                   component={Button}
                   onClick={handleCloseNavMenu}
-                  href={page !== 'Home' ? `/${page.toLowerCase()}` : '/'}
+                  href={page !== "Home" ? `/${page.toLowerCase()}` : "/"}
                 >
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center" color="grey.700">
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
-          {!userState.authenticated ? (
-            <Icon sx={{ mr: 1, display: { xs: 'inline-block', sm: 'none' } }}>
-              <img src={LogoImg} height={25} width={25} alt="" />
-            </Icon>
-          ) : null}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
+          <Box
+            sx={{ display: { xs: "none", sm: "flex" } }}
+            flexGrow={1}
+            gap={4}
+            justifyContent="flex-end"
+          >
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                href={page !== 'Home' ? `/${page.toLowerCase()}` : '/'}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                href={page !== "Home" ? `/${page.toLowerCase()}` : "/"}
+                sx={{
+                  my: 2,
+                  color: "grey.700",
+                  fontWeight: "600",
+                  display: "block",
+                }}
               >
                 {page}
               </Button>
             ))}
           </Box>
 
-          {userState.authenticated ? (
+          {!userState.authenticated ? (
+            <Button variant="outlined" sx={{ ml: 4 }} href="/login">
+              Sign me up!
+            </Button>
+          ) : (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              <Tooltip title="Authtenticated navigation options">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar />
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: '45px' }}
+                sx={{ mt: "45px" }}
                 id="menu-appbar"
-                anchorEl={anchorElUser}
+                anchorEl={authenticatedMenuAnchor}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
-                open={Boolean(anchorElUser)}
+                open={Boolean(authenticatedMenuAnchor)}
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
                   <MenuItem
                     key={setting}
                     component={Button}
-                    {...(setting.toLowerCase() === 'logout'
+                    {...(setting.toLowerCase() === "logout"
                       ? {
                           onClick: () => {
-                            fetch('/api/user/logout');
+                            fetch("/api/user/logout");
                             handleCloseUserMenu();
                           },
-                          href: '/',
+                          href: "/",
                         }
                       : {
                           href: `/${setting.toLowerCase()}`,
@@ -154,7 +168,7 @@ const ResponsiveAppBar = () => {
                 ))}
               </Menu>
             </Box>
-          ) : null}
+          )}
         </Toolbar>
       </Container>
     </AppBar>

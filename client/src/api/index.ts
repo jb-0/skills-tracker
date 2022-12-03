@@ -15,14 +15,14 @@ export interface TrendingResponse {
 }
 
 export const getTrending = {
-  key: ['trending'],
+  key: ["trending"],
   fn: async (): Promise<TrendingResponse> => {
-    const res = await fetch('/api/job/search/trending', {
-      method: 'GET',
+    const res = await fetch("/api/job/search/trending", {
+      method: "GET",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        frontend: 'react-frontend',
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        frontend: "react-frontend",
       },
     });
 
@@ -31,22 +31,26 @@ export const getTrending = {
 };
 
 export interface SearchResponse {
-  msg?: string;
-  noOfResults?: string;
+  msg: string;
+  noOfResults: number;
 }
 
 export const getSearch = {
-  fn: async (searchTermString: string, location: string): Promise<SearchResponse> => {
+  key: (skills: string[], location: string) => ["get-search", skills, location],
+  fn: async (
+    searchTermString: string,
+    location: string
+  ): Promise<SearchResponse> => {
     let apiQuery = `/api/job/search?keywords=${searchTermString}`;
     apiQuery += `&locationName=${location}`;
     apiQuery += `&distanceFromLocation=10`;
 
     const res = await fetch(apiQuery, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        frontend: 'react-frontend',
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        frontend: "react-frontend",
       },
     });
 
@@ -60,14 +64,14 @@ export interface SavedResponse {
 }
 
 export const getSaved = {
-  key: ['saved'],
+  key: ["saved"],
   fn: async (): Promise<SavedResponse> => {
-    const res = await fetch('/api/job/search/saved', {
-      method: 'GET',
+    const res = await fetch("/api/job/search/saved", {
+      method: "GET",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        frontend: 'react-frontend',
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        frontend: "react-frontend",
       },
     });
 
@@ -78,11 +82,11 @@ export const getSaved = {
 export const deleteSaved = {
   fn: async (id: string): Promise<unknown> => {
     const res = await fetch(`/api/job/search/delete/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        frontend: 'react-frontend',
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        frontend: "react-frontend",
       },
     });
 
@@ -98,12 +102,12 @@ export interface SaveSearch {
 
 export const saveSearch = {
   fn: async (body: SaveSearch): Promise<unknown> => {
-    const res = await fetch('/api/job/search/save', {
-      method: 'POST',
+    const res = await fetch("/api/job/search/save", {
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        frontend: 'react-frontend',
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        frontend: "react-frontend",
       },
       body: JSON.stringify(body),
     });
