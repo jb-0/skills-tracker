@@ -1,12 +1,11 @@
-import React, { useContext, useEffect } from 'react';
-import AppBar from '../components/AppBar';
-import Landing from '../pages/Landing';
-import Search from '../pages/Search';
-import RegisterLogin from '../pages/RegisterLogin';
-import Profile from '../pages/Profile';
-import { UserContext } from '../context/UserContext';
-import { Routes as RouterRoutes, Route, Navigate } from 'react-router';
-import Loader from '../components/Loader';
+import React, { useContext, useEffect } from "react";
+import AppBar from "../components/AppBar";
+import Landing from "../pages/Landing";
+import RegisterLogin from "../pages/RegisterLogin";
+import Profile from "../pages/Profile";
+import { UserContext } from "../context/UserContext";
+import { Routes as RouterRoutes, Route, Navigate } from "react-router";
+import Loader from "../components/Loader";
 
 function Routes() {
   const [userState, setUserState] = useContext(UserContext);
@@ -34,7 +33,6 @@ function Routes() {
       <AppBar />
       <RouterRoutes>
         <Route exact path="/" element={<Landing />} />
-        <Route exact path="/search" element={<Search />} />
         <Route exact path="/login" element={<RegisterLogin />} />
 
         {/* The profile page is only available for authenticated users, redirect unauth'd to the login page */}

@@ -30,6 +30,7 @@ const LocationSelector: React.FC<Props> = ({
         onChange={(event: SelectChangeEvent<string>) => {
           onChange(event?.target?.value);
         }}
+        sx={{ textAlign: "left" }}
       >
         {locationOptions.map((location: string) => {
           return (

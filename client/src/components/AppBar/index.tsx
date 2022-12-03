@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const pages = ["Home", "Search"];
+const pages = ["Home"];
 const settings = ["Profile", "Logout"];
 
 const ResponsiveAppBar = () => {
