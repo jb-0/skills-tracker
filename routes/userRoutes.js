@@ -21,7 +21,9 @@ userRoutes.get('/logout', (req, res) => {
 });
 
 userRoutes.get('/isloggedin', (req, res) => {
-  if (req.isAuthenticated()) {
+  if (process.env.MOCK_AUTHENTICATED_USER) {
+    res.json(true);
+  } else if (req.isAuthenticated()) {
     res.json(true);
   } else {
     res.json(false);
