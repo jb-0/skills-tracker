@@ -17,11 +17,6 @@ const SavedSearches: React.FC = () => {
 
   return (
     <Box padding={containerPadding}>
-      {showSavedSearch ? (
-        <Typography variant="h5" pb={2}>
-          Saved searches
-        </Typography>
-      ) : null}
       {showWarning ? (
         <Alert severity="info" sx={{ textAlign: 'left' }}>
           <AlertTitle>No saved searches</AlertTitle>
