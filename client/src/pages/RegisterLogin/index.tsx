@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { blueGrey } from "@mui/material/colors";
 
 const RegisterLogin: React.FunctionComponent = () => {
   const containerPadding = 4;
