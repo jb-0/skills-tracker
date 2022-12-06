@@ -1,0 +1,1 @@
+export { trendingSearches } from './trendingSearches';
