@@ -3,6 +3,8 @@ import { trendingSearches } from '../fixtures';
 describe('Landing page', () => {
   beforeEach(() => {
     cy.intercept('GET', '/api/user/isloggedin', 'false').as('isLoggedIn');
+    cy.intercept('GET', '/google.firestore.v1.Firestore*').as('getFirebase');
+    cy.intercept('POST', '/google.firestore.v1.Firestore*').as('postFirebase');
   });
 
   it('renders the landing page', () => {
@@ -35,12 +37,6 @@ describe('Landing page', () => {
     cy.url().should('equal', 'http://localhost:3000/login');
   });
 
-  it.only('allows users to "try out" the search functionality', () => {
-    cy.visit('/');
-
-    cy.findByRole('heading', { name: /Track in demand skills in your area/ }).should('exist');
-    cy.findByLabelText('Location').click();
-    cy.findByRole('option', { name: 'London' }).click();
-  });
+  it.skip('allows users to "try out" the search functionality', () => {});
 });
 
