@@ -33,6 +33,7 @@ jobs:
         env:
           PORT: 4000
         with:
+          command-prefix: yarn dlx
           start: yarn start
           browser: chrome
           config: baseUrl=http://localhost:4000,video=false
