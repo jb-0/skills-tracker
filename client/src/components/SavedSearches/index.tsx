@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Grid, AlertTitle, Alert } from '@mui/material';
+import { Box, Grid, AlertTitle, Alert } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import SearchCardResult from '../../components/SearchCardResult';
 import { deleteSaved, getSaved } from '../../api';
