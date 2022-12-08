@@ -28,13 +28,13 @@ describe('Landing page', () => {
     cy.visit('/');
 
     cy.findByRole('link', { name: 'Home' }).click();
-    cy.url().should('equal', 'http://localhost:3000/');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/`);
 
     cy.findByRole('link', { name: 'Login' }).click();
-    cy.url().should('equal', 'http://localhost:3000/login');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/login`);
 
     cy.findByRole('link', { name: 'Sign me up!' }).click();
-    cy.url().should('equal', 'http://localhost:3000/login');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/login`);
   });
 
   it.skip('allows users to "try out" the search functionality', () => {});
