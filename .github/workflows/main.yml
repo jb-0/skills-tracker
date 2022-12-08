@@ -25,6 +25,9 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: Install cypress
+        run: ./node_modules/cypress/bin/cypress install
+
       - name: Build
         run: yarn build
 
@@ -33,7 +36,6 @@ jobs:
         env:
           PORT: 4000
         with:
-          command-prefix: yarn dlx
           start: yarn start
           browser: chrome
           config: baseUrl=http://localhost:4000,video=false
