@@ -35,13 +35,13 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         env:
-          PORT: 4000
+          PORT: 3000
         with:
           # install: false
           working-directory: client
           start: yarn start
           browser: chrome
-          config: baseUrl=http://localhost:4000,video=false
+          config: baseUrl=http://localhost:3000,video=false
 
       - name: Deploy
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
