@@ -1,0 +1,53 @@
+name: Main CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, dev]
+jobs:
+  test-and-deploy:
+    name: Build, test and deploy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run:
+          yarn
+
+          # - name: Install cypress
+          # run: ./node_modules/cypress/bin/cypress install
+
+      - name: Build
+        run: yarn build
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        env:
+          PORT: 3000
+        with:
+          # install: false
+          working-directory: client
+          start: yarn start
+          browser: chrome
+          config: baseUrl=http://localhost:3000,video=false
+          wait-on: 'http://localhost:3000'
+
+      - name: Deploy
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: 'the-skills-tracker'
+          heroku_email: 'timothybarrett@hotmail.co.uk'

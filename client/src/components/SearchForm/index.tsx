@@ -5,7 +5,7 @@ import getPermittedTerms from '../../services/getPermittedTerms';
 import LocationSelector from '../LocationSelector';
 import SkillMultiSelector from '../SkillMultiSelector';
 import { getSearch, saveSearch } from '../../api';
-import { Button, Typography } from '@mui/material';
+import { Alert, Button, Snackbar, Typography } from '@mui/material';
 
 interface Props {
   showSaveButton?: true;
@@ -17,6 +17,9 @@ type FormData = {
 };
 
 const SearchForm: React.FC<Props> = ({ showSaveButton }: Props) => {
+  const [snackbar, setSnackbar] = useState<undefined | 'success' | 'alreadyExists'>();
+  const handleSnackbarClose = () => setSnackbar(undefined);
+
   const [{ skills, location }, setFormData] = useState<FormData>({
     location: '',
     skills: [],
@@ -33,7 +36,9 @@ const SearchForm: React.FC<Props> = ({ showSaveButton }: Props) => {
     enabled: skills.length > 0 && !!location,
   });
 
-  const createSearch = useMutation(saveSearch.fn);
+  const createSearch = useMutation(saveSearch.fn, {
+    onSuccess: () => setSnackbar('success'),
+  });
   const onClickSave = () => {
     createSearch.mutate({ keywords: skills.join(' '), locationName: location });
   };
@@ -48,10 +53,16 @@ const SearchForm: React.FC<Props> = ({ showSaveButton }: Props) => {
   const displayNoResultsMessage = !!searchResult && searchResult?.noOfResults === 0;
   const displaySomeResultsMessage = !!searchResult && searchResult?.noOfResults > 0;
 
-  const disabled = createSearch.isLoading || permittedTermsIsLoading || (skills.length > 0 && searchResultIsLoading);
+  const disabled =
+    createSearch.isLoading || permittedTermsIsLoading || (!!location && skills.length > 0 && searchResultIsLoading);
 
   return (
     <>
+      <Snackbar open={!!snackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+          {snackbar}aaa
+        </Alert>
+      </Snackbar>
       <Box
         component="form"
         width="100%"
