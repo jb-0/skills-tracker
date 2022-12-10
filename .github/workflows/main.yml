@@ -42,6 +42,7 @@ jobs:
           start: yarn start
           browser: chrome
           config: baseUrl=http://localhost:3000,video=false
+          wait-on: 'http://localhost:3000'
 
       - name: Deploy
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
