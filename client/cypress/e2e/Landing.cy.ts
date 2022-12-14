@@ -3,8 +3,6 @@ import { trendingSearches } from '../fixtures';
 describe('Landing page', () => {
   beforeEach(() => {
     cy.intercept('GET', '/api/user/isloggedin', 'false').as('isLoggedIn');
-    cy.intercept('GET', '/google.firestore.v1.Firestore*').as('getFirebase');
-    cy.intercept('POST', '/google.firestore.v1.Firestore*').as('postFirebase');
   });
 
   it('renders the landing page', () => {
