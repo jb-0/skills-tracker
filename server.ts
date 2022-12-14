@@ -1,19 +1,18 @@
 require('dotenv').config();
 
 // Require packages
-const express = require('express');
-const enforce = require('express-sslify');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const session = require('express-session');
+import express from 'express';
+import enforce from 'express-sslify';
+import mongoose from 'mongoose';
+import passport from 'passport';
+import session from 'express-session';
 const MongoStore = require('connect-mongo')(session);
 
 // Require routes
-const userRoutes = require('./routes/userRoutes');
-const authRoutes = require('./routes/authRoutes');
-const searchRoutes = require('./routes/searchRoutes');
-
-const requireHTTPS = require('./middleware/requireHTTPS');
+import userRoutes from './routes/userRoutes';
+import authRoutes from './routes/authRoutes';
+import searchRoutes from './routes/searchRoutes';
+import requireHTTPS from './middleware/requireHTTPS';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -25,7 +24,7 @@ async function main() {
   const DB_PATH = process.env.PROD ? process.env.PROD_DB_PATH : process.env.DEV_DB_PATH;
 
   try {
-    await mongoose.connect(DB_PATH, {
+    mongoose.connect(DB_PATH || '', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
@@ -44,7 +43,7 @@ async function main() {
 
   app.use(
     session({
-      secret: process.env.SESSION_SECRET,
+      secret: process.env.SESSION_SECRET || '',
       resave: false,
       saveUninitialized: false,
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
@@ -60,7 +59,7 @@ async function main() {
   app.use('/api/job', searchRoutes);
 
   app.use(express.static(`${__dirname}/client/build`));
-  app.get('*', (req, res) => {
+  app.get('*', (_: express.Request, res: express.Response) => {
     res.sendFile(`${__dirname}/client/build/index.html`);
   });
 
