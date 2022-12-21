@@ -4,7 +4,7 @@ const axios = require('axios').default;
 const { ObjectId } = require('mongoose').Types;
 const { Search } = require('../models/searchModel.js');
 const { User } = require('../models/userModel.js');
-const { getPermittedTerms } = require('./getPermittedTerms');
+const { LOCATIONS, SKILLS } = require('../routes/constants.js');
 
 /**
  * Review the number provided and default (to 10) or round it as required
@@ -71,13 +71,12 @@ const cleanseLocation = (location, permittedLocations) => {
  */
 const prepareQuery = async (query) => {
   const cleanQuery = query;
-  const { locations, skills } = await getPermittedTerms();
 
   cleanQuery.distanceFromLocation = cleanseDistance(cleanQuery.distanceFromLocation);
 
-  cleanQuery.keywords = cleanseKeywords(cleanQuery.keywords, skills);
+  cleanQuery.keywords = cleanseKeywords(cleanQuery.keywords, SKILLS);
 
-  cleanQuery.locationName = cleanseLocation(cleanQuery.locationName, locations);
+  cleanQuery.locationName = cleanseLocation(cleanQuery.locationName, LOCATIONS);
 
   const queryToEncode = `keywords=${cleanQuery.keywords}&locationName=${cleanQuery.locationName}&distanceFromLocation=${cleanQuery.distanceFromLocation}`;
 
