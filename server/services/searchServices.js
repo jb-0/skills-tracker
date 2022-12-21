@@ -67,7 +67,7 @@ const cleanseLocation = (location, permittedLocations) => {
 /**
  * Build query string for API call
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
- * @return {Object} Returns a Encoded and sanitized query string, and also an object version.
+ * @return {Promise<Object>} Returns a Encoded and sanitized query string, and also an object version.
  */
 const prepareQuery = async (query) => {
   const cleanQuery = query;
@@ -87,7 +87,7 @@ const prepareQuery = async (query) => {
 /**
  * Search reed using the jobs seeker API (https://www.reed.co.uk/developers/jobseeker)
  * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
- * @return {Object} First page of query results from reed API
+ * @return {Promise<{totalResults: number}>} First page of query results from reed API
  */
 const searchReed = async (query) => {
   // Request data from reed, per their API documentation Basic Auth is used
@@ -134,7 +134,7 @@ const pushSearchToUser = async (userId, searchId) => {
 /**
  * Finds saved search if it exists, creates it if it doesn't. In either case saves it to user.
  * @param {Object} req The full POST request sent by the user.
- * @return {Object} Returns a response code and message.
+ * @return {Promise<{msg: string, code: number}>} Returns a response code and message.
  */
 const saveSearch = async (req) => {
   const { cleanQueryObject } = await prepareQuery(req.body);
@@ -169,7 +169,7 @@ const saveSearch = async (req) => {
 /**
  * Deletes a given saved search id from a user's saved search list
  * @param {Object} req The DELETE request sent by the user, including the search id to delete
- * @return {Object} Returns a response code and message.
+ * @return {Promise<{msg: string, code: number}>} Returns a response code and message.
  */
 const deleteUserSavedSearch = async (req) => {
   try {
@@ -191,7 +191,7 @@ const deleteUserSavedSearch = async (req) => {
 /**
  * Returns an array of saved searches for a given user or a message if there are no saved searches
  * @param {Object} userId The User ID for the user requesting their saved searches
- * @return {Object} Returns an object containing a response code and message, also sends the
+ * @return {Promise<{msg: string, code: number, savedSearches: unknown}>} Returns an object containing a response code and message, also sends the
  * data in an array if saved searches exist.
  */
 const getUserSavedSearches = async (userId) => {
@@ -214,7 +214,7 @@ const getUserSavedSearches = async (userId) => {
 
 /**
  * Returns an array of searches from the Searches collection, these are not user specific
- * @return {Object} Returns an object containing a response code and message, also sends the
+ * @return {Promise<{msg: string, code: number, trendingSearches: unknown}>} Returns an object containing a response code and message, also sends the
  * data in an array.
  */
 const getTrendingSearches = async () => {
