@@ -6,8 +6,7 @@
     "build": "concurrently \"npx tsc\" \"yarn workspace client build\"",
     "test": "mocha --recursive --exit",
     "start": "node dist/index.js",
-    "dev": "concurrently \"nodemon server/index.ts\" \"yarn workspace client start\"",
-    "heroku-postbuild": "cd client && yarn && yarn build"
+    "dev": "concurrently \"nodemon server/index.ts\" \"yarn workspace client start\""
   },
   "license": "ISC",
   "devDependencies": {
