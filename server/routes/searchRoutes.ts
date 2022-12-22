@@ -1,15 +1,16 @@
 /* eslint-disable no-underscore-dangle */
-const express = require('express');
-
+import express from 'express';
 const searchRoutes = express.Router();
-const {
+
+import {
   searchReed,
   saveSearch,
   deleteUserSavedSearch,
   getUserSavedSearches,
   getTrendingSearches,
-} = require('../services/searchServices');
-const isLoggedIn = require('../middleware/isLoggedIn');
+} from '../services/searchServices';
+import isLoggedIn from '../middleware/isLoggedIn';
+import { SKILLS, LOCATIONS } from './constants';
 
 // GET Number of Jobs, using provided search terms.
 searchRoutes.get('/search', async (req, res) => {
@@ -20,7 +21,7 @@ searchRoutes.get('/search', async (req, res) => {
 });
 
 // GET trending searches
-searchRoutes.get('/search/trending', async (req, res) => {
+searchRoutes.get('/search/trending', async (_req, res) => {
   const result = await getTrendingSearches();
   res.status(result.code).send({ msg: result.msg, trendingSearches: result.trendingSearches });
 });
@@ -42,7 +43,7 @@ searchRoutes.get('/search/saved', isLoggedIn, async (req, res) => {
       ],
     });
   } else {
-    const result = await getUserSavedSearches(req.user._id);
+    const result = await getUserSavedSearches((req?.user as any)?._id || null);
     res.status(result.code).send({ msg: result.msg, savedSearches: result.savedSearches });
   }
 });
@@ -54,7 +55,7 @@ searchRoutes.post('/search/save', isLoggedIn, async (req, res) => {
 });
 
 // PATCH Edit saved search, will delete trend history
-searchRoutes.patch('/search/edit/:id', (req, res) => {});
+searchRoutes.patch('/search/edit/:id', (_req, _res) => {});
 
 // DELETE Saved search
 searchRoutes.delete('/search/delete/:id', isLoggedIn, async (req, res) => {
@@ -62,4 +63,9 @@ searchRoutes.delete('/search/delete/:id', isLoggedIn, async (req, res) => {
   res.status(result.code).send({ msg: result.msg });
 });
 
-module.exports = searchRoutes;
+// GET permitted terms
+searchRoutes.get('/search/permitted-terms', async (_req, res) => {
+  res.status(200).send({ skills: SKILLS, locations: LOCATIONS });
+});
+
+export default searchRoutes;

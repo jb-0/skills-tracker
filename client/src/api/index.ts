@@ -112,3 +112,21 @@ export const saveSearch = {
     return res.json();
   },
 };
+
+type PermittedTerms = { locations: string[]; skills: string[] };
+
+export const getPermittedTerms = {
+  key: ['permitted-terms'],
+  fn: async (): Promise<PermittedTerms> => {
+    const res = await fetch('/api/job/search/permitted-terms', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        frontend: 'react-frontend',
+      },
+    });
+
+    return res.json();
+  },
+};

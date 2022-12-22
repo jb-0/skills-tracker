@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/system';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import getPermittedTerms from '../../services/getPermittedTerms';
 import LocationSelector from '../LocationSelector';
 import SkillMultiSelector from '../SkillMultiSelector';
-import { getSearch, saveSearch } from '../../api';
+import { getPermittedTerms, getSearch, saveSearch } from '../../api';
 import { Alert, Button, Snackbar, Typography } from '@mui/material';
 
 interface Props {
@@ -26,8 +25,8 @@ const SearchForm: React.FC<Props> = ({ showSaveButton }: Props) => {
   });
 
   const { data: permittedTerms, isLoading: permittedTermsIsLoading } = useQuery({
-    queryKey: ['get-permitted-terms'],
-    queryFn: getPermittedTerms,
+    queryKey: getPermittedTerms.key,
+    queryFn: getPermittedTerms.fn,
   });
 
   const { data: searchResult, isLoading: searchResultIsLoading } = useQuery({
