@@ -58,7 +58,7 @@ async function main() {
   app.use('/auth/', authRoutes);
   app.use('/api/job', searchRoutes);
 
-  app.use(express.static(`${__dirname}/client/build`));
+  app.use(express.static(`${__dirname}/../client/build`));
   app.get('*', (_: express.Request, res: express.Response) => {
     res.sendFile(`${__dirname}/client/build/index.html`);
   });
