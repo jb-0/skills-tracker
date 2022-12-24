@@ -1,15 +1,14 @@
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import { Strategy as FacebookStrategy } from 'passport-facebook';
+import { User } from '../models/userModel';
 
-const { User } = require('../models/userModel.js');
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
+passport.serializeUser((user: Express.User, done) => {
+  done(null, user);
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
+  User.findById(id, (err: any, user: Express.User) => {
     done(err, user);
   });
 });
@@ -20,13 +19,13 @@ GOOGLE STRATEGY
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
       callbackURL: '/auth/google/callback',
       proxy: true,
     },
-    (accessToken, refreshToken, profile, cb) => {
-      User.findOrCreate({ googleId: profile.id }, (err, user) => cb(err, user));
+    (_accessToken, _refreshToken, profile, cb) => {
+      User.findOrCreate({ googleId: profile.id }, (err: any, user: Express.User) => cb(err, user));
     },
   ),
 );
@@ -42,12 +41,12 @@ const facebookCallback = process.env.PROD
 passport.use(
   new FacebookStrategy(
     {
-      clientID: process.env.FACEBOOK_APP_ID,
-      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      clientID: process.env.FACEBOOK_APP_ID || '',
+      clientSecret: process.env.FACEBOOK_APP_SECRET || '',
       callbackURL: facebookCallback,
     },
-    (accessToken, refreshToken, profile, cb) => {
-      User.findOrCreate({ facebookId: profile.id }, (err, user) => cb(err, user));
+    (_accessToken, _refreshToken, profile, cb) => {
+      User.findOrCreate({ facebookId: profile.id }, (err: any, user: Express.User) => cb(err, user));
     },
   ),
 );

@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const findOrCreate = require('mongoose-findorcreate');
-const passportLocalMongoose = require('passport-local-mongoose');
+import mongoose from 'mongoose';
+import findOrCreate from 'mongoose-findorcreate';
+import passportLocalMongoose from 'passport-local-mongoose';
 
 const { Schema } = mongoose;
 
@@ -17,4 +17,4 @@ userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 
 const User = mongoose.model('SkillsUser', userSchema);
 
-module.exports = { User };
+export { User };

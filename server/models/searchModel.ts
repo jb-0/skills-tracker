@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 /**
  * Schema is used to save search parameters. Also contains daily count of no. of jobs on reed
@@ -10,4 +10,4 @@ const searchSchema = new mongoose.Schema({
 
 const Search = mongoose.model('Search', searchSchema);
 
-module.exports = { Search };
+export { Search };

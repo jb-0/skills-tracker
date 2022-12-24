@@ -1,18 +1,15 @@
-/* eslint-disable no-console */
-/* eslint-disable no-underscore-dangle */
+import { Search } from '../models/searchModel';
+import { User } from '../models/userModel';
+import { LOCATIONS, SKILLS } from '../routes/constants';
+
 const axios = require('axios').default;
 const { ObjectId } = require('mongoose').Types;
-const { Search } = require('../models/searchModel.js');
-const { User } = require('../models/userModel.js');
-const { LOCATIONS, SKILLS } = require('../routes/constants.js');
 
 /**
  * Review the number provided and default (to 10) or round it as required
- * @param {Number} distance Value for the search distance (miles).
- * @return {Number} Returns a distance value.
  */
-const cleanseDistance = (distance) => {
-  const distanceFromLocationAsFloat = parseFloat(distance, 10);
+const cleanseDistance = (distance = 10) => {
+  const distanceFromLocationAsFloat = parseFloat(distance.toString());
 
   if (Number.isNaN(distanceFromLocationAsFloat)) {
     return 10;
@@ -25,10 +22,8 @@ const cleanseDistance = (distance) => {
 
 /**
  * Take the string of keywords, ensure they match the list of permitted words and return clean
- * @param {String} keywords Search terms provided by the user.
- * @return {String} Returns a cleansed version of the search terms.
  */
-const cleanseKeywords = (keywords, permittedKeywords) => {
+const cleanseKeywords = (keywords: string, permittedKeywords: Array<string>) => {
   const permittedKeywordsLowercase = permittedKeywords.map((word) => word.toLowerCase());
   const keywordsArray = keywords.split(' ');
 
@@ -51,10 +46,8 @@ const cleanseKeywords = (keywords, permittedKeywords) => {
 
 /**
  * Check if the location is in the list of permitted locations, otherwise default it to London
- * @param {String} location A location string as supplied by the user
- * @return {String} Returns a default location or the supplied location if it is permitted
  */
-const cleanseLocation = (location, permittedLocations) => {
+const cleanseLocation = (location: string, permittedLocations: Array<string>) => {
   const permittedLocationsLowercase = permittedLocations.map((word) => word.toLowerCase());
 
   if (!permittedLocationsLowercase.includes(location.toLowerCase())) {
@@ -64,12 +57,12 @@ const cleanseLocation = (location, permittedLocations) => {
   return location;
 };
 
+type Query = { distanceFromLocation: number; keywords: string; locationName: string };
+
 /**
  * Build query string for API call
- * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
- * @return {Promise<Object>} Returns a Encoded and sanitized query string, and also an object version.
  */
-const prepareQuery = async (query) => {
+const prepareQuery = (query: Query) => {
   const cleanQuery = query;
 
   cleanQuery.distanceFromLocation = cleanseDistance(cleanQuery.distanceFromLocation);
@@ -85,13 +78,11 @@ const prepareQuery = async (query) => {
 
 /**
  * Search reed using the jobs seeker API (https://www.reed.co.uk/developers/jobseeker)
- * @param {Object} query Only keywords, locationName and distanceFromLocation are used.
- * @return {Promise<{totalResults: number}>} First page of query results from reed API
  */
-const searchReed = async (query) => {
+const searchReed = async (query: Query) => {
   // Request data from reed, per their API documentation Basic Auth is used
   // and the issued key is provided as the username, password is left blank.
-  const { encodedQuery } = await prepareQuery(query);
+  const { encodedQuery } = prepareQuery(query);
 
   try {
     const response = await axios({
@@ -114,11 +105,8 @@ const searchReed = async (query) => {
 
 /**
  * Pushes a saved search ID to the user's document
- * @param {Object} userId The userId for the user who initiated the request.
- * @param {Object} searchId The ID of the saved search
- * @return {Object} Returns a response code and message.
  */
-const pushSearchToUser = async (userId, searchId) => {
+const pushSearchToUser = async (userId: string, searchId: string) => {
   try {
     await User.findByIdAndUpdate(userId, {
       $push: { savedSearches: searchId },
@@ -132,11 +120,9 @@ const pushSearchToUser = async (userId, searchId) => {
 
 /**
  * Finds saved search if it exists, creates it if it doesn't. In either case saves it to user.
- * @param {Object} req The full POST request sent by the user.
- * @return {Promise<{msg: string, code: number}>} Returns a response code and message.
  */
-const saveSearch = async (req) => {
-  const { cleanQueryObject } = await prepareQuery(req.body);
+const saveSearch = async (req: any) => {
+  const { cleanQueryObject } = prepareQuery(req.body);
 
   // If another user has already saved this search it will be returned and the array length will
   // be greater than 0, if the user already has it saved then it will not be added again
@@ -167,10 +153,8 @@ const saveSearch = async (req) => {
 
 /**
  * Deletes a given saved search id from a user's saved search list
- * @param {Object} req The DELETE request sent by the user, including the search id to delete
- * @return {Promise<{msg: string, code: number}>} Returns a response code and message.
  */
-const deleteUserSavedSearch = async (req) => {
+const deleteUserSavedSearch = async (req: any) => {
   try {
     const user = await User.findById({ _id: req.user._id }).exec();
 
@@ -189,11 +173,8 @@ const deleteUserSavedSearch = async (req) => {
 
 /**
  * Returns an array of saved searches for a given user or a message if there are no saved searches
- * @param {Object} userId The User ID for the user requesting their saved searches
- * @return {Promise<{msg: string, code: number, savedSearches: unknown}>} Returns an object containing a response code and message, also sends the
- * data in an array if saved searches exist.
  */
-const getUserSavedSearches = async (userId) => {
+const getUserSavedSearches = async (userId: string) => {
   try {
     const user = await User.findById({ _id: userId }).populate('savedSearches').exec();
     if (user.savedSearches.length > 0) {
@@ -213,8 +194,6 @@ const getUserSavedSearches = async (userId) => {
 
 /**
  * Returns an array of searches from the Searches collection, these are not user specific
- * @return {Promise<{msg: string, code: number, trendingSearches: unknown}>} Returns an object containing a response code and message, also sends the
- * data in an array.
  */
 const getTrendingSearches = async () => {
   try {
@@ -230,7 +209,7 @@ const getTrendingSearches = async () => {
   }
 };
 
-module.exports = {
+export {
   searchReed,
   prepareQuery,
   saveSearch,
