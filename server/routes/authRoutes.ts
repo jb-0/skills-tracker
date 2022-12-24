@@ -1,8 +1,8 @@
-const express = require('express');
-const passport = require('passport');
+import express from 'express';
+import passport from 'passport';
+import { User } from '../models/userModel';
 
 const authRoutes = express.Router();
-const { User } = require('../models/userModel.js');
 
 /* *************************************************************************************************
 GOOGLE ROUTES
@@ -12,7 +12,7 @@ authRoutes.get('/google', passport.authenticate('google', { scope: ['profile'] }
 authRoutes.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/api/user/failure' }),
-  (req, res) => {
+  (_req, res) => {
     res.redirect('/api/user/loggedin');
   },
 );
@@ -25,7 +25,7 @@ authRoutes.get('/facebook', passport.authenticate('facebook'));
 authRoutes.get(
   '/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/api/user/loginfailure' }),
-  (req, res) => {
+  (_req, res) => {
     res.redirect('/api/user/loggedin');
   },
 );
@@ -36,7 +36,7 @@ These are used in dev/test only and are disabled in production
 ************************************************************************************************* */
 if (!process.env.PROD) {
   authRoutes.post('/register', (req, res) => {
-    User.register(new User({ email: req.body.email }), req.body.password, (err, user) => {
+    User.register(new User({ email: req.body.email }), req.body.password, (err: string) => {
       if (err) {
         res.status(401).send(`${err}`);
       } else {
@@ -48,10 +48,10 @@ if (!process.env.PROD) {
   authRoutes.post(
     '/login',
     passport.authenticate('local', { failureRedirect: '/api/user/loginfailure' }),
-    (req, res) => {
+    (_req, res) => {
       res.redirect('/api/user/loggedin');
     },
   );
 }
 
-module.exports = authRoutes;
+export default authRoutes;

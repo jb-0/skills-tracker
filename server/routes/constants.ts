@@ -34,4 +34,4 @@ const SKILLS = [
   'SQL',
 ];
 
-module.exports = { LOCATIONS, SKILLS };
+export { LOCATIONS, SKILLS };

@@ -14,7 +14,7 @@ import { SKILLS, LOCATIONS } from './constants';
 
 // GET Number of Jobs, using provided search terms.
 searchRoutes.get('/search', async (req, res) => {
-  const data = await searchReed(req.query);
+  const data = await searchReed(req.query as any);
   const noOfResults = data.totalResults;
   const msg = noOfResults > 0 ? 'results found' : 'no results found';
   res.send({ noOfResults, msg });

@@ -11,5 +11,8 @@
     "allowJs": true
   },
   "exclude": ["node_modules", "client/**/*"],
-  "include": ["server/**/*"]
+  "include": ["server/**/*"],
+  "ts-node": {
+    "files": true
+  }
 }
