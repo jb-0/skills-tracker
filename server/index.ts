@@ -59,8 +59,9 @@ async function main() {
   app.use('/api/job', searchRoutes);
 
   app.use(express.static(`${__dirname}/../client/build`));
+  //app.use('/static', express.static(path.join(__dirname, '../client/build//static')));
   app.get('*', (_: express.Request, res: express.Response) => {
-    res.sendFile(`${__dirname}/client/build/index.html`);
+    res.sendFile('index.html', { root: `${__dirname}/../client/build/` });
   });
 
   app.listen(PORT, () => {
