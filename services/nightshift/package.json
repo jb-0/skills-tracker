@@ -1,0 +1,24 @@
+{
+  "name": "skills-tracker-lambda",
+  "version": "1.0.0",
+  "description": "This project is helps job seekers track in demand skills, it works by calling the REED API and allowing the user to create bespoke combinations of skills from a predefined list of skills. The u ser can sign in using Google or Facebook and can save these skill combinations. Once a combination  is saved a job is run on a periodic basis to identify the number of jobs available for their skill  combination and location.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "node -e \"(async () => console.log(await require('./index').handler({runType:'standard'})))();\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.10.13"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.0.0"
+  }
+}
