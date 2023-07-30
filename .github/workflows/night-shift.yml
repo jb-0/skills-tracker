@@ -19,9 +19,6 @@ jobs:
     if: github.event_name == 'pull_request'
     name: 'Terraform Plan'
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./services/night-shift/terraform
     permissions:
       contents: read
       pull-requests: write
@@ -34,7 +31,7 @@ jobs:
         id: plan-upload
         with:
           workspace: ${{ env.TF_WORKSPACE }}
-          directory: ./
+          directory: ./services/night-shift/terraform
           speculative: true
 
       - name: Create Plan Run
