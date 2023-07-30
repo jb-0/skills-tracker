@@ -1,12 +1,11 @@
 {
-  "name": "skills-tracker-lambda",
+  "name": "night-shift",
   "version": "1.0.0",
-  "description": "This project is helps job seekers track in demand skills, it works by calling the REED API and allowing the user to create bespoke combinations of skills from a predefined list of skills. The u ser can sign in using Google or Facebook and can save these skill combinations. Once a combination  is saved a job is run on a periodic basis to identify the number of jobs available for their skill  combination and location.",
+  "description": "Lambda job that is run at night to collect REED data",
   "main": "index.js",
   "scripts": {
     "build": "rm -f -r terraform/dist && tsc",
     "postbuild": "cp package.json terraform/dist/package.json && cd terraform/dist && yarn install --production",
-    "test": "node -e \"(async () => console.log(await require('./index').handler({runType:'standard'})))();\"",
     "tf:plan": "cd terraform && terraform plan"
   },
   "author": "",
