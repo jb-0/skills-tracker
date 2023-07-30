@@ -23,6 +23,6 @@
   "workspaces": [
     "server",
     "client",
-    "services/nightshift"
+    "services/night-shift"
   ]
 }
