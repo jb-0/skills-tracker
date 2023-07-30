@@ -31,3 +31,7 @@ node -e "(async () => console.log(await require('./index').handler({runType:'sta
 
 For convenience the above function is already defined in package.json as a test, so "npm test" can
 also be executed to achieve the same result.
+
+## Terraform
+
+export TF_CLOUD_ORGANIZATION=super-org
