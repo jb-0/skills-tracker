@@ -38,7 +38,7 @@ resource "aws_lambda_function" "night_shift" {
   s3_key    = aws_s3_object.night_shift_lambda_zip.key
 
   runtime = "nodejs16.x"
-  handler = "hello.handler"
+  handler = "index.handler"
 
   source_code_hash = data.archive_file.night_shift_lambda_zip.output_base64sha256
 
