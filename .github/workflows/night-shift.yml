@@ -16,7 +16,7 @@ env:
 
 jobs:
   build-and-terraform:
-    name: Build, test and deploy
+    name: Build and plan/apply
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,7 +35,7 @@ jobs:
       - name: Build
         run: yarn workspace night-shift build
 
-      - name: Upload Configuration
+      - name: Upload Plan Configuration
         uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
         id: plan-upload
         if: github.event_name == 'pull_request'
@@ -96,3 +96,27 @@ jobs:
               repo: context.repo.repo,
               body: output
             });
+
+      - name: Upload Apply Configuration
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
+        id: apply-upload
+        if: github.event_name == 'push'
+        with:
+          workspace: ${{ env.TF_WORKSPACE }}
+          directory: ./services/night-shift/terraform
+
+      - name: Create Apply Run
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
+        id: apply-run
+        if: github.event_name == 'push'
+        with:
+          workspace: ${{ env.TF_WORKSPACE }}
+          configuration_version: ${{ steps.apply-upload.outputs.configuration_version_id }}
+
+      - name: Apply
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
+        if: fromJSON(steps.apply-run.outputs.payload).data.attributes.actions.IsConfirmable
+        id: apply
+        with:
+          run: ${{ steps.apply-run.outputs.run_id }}
+          comment: 'Apply Run from GitHub Actions CI ${{ github.sha }}'
