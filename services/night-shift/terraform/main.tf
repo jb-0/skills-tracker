@@ -39,6 +39,7 @@ resource "aws_s3_object" "night_shift_lambda_zip" {
   etag = filemd5(data.archive_file.night_shift_lambda_zip.output_path)
 }
 
+# Create the lambda function
 resource "aws_lambda_function" "night_shift" {
   function_name = "NightShift"
 
@@ -68,6 +69,7 @@ resource "aws_cloudwatch_log_group" "night_shift" {
   retention_in_days = 30
 }
 
+# Create the IAM role for the lambda function
 resource "aws_iam_role" "lambda_exec" {
   name = "serverless_lambda"
 
@@ -85,7 +87,28 @@ resource "aws_iam_role" "lambda_exec" {
   })
 }
 
+# Attach the basic lambda execution policy to the role
 resource "aws_iam_role_policy_attachment" "lambda_policy" {
   role       = aws_iam_role.lambda_exec.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+resource "aws_cloudwatch_event_rule" "trigger_skill_search_count" {
+  name = "trigger-skill-search-count"
+
+  schedule_expression = "rate(14 days)"
+}
+
+resource "aws_cloudwatch_event_target" "trigger_skill_search_count_periodically" {
+  rule      = aws_cloudwatch_event_rule.trigger_skill_search_count.name
+  target_id = aws_lambda_function.night_shift.function_name
+  arn       = aws_lambda_function.night_shift.arn
+}
+
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_night_shift" {
+  statement_id  = "AllowExecutionFromCloudWatch"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.night_shift.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.trigger_skill_search_count.arn
 }
