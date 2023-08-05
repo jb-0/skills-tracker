@@ -7,8 +7,8 @@
     "dev": "tsc && node -r dotenv/config -e \"(async () => console.log(await require('./terraform/dist/index').handler({runType:'DRY'})))();\"",
     "build": "rm -f -r terraform/dist && tsc",
     "postbuild": "cp package.json terraform/dist/package.json && cd terraform/dist && yarn install --production",
-    "tf:plan": "cd terraform && terraform plan",
-    "tf:apply": "cd terraform && terraform apply"
+    "plan": "cd terraform && terraform plan",
+    "apply": "cd terraform && terraform apply"
   },
   "author": "",
   "license": "ISC",
