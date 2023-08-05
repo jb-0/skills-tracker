@@ -51,6 +51,15 @@ resource "aws_lambda_function" "night_shift" {
   source_code_hash = data.archive_file.night_shift_lambda_zip.output_base64sha256
 
   role = aws_iam_role.lambda_exec.arn
+
+  timeout = 60
+
+  environment {
+    variables = {
+      DB_PATH    = var.db_path
+      REED_TOKEN = var.reed_token
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "night_shift" {
