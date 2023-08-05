@@ -1,7 +1,7 @@
 # Nightshift
 
 This service runs an overnight job based on a defined frequency, the job performs a count to update saved user searches.
-It uses AWS Lambda and CloudWatch to achieve this.
+It uses AWS Lambda and EventBridge (CloudWatch Events) to achieve this.
 
 ## Requirements
 
