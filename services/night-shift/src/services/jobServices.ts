@@ -56,7 +56,7 @@ export const searchReed = (query: any): Promise<any> => {
     port: 443,
     method: 'GET',
     headers: {
-      Authorization: `Basic ${process.env.REED_B64}`,
+      Authorization: `Basic ${process.env.REED_TOKEN}`,
     },
   };
 

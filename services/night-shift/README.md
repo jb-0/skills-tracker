@@ -16,22 +16,34 @@ yarn install
 
 ## Environment variables
 
-- **DEV_DB_PATH** - The path to your development mongo instance, for example
+- **DB_PATH** - The path to your development mongo instance, for example:
   mongodb://127.0.0.1:27017/skillsearch
-- **REED_B64** - REED API key converted to base64 https://www.reed.co.uk/developers/jobseeker
+- **REED_TOKEN** - REED API key converted to base64 https://www.reed.co.uk/developers/jobseeker
+- **TF_CLOUD_ORGANIZATION** - The name of the terraform cloud organization
 
 ## Running the function
 
-To run the function you can execute the below command in the project root directory. The function
-accepts an object containing the runType, currently only 'standard' is valid input.
+To run the function you can execute the below command when in the night-shift directory, this will perform a dry run of
+the function. To perform a live run, update the runType in the package.json to "STANDARD".
 
+```bash
+yarn dev
 ```
-node -e "(async () => console.log(await require('./index').handler({runType:'standard'})))();"
+
+## Infrastructure
+
+The AWS infrastructure is managed by Terraform, the configuration can be found in the terraform directory. For
+convenience two commands have been added to the package.json to make it easier to manage the infrastructure locally.
+However the actual deployment is managed through the GitHub actions, see `night-shift.yml` for more details.
+
+To run a terraform plan locally, run the following command:
+
+```bash
+yarn plan
 ```
 
-For convenience the above function is already defined in package.json as a test, so "npm test" can
-also be executed to achieve the same result.
+To run a terraform apply locally, run the following command:
 
-## Terraform
-
-export TF_CLOUD_ORGANIZATION=super-org
+```bash
+yarn apply
+```
