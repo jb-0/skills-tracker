@@ -1,9 +1,17 @@
-name: Main CI
+name: Web App CI
 on:
   push:
     branches: [main]
+    paths:
+      - 'package.json'
+      - 'client/**'
+      - 'server/**'
   pull_request:
     branches: [main, dev]
+    paths:
+      - 'package.json'
+      - 'client/**'
+      - 'server/**'
 jobs:
   test-and-deploy:
     name: Build, test and deploy
@@ -23,11 +31,7 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run:
-          yarn
-
-          # - name: Install cypress
-          # run: ./node_modules/cypress/bin/cypress install
+        run: yarn
 
       - name: Build
         run: yarn build
@@ -37,7 +41,6 @@ jobs:
         env:
           PORT: 3000
         with:
-          # install: false
           working-directory: client
           start: yarn start
           browser: chrome

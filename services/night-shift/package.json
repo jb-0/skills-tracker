@@ -1,0 +1,26 @@
+{
+  "name": "night-shift",
+  "version": "1.0.0",
+  "description": "Lambda job that is run at night to collect REED data",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -f -r terraform/dist && tsc",
+    "postbuild": "cp package.json terraform/dist/package.json && cd terraform/dist && yarn install --production",
+    "tf:plan": "cd terraform && terraform plan"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.10.13"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "dotenv": "^8.2.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "typescript": "^4.9.4"
+  }
+}
